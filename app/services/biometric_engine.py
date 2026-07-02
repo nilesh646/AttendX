@@ -53,7 +53,7 @@ class BiometricEngine:
 
         model_root = os.environ.get(
             "INSIGHTFACE_MODEL_ROOT",
-            os.path.join(os.getcwd(), "models")
+            "/var/data/models"
         )
 
         model_name = os.environ.get(
