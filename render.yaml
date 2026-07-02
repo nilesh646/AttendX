@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: attendx
+    runtime: python
+    plan: free
+
+    buildCommand: |
+      pip install --upgrade pip
+      pip install -r requirements.txt
+
+    startCommand: |
+      gunicorn -w 1 -b 0.0.0.0:$PORT run:app
+
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+
+      - key: RENDER
+        value: "true"
+
+      - key: PYTHONUNBUFFERED
+        value: "1"
