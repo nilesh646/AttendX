@@ -1,0 +1,120 @@
+{% extends "admin/dashboard.html" %}
+{% block title %}Manage Batches — AttendX{% endblock %}
+{% block page_title %}Manage Batches{% endblock %}
+
+{% block header_actions %}
+<button class="btn btn-primary btn-sm" onclick="openModal('addBatchModal')">+ Add Batch</button>
+{% endblock %}
+
+{% block dashboard_content %}
+<div class="card">
+    <div class="card__header">
+        <h2>Batches ({{ batches | length }})</h2>
+    </div>
+    <div class="card__body no-pad">
+        {% if batches %}
+        <table class="data-table">
+            <thead>
+                <tr><th>Batch Name</th><th>Join Code</th><th>Students</th><th>Timetable</th><th>Created</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+                {% for b in batches %}
+                <tr>
+                    <td><strong>{{ b.batch_name }}</strong></td>
+                    <td>
+                        <code style="background:var(--bg-primary);padding:0.2rem 0.5rem;border-radius:4px;font-family:var(--font-mono);font-size:0.9rem;font-weight:700;letter-spacing:0.15em">{{ b.join_code or '—' }}</code>
+                        {% if b.join_enabled %}
+                        <span class="badge badge-approved" style="margin-left:0.3rem;font-size:0.6rem">ACTIVE</span>
+                        {% else %}
+                        <span class="badge badge-rejected" style="margin-left:0.3rem;font-size:0.6rem">DISABLED</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ b.student_count }}</td>
+                    <td>{{ b.timetable_count }}</td>
+                    <td class="text-muted text-sm">{{ b.created_at[:10] }}</td>
+                    <td class="actions">
+                        <form method="POST" action="{{ url_for('admin.regenerate_join_code', batch_id=b.id) }}" style="display:inline">
+                            <button class="btn btn-outline btn-sm" title="New code">Regen</button>
+                        </form>
+                        <form method="POST" action="{{ url_for('admin.toggle_join', batch_id=b.id) }}" style="display:inline">
+                            <button class="btn btn-outline btn-sm">{{ 'Disable' if b.join_enabled else 'Enable' }}</button>
+                        </form>
+                        <button class="btn btn-outline btn-sm"
+                                onclick="openEditBatch({{ b.id }}, '{{ b.batch_name }}')">Edit</button>
+                        <form method="POST" action="{{ url_for('admin.delete_batch', batch_id=b.id) }}"
+                              onsubmit="return confirm('Delete batch {{ b.batch_name }}?')">
+                            <button class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state">
+            <p>No batches created yet. Click <strong>"+ Add Batch"</strong> to create one.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Add Batch Modal -->
+<div class="modal-overlay hidden" id="addBatchModal">
+    <div class="modal">
+        <div class="modal__header">
+            <h2>Add Batch</h2>
+            <button class="modal__close" onclick="closeModal('addBatchModal')">&times;</button>
+        </div>
+        <form method="POST" action="{{ url_for('admin.add_batch') }}">
+            <div class="modal__body">
+                <div class="form-group">
+                    <label for="batch_name">Batch Name</label>
+                    <input type="text" id="batch_name" name="batch_name" placeholder="e.g. CSE-2024-A" required>
+                </div>
+            </div>
+            <div class="modal__footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('addBatchModal')">Cancel</button>
+                <button type="submit" class="btn btn-primary">Create Batch</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Edit Batch Modal -->
+<div class="modal-overlay hidden" id="editBatchModal">
+    <div class="modal">
+        <div class="modal__header">
+            <h2>Edit Batch</h2>
+            <button class="modal__close" onclick="closeModal('editBatchModal')">&times;</button>
+        </div>
+        <form method="POST" action="{{ url_for('admin.edit_batch') }}">
+            <input type="hidden" name="batch_id" id="editBatchId">
+            <div class="modal__body">
+                <div class="form-group">
+                    <label for="editBatchName">Batch Name</label>
+                    <input type="text" id="editBatchName" name="batch_name" required>
+                </div>
+            </div>
+            <div class="modal__footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('editBatchModal')">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+function openEditBatch(id, name) {
+    document.getElementById('editBatchId').value = id;
+    document.getElementById('editBatchName').value = name;
+    openModal('editBatchModal');
+}
+document.querySelectorAll('.modal-overlay').forEach(o => {
+    o.addEventListener('click', e => { if (e.target === o) o.classList.add('hidden'); });
+});
+</script>
+{% endblock %}

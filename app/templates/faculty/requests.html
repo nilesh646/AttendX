@@ -1,0 +1,112 @@
+{% extends "faculty/dashboard.html" %}
+{% block title %}Schedule Requests — AttendX{% endblock %}
+{% block page_title %}Schedule Requests{% endblock %}
+
+{% block header_actions %}
+<button class="btn btn-primary btn-sm" onclick="openModal('newRequestModal')">+ New Request</button>
+{% endblock %}
+
+{% block dashboard_content %}
+<div class="card">
+    <div class="card__header"><h2>My Requests</h2></div>
+    <div class="card__body no-pad">
+        {% if requests %}
+        <table class="data-table">
+            <thead>
+                <tr><th>Class</th><th>Type</th><th>Reason</th><th>Details</th><th>Status</th><th>Submitted</th></tr>
+            </thead>
+            <tbody>
+                {% for r in requests %}
+                <tr>
+                    <td><strong>{{ r.subject_name }}</strong><br><span class="text-sm text-muted">{{ r.day_of_week }} {{ r.start_time }}–{{ r.end_time }}</span></td>
+                    <td><span class="badge badge-pending">{{ r.request_type }}</span></td>
+                    <td class="text-sm">{{ r.reason or '—' }}</td>
+                    <td class="text-sm">
+                        {% if r.request_type == 'Reschedule' and r.new_date %}
+                        {{ r.new_date }} {{ r.new_start_time or '' }}–{{ r.new_end_time or '' }}
+                        {% else %}—{% endif %}
+                    </td>
+                    <td>
+                        {% if r.admin_status == 'Pending' %}<span class="badge badge-pending">Pending</span>
+                        {% elif r.admin_status == 'Approved' %}<span class="badge badge-approved">Approved</span>
+                        {% else %}<span class="badge badge-rejected">Rejected</span>{% endif %}
+                    </td>
+                    <td class="text-sm text-muted">{{ r.created_at[:10] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state"><p>No schedule requests yet.</p></div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- New Request Modal -->
+<div class="modal-overlay hidden" id="newRequestModal">
+    <div class="modal">
+        <div class="modal__header">
+            <h2>New Schedule Request</h2>
+            <button class="modal__close" onclick="closeModal('newRequestModal')">&times;</button>
+        </div>
+        <form method="POST" action="{{ url_for('faculty.submit_request') }}">
+            <div class="modal__body">
+                <div class="form-group">
+                    <label>Class</label>
+                    <select name="timetable_id" required style="width:100%;padding:0.6rem 0.8rem;border-radius:8px;border:1.5px solid var(--border);font-size:0.9rem;background:var(--bg-primary)">
+                        <option value="">Select a class</option>
+                        {% for s in timetable_slots %}
+                        <option value="{{ s.id }}">{{ s.subject_code }} — {{ s.batch_name }} ({{ s.day_of_week }} {{ s.start_time }}–{{ s.end_time }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Request Type</label>
+                    <select name="request_type" id="reqType" required onchange="toggleReschedule()" style="width:100%;padding:0.6rem 0.8rem;border-radius:8px;border:1.5px solid var(--border);font-size:0.9rem;background:var(--bg-primary)">
+                        <option value="Cancel">Cancel Class</option>
+                        <option value="Reschedule">Reschedule Class</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Reason</label>
+                    <textarea name="reason" rows="2" placeholder="Optional reason…" style="width:100%;padding:0.6rem 0.8rem;border-radius:8px;border:1.5px solid var(--border);font-size:0.9rem;background:var(--bg-primary);font-family:var(--font-body);resize:vertical"></textarea>
+                </div>
+                <div id="rescheduleFields" class="hidden">
+                    <div class="form-group">
+                        <label>New Date</label>
+                        <input type="date" name="new_date">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>New Start</label>
+                            <input type="time" name="new_start_time">
+                        </div>
+                        <div class="form-group">
+                            <label>New End</label>
+                            <input type="time" name="new_end_time">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal__footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('newRequestModal')">Cancel</button>
+                <button type="submit" class="btn btn-primary">Submit Request</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+function toggleReschedule() {
+    const show = document.getElementById('reqType').value === 'Reschedule';
+    document.getElementById('rescheduleFields').classList.toggle('hidden', !show);
+}
+document.querySelectorAll('.modal-overlay').forEach(o => {
+    o.addEventListener('click', e => { if (e.target === o) o.classList.add('hidden'); });
+});
+</script>
+{% endblock %}

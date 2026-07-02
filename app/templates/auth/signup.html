@@ -1,0 +1,253 @@
+{% extends "base.html" %}
+{% block title %}Sign Up — Attendance Portal{% endblock %}
+{% block flash_style %}position:static;margin-bottom:0;min-width:auto;max-width:none{% endblock %}
+
+{% block content %}
+<div class="auth-wrapper">
+    <div class="auth-card" style="max-width:480px">
+        <div class="auth-card__logo">
+            <div class="logo-icon">
+                <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+            </div>
+        </div>
+        <h1 class="auth-card__title">Create Account</h1>
+        <p class="auth-card__subtitle">Student registration with face enrollment</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-container">
+            {% for category, message in messages %}
+            <div class="flash-msg {{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <!-- Step indicator -->
+        <div style="display:flex;gap:0.5rem;margin-bottom:1.5rem">
+            <div id="stepInd1" style="flex:1;height:4px;border-radius:2px;background:var(--accent)"></div>
+            <div id="stepInd2" style="flex:1;height:4px;border-radius:2px;background:var(--border)"></div>
+        </div>
+
+        <!-- ══════ STEP 1: Details ══════ -->
+        <div id="step1">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="John Doe" required value="{{ request.form.get('name', '') }}">
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required value="{{ request.form.get('email', '') }}">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Min 8 characters" required minlength="8" oninput="checkStrength(this.value)">
+                <div class="password-strength" id="strengthMeter" data-strength="0">
+                    <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                </div>
+                <div class="password-hint" id="strengthText">Use 8+ chars with mixed case, digits & symbols</div>
+            </div>
+            <div class="form-group">
+                <label for="confirm_password">Confirm Password</label>
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="••••••••" required>
+            </div>
+            <button type="button" class="btn btn-primary btn-block" onclick="goToStep2()">Next → Face Enrollment</button>
+        </div>
+
+        <!-- ══════ STEP 2: Face Enrollment ══════ -->
+        <div id="step2" class="hidden">
+            <div style="text-align:center;margin-bottom:1rem">
+                <h3 style="font-family:var(--font-display);font-size:1rem;margin-bottom:0.3rem">📷 Face Enrollment</h3>
+                <p class="text-sm text-muted">This photo will be used to verify your identity during attendance. Look directly at the camera.</p>
+            </div>
+
+            <div class="selfie-area" id="enrollArea" style="aspect-ratio:4/3;border-radius:var(--radius-lg);overflow:hidden;background:#000;position:relative">
+                <video id="enrollVideo" autoplay playsinline muted style="width:100%;height:100%;object-fit:cover"></video>
+                <canvas id="enrollCanvas" class="hidden" style="width:100%;height:100%;object-fit:cover"></canvas>
+
+                <!-- Face guide overlay -->
+                <div id="faceGuide" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none">
+                    <div style="width:180px;height:220px;border:3px dashed rgba(255,255,255,0.5);border-radius:50%;"></div>
+                </div>
+
+                <button type="button" class="capture-btn" id="enrollCaptureBtn" onclick="captureEnrollment()" style="position:absolute;bottom:1rem;left:50%;transform:translateX(-50%)"></button>
+            </div>
+
+            <!-- Preview controls -->
+            <div id="enrollPreview" class="hidden" style="text-align:center;margin-top:1rem">
+                <p class="text-sm" style="color:var(--success);font-weight:600">✓ Photo captured</p>
+                <div style="display:flex;gap:0.5rem;justify-content:center;margin-top:0.5rem">
+                    <button type="button" class="btn btn-outline btn-sm" onclick="retakeEnrollment()">Retake</button>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="submitSignup()">Create Account</button>
+                </div>
+            </div>
+
+            <!-- Camera error -->
+            <div id="enrollError" class="hidden" style="text-align:center;padding:1.5rem">
+                <p class="text-sm" style="color:var(--danger)" id="enrollErrorMsg"></p>
+                <button type="button" class="btn btn-outline btn-sm mt-1" onclick="retryEnrollCamera()">Try Again</button>
+            </div>
+
+            <button type="button" class="btn btn-ghost btn-sm mt-2" onclick="goToStep1()" style="display:block;margin:0.5rem auto">← Back to details</button>
+        </div>
+
+        <div class="auth-footer">
+            Already registered? <a href="{{ url_for('auth.login') }}">Sign in</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+let masterPhotoData = null;
+
+function checkStrength(pw) {
+    let score = 0;
+    if (pw.length >= 8) score++;
+    if (/[A-Z]/.test(pw) && /[a-z]/.test(pw)) score++;
+    if (/\d/.test(pw)) score++;
+    if (/[^A-Za-z0-9]/.test(pw)) score++;
+    document.getElementById('strengthMeter').setAttribute('data-strength', score);
+    const labels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
+    const colors = ['', 'var(--danger)', 'var(--warning)', '#84cc16', 'var(--success)'];
+    document.getElementById('strengthText').textContent = labels[score] || 'Use 8+ chars';
+    document.getElementById('strengthText').style.color = colors[score] || '';
+}
+
+function goToStep2() {
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const pw = document.getElementById('password').value;
+    const cpw = document.getElementById('confirm_password').value;
+
+    if (!name || name.length < 2) { alert('Name must be at least 2 characters.'); return; }
+    if (!email || !email.includes('@')) { alert('Enter a valid email.'); return; }
+    if (pw.length < 8) { alert('Password must be at least 8 characters.'); return; }
+    if (pw !== cpw) { alert('Passwords do not match.'); return; }
+
+    document.getElementById('step1').classList.add('hidden');
+    document.getElementById('step2').classList.remove('hidden');
+    document.getElementById('stepInd1').style.background = 'var(--success)';
+    document.getElementById('stepInd2').style.background = 'var(--accent)';
+    startEnrollCamera();
+}
+
+function goToStep1() {
+    stopEnrollCamera();
+    document.getElementById('step2').classList.add('hidden');
+    document.getElementById('step1').classList.remove('hidden');
+    document.getElementById('stepInd1').style.background = 'var(--accent)';
+    document.getElementById('stepInd2').style.background = 'var(--border)';
+}
+
+let enrollStream = null;
+
+async function startEnrollCamera() {
+    const video = document.getElementById('enrollVideo');
+    const errorDiv = document.getElementById('enrollError');
+    const errorMsg = document.getElementById('enrollErrorMsg');
+
+    if (!window.isSecureContext) {
+        errorDiv.classList.remove('hidden');
+        errorMsg.textContent = 'Camera requires HTTPS. Use https:// or access via ngrok.';
+        document.getElementById('enrollArea').style.display = 'none';
+        return;
+    }
+
+    try {
+        enrollStream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } },
+            audio: false,
+        });
+        video.srcObject = enrollStream;
+        await video.play();
+    } catch (err) {
+        errorDiv.classList.remove('hidden');
+        if (err.name === 'NotAllowedError') {
+            errorMsg.textContent = 'Camera permission denied. Please allow camera access and reload.';
+        } else {
+            errorMsg.textContent = 'Camera error: ' + (err.message || 'Unknown');
+        }
+        document.getElementById('enrollArea').style.display = 'none';
+    }
+}
+
+function stopEnrollCamera() {
+    if (enrollStream) {
+        enrollStream.getTracks().forEach(t => t.stop());
+        enrollStream = null;
+    }
+}
+
+function retryEnrollCamera() {
+    document.getElementById('enrollError').classList.add('hidden');
+    document.getElementById('enrollArea').style.display = '';
+    startEnrollCamera();
+}
+
+function captureEnrollment() {
+    const video = document.getElementById('enrollVideo');
+    const canvas = document.getElementById('enrollCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = video.videoWidth || 640;
+    canvas.height = video.videoHeight || 480;
+    ctx.drawImage(video, 0, 0);
+    masterPhotoData = canvas.toDataURL('image/jpeg', 0.85);
+
+    video.classList.add('hidden');
+    canvas.classList.remove('hidden');
+    document.getElementById('enrollCaptureBtn').classList.add('hidden');
+    document.getElementById('faceGuide').classList.add('hidden');
+    document.getElementById('enrollPreview').classList.remove('hidden');
+}
+
+function retakeEnrollment() {
+    const video = document.getElementById('enrollVideo');
+    const canvas = document.getElementById('enrollCanvas');
+    video.classList.remove('hidden');
+    canvas.classList.add('hidden');
+    document.getElementById('enrollCaptureBtn').classList.remove('hidden');
+    document.getElementById('faceGuide').classList.remove('hidden');
+    document.getElementById('enrollPreview').classList.add('hidden');
+    masterPhotoData = null;
+}
+
+async function submitSignup() {
+    if (!masterPhotoData) { alert('Please capture your face photo first.'); return; }
+
+    const btn = document.querySelector('#enrollPreview .btn-primary');
+    btn.classList.add('btn-loading');
+    btn.textContent = 'Creating...';
+
+    try {
+        const res = await fetch('{{ url_for("auth.signup") }}', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                name: document.getElementById('name').value.trim(),
+                email: document.getElementById('email').value.trim().toLowerCase(),
+                password: document.getElementById('password').value,
+                confirm_password: document.getElementById('confirm_password').value,
+                master_photo: masterPhotoData,
+            }),
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+            stopEnrollCamera();
+            window.location.href = data.redirect;
+        } else {
+            alert(data.error || 'Signup failed. Please try again.');
+            btn.classList.remove('btn-loading');
+            btn.textContent = 'Create Account';
+        }
+    } catch (err) {
+        alert('Network error. Please try again.');
+        btn.classList.remove('btn-loading');
+        btn.textContent = 'Create Account';
+    }
+}
+</script>
+{% endblock %}

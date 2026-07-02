@@ -1,0 +1,76 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyc
+*.egg
+*.egg-info/
+build/
+dist/
+
+# =========================
+# Virtual Environment
+# =========================
+venv/
+.venv/
+env/
+
+# =========================
+# Environment Variables
+# =========================
+.env
+
+# =========================
+# Database
+# =========================
+attendance.db
+*.db
+*.sqlite
+*.sqlite3
+
+# =========================
+# Uploaded Files
+# =========================
+storage/
+uploads/
+app/static/uploads/
+app/static/uploads/selfies/
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# IDE
+# =========================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# =========================
+# OS
+# =========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# AI Models
+app/static/models/
+models/
+
+*.onnx
+*.pth
+*.zip
+*.ckpt
+
+**/__pycache__/
+*.pyc
+
+app/static/media/
+
+*.whl

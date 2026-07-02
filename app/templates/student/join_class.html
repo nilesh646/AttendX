@@ -1,0 +1,46 @@
+{% extends "student/dashboard.html" %}
+{% block title %}Join Class — AttendX{% endblock %}
+{% block page_title %}Join a Class{% endblock %}
+
+{% block dashboard_content %}
+<div style="max-width:440px;margin:0 auto">
+    <div class="checkin-card">
+        <div class="checkin-card__header">
+            <h2>Join with Class Code</h2>
+            <div class="phase-tag">Like Google Classroom</div>
+        </div>
+        <div class="checkin-card__body">
+            {% if student.batch_id %}
+            <div style="background:var(--accent-glow);padding:0.8rem 1rem;border-radius:var(--radius-md);margin-bottom:1rem">
+                <div class="text-sm" style="font-weight:600;color:var(--accent)">Currently in a batch</div>
+                <div class="text-sm text-muted">Joining a new class will move you to the new batch.</div>
+            </div>
+            {% endif %}
+
+            <p class="text-center text-sm text-muted mb-2">
+                Ask your admin or faculty for the 6-character class code
+            </p>
+
+            <form method="POST" action="{{ url_for('student.join_class') }}">
+                <div class="form-group" style="text-align:center">
+                    <input type="text" name="join_code" placeholder="e.g. ABC123"
+                           style="text-align:center;font-family:var(--font-mono);font-size:1.8rem;font-weight:700;
+                                  letter-spacing:0.3em;text-transform:uppercase;max-width:280px;margin:0 auto"
+                           maxlength="6" required autofocus autocomplete="off">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block mt-2">Join Class</button>
+            </form>
+
+            {% if student.batch_id %}
+            <div class="auth-divider">or</div>
+            <form method="POST" action="{{ url_for('student.leave_batch') }}"
+                  onsubmit="return confirm('Leave your current batch? You will lose access to timetable and classes.')">
+                <button type="submit" class="btn btn-outline btn-block" style="color:var(--danger);border-color:var(--danger)">
+                    Leave Current Batch
+                </button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "student/dashboard.html" %}
+{% block title %}My Attendance — AttendX{% endblock %}
+{% block page_title %}My Attendance{% endblock %}
+
+{% block dashboard_content %}
+<div class="card">
+    <div class="card__header">
+        <h2>Attendance Records</h2>
+        <div class="search-bar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" placeholder="Search…" onkeyup="filterTable(this.value)">
+        </div>
+    </div>
+    <div class="card__body no-pad">
+        {% if records %}
+        <table class="data-table" id="attendTable">
+            <thead>
+                <tr><th>Date</th><th>Subject</th><th>Faculty</th><th>Status</th><th>Entry</th><th>Exit</th><th>Method</th></tr>
+            </thead>
+            <tbody>
+                {% for r in records %}
+                <tr>
+                    <td class="text-sm">{{ r.date }}</td>
+                    <td><strong>{{ r.subject_name }}</strong> <span class="text-sm text-muted">({{ r.subject_code }})</span></td>
+                    <td class="text-sm">{{ r.faculty_name }}</td>
+                    <td>
+                        {% if r.status == 'Present' %}<span class="badge badge-approved">Present</span>
+                        {% elif r.status == 'Late' %}<span class="badge badge-pending">Late</span>
+                        {% else %}<span class="badge badge-rejected">Absent</span>{% endif %}
+                    </td>
+                    <td class="text-sm">{{ r.entry_time[:19] if r.entry_time else '—' }}</td>
+                    <td class="text-sm">{{ r.exit_time[:19] if r.exit_time else '—' }}</td>
+                    <td class="text-sm">{{ r.verification_method }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state"><p>No attendance records yet.</p></div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function filterTable(q) {
+    q = q.toLowerCase();
+    document.querySelectorAll('#attendTable tbody tr').forEach(row => {
+        row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+    });
+}
+</script>
+{% endblock %}

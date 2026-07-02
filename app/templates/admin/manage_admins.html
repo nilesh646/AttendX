@@ -1,0 +1,135 @@
+{% extends "admin/dashboard.html" %}
+{% block title %}Manage Admins — AttendX{% endblock %}
+{% block page_title %}Manage Admins{% endblock %}
+
+{% block header_actions %}
+<button class="btn btn-primary btn-sm" onclick="openModal('addAdminModal')">+ Add Admin</button>
+{% endblock %}
+
+{% block dashboard_content %}
+<div class="card">
+    <div class="card__header">
+        <h2>Admin Accounts ({{ admin_list | length }})</h2>
+    </div>
+    <div class="card__body no-pad">
+        {% if admin_list %}
+        <table class="data-table">
+            <thead>
+                <tr><th>Name</th><th>Email</th><th>Created</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+                {% for a in admin_list %}
+                <tr>
+                    <td>
+                        <strong>{{ a.name }}</strong>
+                        {% if a.id == current_admin_id %}
+                        <span class="badge badge-approved" style="margin-left:0.3rem;font-size:0.65rem">YOU</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ a.email }}</td>
+                    <td class="text-muted text-sm">{{ a.created_at[:10] }}</td>
+                    <td class="actions">
+                        <button class="btn btn-outline btn-sm"
+                                onclick="openEditAdmin({{ a.id }}, '{{ a.name }}', '{{ a.email }}')">Edit</button>
+                        {% if a.id != current_admin_id %}
+                        <form method="POST" action="{{ url_for('admin.delete_admin', user_id=a.id) }}"
+                              onsubmit="return confirm('Delete admin {{ a.name }}? This cannot be undone.')">
+                            <button class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                        {% else %}
+                        <span class="text-muted text-sm">—</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state">
+            <p>No admin accounts found.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Add Admin Modal -->
+<div class="modal-overlay hidden" id="addAdminModal">
+    <div class="modal">
+        <div class="modal__header">
+            <h2>Add Admin</h2>
+            <button class="modal__close" onclick="closeModal('addAdminModal')">&times;</button>
+        </div>
+        <form method="POST" action="{{ url_for('admin.add_admin') }}">
+            <div class="modal__body">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="Admin Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="admin@university.edu" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="text" id="password" name="password" value="Admin@123" required>
+                    <div class="password-hint">Share this securely — they should change it on first login</div>
+                </div>
+            </div>
+            <div class="modal__footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('addAdminModal')">Cancel</button>
+                <button type="submit" class="btn btn-primary">Add Admin</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Edit Admin Modal -->
+<div class="modal-overlay hidden" id="editAdminModal">
+    <div class="modal">
+        <div class="modal__header">
+            <h2>Edit Admin</h2>
+            <button class="modal__close" onclick="closeModal('editAdminModal')">&times;</button>
+        </div>
+        <form method="POST" action="{{ url_for('admin.edit_admin') }}">
+            <input type="hidden" name="user_id" id="editAdminId">
+            <div class="modal__body">
+                <div class="form-group">
+                    <label for="editAdminName">Full Name</label>
+                    <input type="text" id="editAdminName" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="editAdminEmail">Email</label>
+                    <input type="email" id="editAdminEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="editAdminPassword">New Password (leave blank to keep current)</label>
+                    <input type="text" id="editAdminPassword" name="password" placeholder="Leave blank to keep">
+                </div>
+            </div>
+            <div class="modal__footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('editAdminModal')">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+function openEditAdmin(id, name, email) {
+    document.getElementById('editAdminId').value = id;
+    document.getElementById('editAdminName').value = name;
+    document.getElementById('editAdminEmail').value = email;
+    document.getElementById('editAdminPassword').value = '';
+    openModal('editAdminModal');
+}
+
+document.querySelectorAll('.modal-overlay').forEach(o => {
+    o.addEventListener('click', e => { if (e.target === o) o.classList.add('hidden'); });
+});
+</script>
+{% endblock %}

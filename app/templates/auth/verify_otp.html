@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% block title %}Verify OTP — Attendance Portal{% endblock %}
+
+{% block flash_style %}position:static;margin-bottom:0;min-width:auto;max-width:none{% endblock %}
+
+{% block content %}
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <div class="auth-card__logo">
+            <div class="logo-icon">
+                <svg viewBox="0 0 24 24"><path d="M22 10.5V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8"/><path d="m22 7-10 5L2 7"/><path d="M16 19h6"/><path d="M19 16v6"/></svg>
+            </div>
+        </div>
+        <h1 class="auth-card__title">Check Your Email</h1>
+        <p class="auth-card__subtitle">
+            We sent a 6-digit code to <strong>{{ email }}</strong>
+        </p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-container">
+            {% for category, message in messages %}
+            <div class="flash-msg {{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <div class="otp-timer">
+            Code expires in <span class="timer-value" id="otpTimer">5:00</span>
+        </div>
+
+        <form method="POST" action="{{ url_for('auth.verify_otp') }}" id="otpForm">
+            <input type="hidden" name="email" value="{{ email }}">
+            <input type="hidden" name="purpose" value="{{ purpose }}">
+            <input type="hidden" name="otp_code" id="otpHidden">
+
+            <div class="otp-input-row" id="otpInputRow">
+                <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" autofocus>
+                <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]">
+                <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]">
+                <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]">
+                <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]">
+                <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block" id="verifyBtn">
+                Verify Code
+            </button>
+        </form>
+
+        <div class="auth-footer mt-2">
+            <span id="resendWrap">
+                <span class="resend-link" id="resendLink">Resend code</span>
+            </span>
+        </div>
+
+        <div class="auth-footer mt-1">
+            <a href="{{ url_for('auth.login') }}">&larr; Back to login</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function() {
+    const inputs = document.querySelectorAll('#otpInputRow input');
+    const hidden = document.getElementById('otpHidden');
+
+    // Auto-focus next input, handle backspace
+    inputs.forEach((inp, i) => {
+        inp.addEventListener('input', (e) => {
+            const val = e.target.value.replace(/\D/g, '');
+            e.target.value = val;
+            if (val && i < inputs.length - 1) inputs[i + 1].focus();
+            updateHidden();
+        });
+        inp.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace' && !e.target.value && i > 0) {
+                inputs[i - 1].focus();
+            }
+        });
+        // Handle paste
+        inp.addEventListener('paste', (e) => {
+            e.preventDefault();
+            const data = (e.clipboardData.getData('text') || '').replace(/\D/g, '').slice(0, 6);
+            data.split('').forEach((ch, j) => {
+                if (inputs[j]) inputs[j].value = ch;
+            });
+            if (data.length > 0) inputs[Math.min(data.length, 5)].focus();
+            updateHidden();
+        });
+    });
+
+    function updateHidden() {
+        hidden.value = Array.from(inputs).map(i => i.value).join('');
+    }
+
+    // Countdown timer
+    let seconds = {{ expiry_seconds | default(300) }};
+    const timerEl = document.getElementById('otpTimer');
+    const resendLink = document.getElementById('resendLink');
+
+    const interval = setInterval(() => {
+        seconds--;
+        if (seconds <= 0) {
+            clearInterval(interval);
+            timerEl.textContent = 'Expired';
+            timerEl.classList.add('expiring');
+            resendLink.classList.add('active');
+            resendLink.onclick = () => {
+                window.location.href = '{{ url_for("auth.resend_otp", email=email, purpose=purpose) }}';
+            };
+            return;
+        }
+        const m = Math.floor(seconds / 60);
+        const s = seconds % 60;
+        timerEl.textContent = m + ':' + String(s).padStart(2, '0');
+        if (seconds <= 60) timerEl.classList.add('expiring');
+    }, 1000);
+
+    // Form submit
+    document.getElementById('otpForm').addEventListener('submit', function(e) {
+        updateHidden();
+        if (hidden.value.length !== 6) {
+            e.preventDefault();
+            alert('Please enter all 6 digits.');
+            return;
+        }
+        const btn = document.getElementById('verifyBtn');
+        btn.classList.add('btn-loading');
+        btn.textContent = 'Verifying…';
+    });
+})();
+</script>
+{% endblock %}

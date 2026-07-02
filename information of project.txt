@@ -1,0 +1,1732 @@
+FullName
+--------
+C:\Projects\attendx_v2.7\attendx_v2\app
+C:\Projects\attendx_v2.7\attendx_v2\models
+C:\Projects\attendx_v2.7\attendx_v2\resources
+C:\Projects\attendx_v2.7\attendx_v2\src
+C:\Projects\attendx_v2.7\attendx_v2\.env
+C:\Projects\attendx_v2.7\attendx_v2\.env.example
+C:\Projects\attendx_v2.7\attendx_v2\.gitignore
+C:\Projects\attendx_v2.7\attendx_v2\attendance.db
+C:\Projects\attendx_v2.7\attendx_v2\check_db.py
+C:\Projects\attendx_v2.7\attendx_v2\file_list.txt
+C:\Projects\attendx_v2.7\attendx_v2\PROJECT_COMPLETION_REPORT.md
+C:\Projects\attendx_v2.7\attendx_v2\README.md
+C:\Projects\attendx_v2.7\attendx_v2\requirements.txt
+C:\Projects\attendx_v2.7\attendx_v2\run.py
+C:\Projects\attendx_v2.7\attendx_v2\setup.bat
+C:\Projects\attendx_v2.7\attendx_v2\setup_locks.py
+C:\Projects\attendx_v2.7\attendx_v2\start.bat
+C:\Projects\attendx_v2.7\attendx_v2\test_geo.py
+C:\Projects\attendx_v2.7\attendx_v2\update_dynamic_db.py
+C:\Projects\attendx_v2.7\attendx_v2\app\routes
+C:\Projects\attendx_v2.7\attendx_v2\app\services
+C:\Projects\attendx_v2.7\attendx_v2\app\static
+C:\Projects\attendx_v2.7\attendx_v2\app\templates
+C:\Projects\attendx_v2.7\attendx_v2\app\__pycache__
+C:\Projects\attendx_v2.7\attendx_v2\app\{routes,services,static
+C:\Projects\attendx_v2.7\attendx_v2\app\config.py
+C:\Projects\attendx_v2.7\attendx_v2\app\models.py
+C:\Projects\attendx_v2.7\attendx_v2\app\utils.py
+C:\Projects\attendx_v2.7\attendx_v2\app\__init__.py
+C:\Projects\attendx_v2.7\attendx_v2\app\routes\__pycache__
+C:\Projects\attendx_v2.7\attendx_v2\app\routes\admin_routes.py
+C:\Projects\attendx_v2.7\attendx_v2\app\routes\api_routes.py
+C:\Projects\attendx_v2.7\attendx_v2\app\routes\auth_routes.py
+C:\Projects\attendx_v2.7\attendx_v2\app\routes\faculty_routes.py
+C:\Projects\attendx_v2.7\attendx_v2\app\routes\student_routes.py
+C:\Projects\attendx_v2.7\attendx_v2\app\routes\__init__.py
+C:\Projects\attendx_v2.7\attendx_v2\app\routes\__pycache__\ad...
+C:\Projects\attendx_v2.7\attendx_v2\app\routes\__pycache__\ad...
+C:\Projects\attendx_v2.7\attendx_v2\app\routes\__pycache__\ap...
+C:\Projects\attendx_v2.7\attendx_v2\app\routes\__pycache__\ap...
+C:\Projects\attendx_v2.7\attendx_v2\app\routes\__pycache__\au...
+C:\Projects\attendx_v2.7\attendx_v2\app\routes\__pycache__\au...
+C:\Projects\attendx_v2.7\attendx_v2\app\routes\__pycache__\fa...
+C:\Projects\attendx_v2.7\attendx_v2\app\routes\__pycache__\fa...
+C:\Projects\attendx_v2.7\attendx_v2\app\routes\__pycache__\st...
+C:\Projects\attendx_v2.7\attendx_v2\app\routes\__pycache__\st...
+C:\Projects\attendx_v2.7\attendx_v2\app\routes\__pycache__\__...
+C:\Projects\attendx_v2.7\attendx_v2\app\routes\__pycache__\__...
+C:\Projects\attendx_v2.7\attendx_v2\app\services\__pycache__
+C:\Projects\attendx_v2.7\attendx_v2\app\services\biometric_en...
+C:\Projects\attendx_v2.7\attendx_v2\app\services\dual_key_eng...
+C:\Projects\attendx_v2.7\attendx_v2\app\services\email_servic...
+C:\Projects\attendx_v2.7\attendx_v2\app\services\scheduler.py
+C:\Projects\attendx_v2.7\attendx_v2\app\services\__init__.py
+C:\Projects\attendx_v2.7\attendx_v2\app\services\__pycache__\...
+C:\Projects\attendx_v2.7\attendx_v2\app\services\__pycache__\...
+C:\Projects\attendx_v2.7\attendx_v2\app\services\__pycache__\...
+C:\Projects\attendx_v2.7\attendx_v2\app\services\__pycache__\...
+C:\Projects\attendx_v2.7\attendx_v2\app\services\__pycache__\...
+C:\Projects\attendx_v2.7\attendx_v2\app\services\__pycache__\...
+C:\Projects\attendx_v2.7\attendx_v2\app\services\__pycache__\...
+C:\Projects\attendx_v2.7\attendx_v2\app\services\__pycache__\...
+C:\Projects\attendx_v2.7\attendx_v2\app\services\__pycache__\...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\css
+C:\Projects\attendx_v2.7\attendx_v2\app\static\images
+C:\Projects\attendx_v2.7\attendx_v2\app\static\js
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media
+C:\Projects\attendx_v2.7\attendx_v2\app\static\models
+C:\Projects\attendx_v2.7\attendx_v2\app\static\resources
+C:\Projects\attendx_v2.7\attendx_v2\app\static\uploads
+C:\Projects\attendx_v2.7\attendx_v2\app\static\css\style.css
+C:\Projects\attendx_v2.7\attendx_v2\app\static\js\dual_key.js
+C:\Projects\attendx_v2.7\attendx_v2\app\static\js\student_che...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\master
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\selfies
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\master\a...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\master\a...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\master\a...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\master\f...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\master\q...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\master\r...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\master\s...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\master\s...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\master\v...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\master\a...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\master\a...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\master\a...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\master\f...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\master\q...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\master\r...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\master\s...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\master\s...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\master\v...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\selfies\...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\selfies\...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\selfies\...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\selfies\...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\selfies\...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\selfies\...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\selfies\...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\selfies\...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\selfies\...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\selfies\...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\selfies\...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\selfies\...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\selfies\...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\selfies\...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\selfies\...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\selfies\...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\selfies\...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\selfies\...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\selfies\...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\media\selfies\...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\models\buffalo_l
+C:\Projects\attendx_v2.7\attendx_v2\app\static\models\buffalo...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\models\buffalo...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\models\buffalo...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\models\buffalo...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\models\buffalo...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\resources\anti...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\resources\dete...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\resources\anti...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\resources\anti...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\resources\dete...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\resources\dete...
+C:\Projects\attendx_v2.7\attendx_v2\app\static\uploads\photos
+C:\Projects\attendx_v2.7\attendx_v2\app\static\uploads\selfies
+C:\Projects\attendx_v2.7\attendx_v2\app\static\uploads\temp
+C:\Projects\attendx_v2.7\attendx_v2\app\static\uploads\selfie...
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\admin
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\auth
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\faculty
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\student
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\base.html
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\dashboard_b...
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\admin\audit...
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\admin\dashb...
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\admin\manag...
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\admin\manag...
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\admin\manag...
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\admin\manag...
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\admin\manag...
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\admin\manag...
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\admin\repor...
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\admin\sched...
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\auth\change...
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\auth\forgot...
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\auth\login....
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\auth\notifi...
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\auth\reset_...
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\auth\signup...
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\auth\verify...
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\faculty\att...
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\faculty\cla...
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\faculty\das...
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\faculty\req...
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\faculty\tim...
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\student\att...
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\student\che...
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\student\das...
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\student\joi...
+C:\Projects\attendx_v2.7\attendx_v2\app\templates\student\tim...
+C:\Projects\attendx_v2.7\attendx_v2\app\__pycache__\config.cp...
+C:\Projects\attendx_v2.7\attendx_v2\app\__pycache__\config.cp...
+C:\Projects\attendx_v2.7\attendx_v2\app\__pycache__\models.cp...
+C:\Projects\attendx_v2.7\attendx_v2\app\__pycache__\models.cp...
+C:\Projects\attendx_v2.7\attendx_v2\app\__pycache__\utils.cpy...
+C:\Projects\attendx_v2.7\attendx_v2\app\__pycache__\utils.cpy...
+C:\Projects\attendx_v2.7\attendx_v2\app\__pycache__\__init__....
+C:\Projects\attendx_v2.7\attendx_v2\app\__pycache__\__init__....
+C:\Projects\attendx_v2.7\attendx_v2\app\{routes,services,stat...
+C:\Projects\attendx_v2.7\attendx_v2\app\{routes,services,stat...
+C:\Projects\attendx_v2.7\attendx_v2\app\{routes,services,stat...
+C:\Projects\attendx_v2.7\attendx_v2\models\buffalo_l
+C:\Projects\attendx_v2.7\attendx_v2\models\models
+C:\Projects\attendx_v2.7\attendx_v2\models\buffalo_l\1k3d68.onnx
+C:\Projects\attendx_v2.7\attendx_v2\models\buffalo_l\2d106det...
+C:\Projects\attendx_v2.7\attendx_v2\models\buffalo_l\det_10g....
+C:\Projects\attendx_v2.7\attendx_v2\models\buffalo_l\genderag...
+C:\Projects\attendx_v2.7\attendx_v2\models\buffalo_l\w600k_r5...
+C:\Projects\attendx_v2.7\attendx_v2\models\models\buffalo_l
+C:\Projects\attendx_v2.7\attendx_v2\models\models\buffalo_l.zip
+C:\Projects\attendx_v2.7\attendx_v2\models\models\buffalo_l\1...
+C:\Projects\attendx_v2.7\attendx_v2\models\models\buffalo_l\2...
+C:\Projects\attendx_v2.7\attendx_v2\models\models\buffalo_l\d...
+C:\Projects\attendx_v2.7\attendx_v2\models\models\buffalo_l\g...
+C:\Projects\attendx_v2.7\attendx_v2\models\models\buffalo_l\w...
+C:\Projects\attendx_v2.7\attendx_v2\resources\anti_spoof_models
+C:\Projects\attendx_v2.7\attendx_v2\resources\detection_model
+C:\Projects\attendx_v2.7\attendx_v2\resources\anti_spoof_mode...
+C:\Projects\attendx_v2.7\attendx_v2\resources\anti_spoof_mode...
+C:\Projects\attendx_v2.7\attendx_v2\resources\detection_model...
+C:\Projects\attendx_v2.7\attendx_v2\resources\detection_model...
+C:\Projects\attendx_v2.7\attendx_v2\src\data_io
+C:\Projects\attendx_v2.7\attendx_v2\src\model_lib
+C:\Projects\attendx_v2.7\attendx_v2\src\__pycache__
+C:\Projects\attendx_v2.7\attendx_v2\src\anti_spoof_predict.py
+C:\Projects\attendx_v2.7\attendx_v2\src\default_config.py
+C:\Projects\attendx_v2.7\attendx_v2\src\generate_patches.py
+C:\Projects\attendx_v2.7\attendx_v2\src\train_main.py
+C:\Projects\attendx_v2.7\attendx_v2\src\utility.py
+C:\Projects\attendx_v2.7\attendx_v2\src\data_io\__pycache__
+C:\Projects\attendx_v2.7\attendx_v2\src\data_io\dataset_folde...
+C:\Projects\attendx_v2.7\attendx_v2\src\data_io\dataset_loade...
+C:\Projects\attendx_v2.7\attendx_v2\src\data_io\functional.py
+C:\Projects\attendx_v2.7\attendx_v2\src\data_io\transform.py
+C:\Projects\attendx_v2.7\attendx_v2\src\data_io\__pycache__\f...
+C:\Projects\attendx_v2.7\attendx_v2\src\data_io\__pycache__\t...
+C:\Projects\attendx_v2.7\attendx_v2\src\model_lib\__pycache__
+C:\Projects\attendx_v2.7\attendx_v2\src\model_lib\MiniFASNet.py
+C:\Projects\attendx_v2.7\attendx_v2\src\model_lib\MultiFTNet.py
+C:\Projects\attendx_v2.7\attendx_v2\src\model_lib\__pycache__...
+C:\Projects\attendx_v2.7\attendx_v2\src\__pycache__\anti_spoo...
+C:\Projects\attendx_v2.7\attendx_v2\src\__pycache__\generate_...
+C:\Projects\attendx_v2.7\attendx_v2\src\__pycache__\utility.c...
+
+
+PS C:\Projects\attendx_v2.7\attendx_v2> Get-ChildItem -Recurse -Include *.py, *.js, *.html |
+>> Where-Object { $_.FullName -notmatch '\\\.venv($|\\)' } |
+>> Select-String -Pattern '^\s*(def|function)\s+([a-zA-Z_][a-zA-Z0-9_]*)' |
+>> ForEach-Object { "$($_.Filename): $($_.Matches.Groups[2].Value)" }
+admin_routes.py: _pending_count
+admin_routes.py: dashboard
+admin_routes.py: manage_admins
+admin_routes.py: add_admin
+admin_routes.py: edit_admin
+admin_routes.py: delete_admin
+admin_routes.py: manage_faculty
+admin_routes.py: add_faculty
+admin_routes.py: edit_faculty
+admin_routes.py: delete_faculty
+admin_routes.py: manage_students
+admin_routes.py: assign_student_batch
+admin_routes.py: delete_student
+admin_routes.py: manage_batches
+admin_routes.py: add_batch
+admin_routes.py: edit_batch
+admin_routes.py: regenerate_join_code
+admin_routes.py: toggle_join
+admin_routes.py: delete_batch
+admin_routes.py: manage_subjects
+admin_routes.py: add_subject
+admin_routes.py: edit_subject
+admin_routes.py: delete_subject
+admin_routes.py: manage_timetable
+admin_routes.py: add_timetable
+admin_routes.py: edit_timetable
+admin_routes.py: delete_timetable
+admin_routes.py: schedule_requests
+admin_routes.py: handle_request
+admin_routes.py: audit_log
+admin_routes.py: reports
+admin_routes.py: export_report
+api_routes.py: _require_auth
+api_routes.py: _check_late
+api_routes.py: api_start_session
+api_routes.py: api_update_session_location
+api_routes.py: api_end_session
+api_routes.py: api_switch_phase
+api_routes.py: handle_join_session
+api_routes.py: broadcast_tokens
+api_routes.py: api_validate_token
+api_routes.py: process_face_async
+api_routes.py: api_upload_selfie
+api_routes.py: api_get_roster
+api_routes.py: api_manual_override
+api_routes.py: api_notification_count
+auth_routes.py: _set_session
+auth_routes.py: _dashboard_for_role
+auth_routes.py: _send_otp_email
+auth_routes.py: _create_and_send_otp
+auth_routes.py: login
+auth_routes.py: signup
+auth_routes.py: verify_otp_page
+auth_routes.py: verify_otp
+auth_routes.py: resend_otp
+auth_routes.py: forgot_password
+auth_routes.py: reset_password_page
+auth_routes.py: reset_password
+auth_routes.py: change_password
+auth_routes.py: upload_photo
+auth_routes.py: notifications
+auth_routes.py: logout
+faculty_routes.py: dashboard
+faculty_routes.py: class_session
+faculty_routes.py: my_timetable
+faculty_routes.py: attendance_history
+faculty_routes.py: export_attendance
+faculty_routes.py: my_requests
+faculty_routes.py: submit_request
+faculty_routes.py: review_attendance
+faculty_routes.py: end_session
+student_routes.py: dashboard
+student_routes.py: join_class
+student_routes.py: leave_batch
+student_routes.py: checkin
+student_routes.py: my_timetable
+student_routes.py: attendance_history
+student_routes.py: export_my_attendance
+__init__.py: register_blueprints
+biometric_engine.py: get_instance
+biometric_engine.py: reset
+biometric_engine.py: __init__
+biometric_engine.py: _init_backend
+biometric_engine.py: _init_insightface
+biometric_engine.py: _init_silent_face
+biometric_engine.py: _init_deepface
+biometric_engine.py: check_liveness
+biometric_engine.py: get_embedding
+biometric_engine.py: compare_embeddings
+biometric_engine.py: compare_with_centroid
+biometric_engine.py: update_embedding_history
+biometric_engine.py: _liveness_silent_face
+biometric_engine.py: _embedding_insightface
+biometric_engine.py: _liveness_deepface
+biometric_engine.py: _embedding_deepface
+biometric_engine.py: decode_base64_image
+biometric_engine.py: save_image_from_base64
+biometric_engine.py: get_safe_username
+biometric_engine.py: get_master_photo_path
+biometric_engine.py: get_embedding_path
+biometric_engine.py: get_embedding_history_path
+biometric_engine.py: get_selfie_path
+dual_key_engine.py: start_session
+dual_key_engine.py: validate_token
+dual_key_engine.py: switch_phase
+dual_key_engine.py: end_session
+dual_key_engine.py: should_flag_for_audit
+dual_key_engine.py: generate_qr_image_base64
+dual_key_engine.py: _generate_qr_svg_data_uri
+dual_key_engine.py: _encode_qr_matrix
+email_service.py: send_email
+email_service.py: send_otp_email
+scheduler.py: init_scheduler
+dual_key.js: init
+dual_key.js: _connectWebSocket
+dual_key.js: resumeSession
+dual_key.js: _startCountdown
+dual_key.js: _resetCountdown
+dual_key.js: _stopCountdown
+dual_key.js: _updateDisplay
+dual_key.js: start
+dual_key.js: stop
+student_checkin.js: isSecureContext
+student_checkin.js: captureFrame
+student_checkin.js: stopCamera
+student_checkin.js: haversineDistance
+student_checkin.js: calculateTrustScore
+student_checkin.js: isScanningDigitalScreen
+student_checkin.js: stopQRScanner
+student_checkin.js: getDeviceInfo
+student_checkin.js: zoomIn
+student_checkin.js: zoomOut
+student_checkin.js: enablePinchZoom
+student_checkin.js: getTouchDistance
+student_checkin.js: getDeviceId
+student_checkin.js: getDeviceInfo
+audit_log.html: filterTable
+manage_admins.html: openModal
+manage_admins.html: closeModal
+manage_admins.html: openEditAdmin
+manage_batches.html: openModal
+manage_batches.html: closeModal
+manage_batches.html: openEditBatch
+manage_faculty.html: openModal
+manage_faculty.html: closeModal
+manage_faculty.html: openEditFaculty
+manage_faculty.html: filterTable
+manage_students.html: filterTable
+manage_subjects.html: openModal
+manage_subjects.html: closeModal
+manage_subjects.html: openEditSubject
+manage_timetable.html: openModal
+manage_timetable.html: closeModal
+manage_timetable.html: openEditSlot
+manage_timetable.html: filterTimetable
+signup.html: checkStrength
+signup.html: goToStep2
+signup.html: goToStep1
+signup.html: stopEnrollCamera
+signup.html: retryEnrollCamera
+signup.html: captureEnrollment
+signup.html: retakeEnrollment
+verify_otp.html: updateHidden
+attendance.html: filterTable
+class_session.html: renderRoster
+class_session.html: filterRoster
+requests.html: openModal
+requests.html: closeModal
+requests.html: toggleReschedule
+attendance.html: filterTable
+checkin.html: setPermStatus
+checkin.html: showPermError
+checkin.html: handleValidationResult
+checkin.html: stopLiveness
+checkin.html: captureSelfie
+checkin.html: retakeSelfie
+checkin.html: showTokenError
+checkin.html: showSuccess
+models.py: get_db
+models.py: close_db
+models.py: init_db
+models.py: seed_admin
+utils.py: hash_password
+utils.py: check_password
+utils.py: generate_otp
+utils.py: otp_expiry
+utils.py: generate_join_code
+utils.py: login_required_with_role
+utils.py: decorator
+utils.py: wrapper
+utils.py: get_current_user
+utils.py: generate_csrf_token
+utils.py: validate_csrf
+utils.py: sanitize
+utils.py: check_rate_limit
+utils.py: record_rate_limit
+utils.py: log_audit
+utils.py: create_notification
+utils.py: get_unread_count
+utils.py: allowed_image
+utils.py: today_day_name
+utils.py: base64_to_cv2
+__init__.py: create_app
+__init__.py: index
+__init__.py: inject_globals
+__init__.py: handle_401
+__init__.py: handle_403
+__init__.py: handle_404
+__init__.py: handle_500
+dataset_folder.py: opencv_loader
+dataset_folder.py: __init__
+dataset_folder.py: __getitem__
+dataset_folder.py: generate_FT
+dataset_loader.py: get_train_loader
+functional.py: _is_pil_image
+functional.py: _is_tensor_image
+functional.py: _is_numpy_image
+functional.py: to_tensor
+functional.py: to_pil_image
+functional.py: normalize
+functional.py: resize
+functional.py: scale
+functional.py: pad
+functional.py: crop
+functional.py: center_crop
+functional.py: resized_crop
+functional.py: hflip
+functional.py: vflip
+functional.py: five_crop
+functional.py: ten_crop
+functional.py: adjust_brightness
+functional.py: adjust_contrast
+functional.py: adjust_saturation
+functional.py: adjust_hue
+functional.py: adjust_gamma
+functional.py: rotate
+functional.py: to_grayscale
+transform.py: __init__
+transform.py: __call__
+transform.py: __call__
+transform.py: __init__
+transform.py: __call__
+transform.py: __init__
+transform.py: __call__
+transform.py: __init__
+transform.py: __call__
+transform.py: __call__
+transform.py: __init__
+transform.py: get_params
+transform.py: __call__
+transform.py: __init__
+transform.py: get_params
+transform.py: __call__
+transform.py: __init__
+transform.py: get_params
+transform.py: __call__
+MiniFASNet.py: forward
+MiniFASNet.py: forward
+MiniFASNet.py: __init__
+MiniFASNet.py: forward
+MiniFASNet.py: __init__
+MiniFASNet.py: forward
+MiniFASNet.py: __init__
+MiniFASNet.py: forward
+MiniFASNet.py: __init__
+MiniFASNet.py: forward
+MiniFASNet.py: __init__
+MiniFASNet.py: forward
+MiniFASNet.py: __init__
+MiniFASNet.py: forward
+MiniFASNet.py: __init__
+MiniFASNet.py: forward
+MiniFASNet.py: __init__
+MiniFASNet.py: forward
+MiniFASNet.py: __init__
+MiniFASNet.py: MiniFASNetV1
+MiniFASNet.py: MiniFASNetV2
+MiniFASNet.py: MiniFASNetV1SE
+MiniFASNet.py: MiniFASNetV2SE
+MultiFTNet.py: __init__
+MultiFTNet.py: forward
+MultiFTNet.py: __init__
+MultiFTNet.py: _initialize_weights
+MultiFTNet.py: forward
+anti_spoof_predict.py: __init__
+anti_spoof_predict.py: get_bbox
+anti_spoof_predict.py: __init__
+anti_spoof_predict.py: _load_model
+anti_spoof_predict.py: predict
+default_config.py: get_default_config
+default_config.py: update_config
+generate_patches.py: _get_new_box
+generate_patches.py: crop
+train_main.py: __init__
+train_main.py: train_model
+train_main.py: _init_model_param
+train_main.py: _train_stage
+train_main.py: _train_batch_data
+train_main.py: _define_network
+train_main.py: _get_accuracy
+train_main.py: _save_state
+utility.py: get_time
+utility.py: get_kernel
+utility.py: get_width_height
+utility.py: parse_model_name
+utility.py: make_if_not_exist
+test_geo.py: test_attendance_geo
+PS C:\Projects\attendx_v2.7\attendx_v2> Get-ChildItem -Recurse -Filter *.py | Where-Object { $_.FullName -notmatch '\\\.venv\\' } | Select-String -Pattern '@app\.route|def '
+
+test_geo.py:3:def test_attendance_geo(teacher_lat, teacher_lng,
+student_lat, student_lng, student_accuracy, allowed_radius=50):
+app\models.py:13:def get_db():
+app\models.py:24:def close_db(e=None):
+app\models.py:202:def init_db(app):
+app\models.py:210:def seed_admin(app):
+app\utils.py:15:def hash_password(plain: str) -> str:
+app\utils.py:18:def check_password(plain: str, hashed: str) -> bool:
+app\utils.py:25:def generate_otp(length: int = 6) -> str:
+app\utils.py:28:def otp_expiry(seconds: int = 300) -> datetime:
+app\utils.py:35:def generate_join_code(length: int = 6) -> str:
+app\utils.py:45:def login_required_with_role(*allowed_roles):
+app\utils.py:46:    def decorator(func):
+app\utils.py:48:        def wrapper(*args, **kwargs):
+app\utils.py:59:def get_current_user():
+app\utils.py:73:def generate_csrf_token():
+app\utils.py:79:def validate_csrf():
+app\utils.py:91:def sanitize(text: str) -> str:
+app\utils.py:105:def check_rate_limit(db, user_id: int, action: str) ->
+bool:
+app\utils.py:119:def record_rate_limit(db, user_id: int, action: str):
+app\utils.py:136:def log_audit(db, action: str, target_type: str = None,
+app\utils.py:154:def create_notification(db, user_id: int, title: str,
+message: str, link: str = None):
+app\utils.py:162:def get_unread_count(db, user_id: int) -> int:
+app\utils.py:173:def allowed_image(filename: str) -> bool:
+app\utils.py:177:def today_day_name() -> str:
+app\utils.py:186:def base64_to_cv2(b64_string):
+app\__init__.py:20:def create_app(config_class=Config):
+app\__init__.py:69:    @app.route("/")
+app\__init__.py:70:    def index():
+app\__init__.py:75:    def inject_globals():
+app\__init__.py:98:    def handle_401(e):
+app\__init__.py:104:    def handle_403(e):
+app\__init__.py:110:    def handle_404(e):
+app\__init__.py:116:    def handle_500(e):
+app\routes\admin_routes.py:19:def _pending_count():
+app\routes\admin_routes.py:29:def dashboard():
+app\routes\admin_routes.py:58:def manage_admins():
+app\routes\admin_routes.py:67:def add_admin():
+app\routes\admin_routes.py:87:def edit_admin():
+app\routes\admin_routes.py:105:def delete_admin(user_id):
+app\routes\admin_routes.py:128:def manage_faculty():
+app\routes\admin_routes.py:136:def add_faculty():
+app\routes\admin_routes.py:156:def edit_faculty():
+app\routes\admin_routes.py:173:def delete_faculty(user_id):
+app\routes\admin_routes.py:192:def manage_students():
+app\routes\admin_routes.py:205:def assign_student_batch():
+app\routes\admin_routes.py:216:def delete_student(user_id):
+app\routes\admin_routes.py:234:def manage_batches():
+app\routes\admin_routes.py:247:def add_batch():
+app\routes\admin_routes.py:268:def edit_batch():
+app\routes\admin_routes.py:279:def regenerate_join_code(batch_id):
+app\routes\admin_routes.py:291:def toggle_join(batch_id):
+app\routes\admin_routes.py:303:def delete_batch(batch_id):
+app\routes\admin_routes.py:324:def manage_subjects():
+app\routes\admin_routes.py:335:def add_subject():
+app\routes\admin_routes.py:352:def edit_subject():
+app\routes\admin_routes.py:364:def delete_subject(subject_id):
+app\routes\admin_routes.py:383:def manage_timetable():
+app\routes\admin_routes.py:402:def add_timetable():
+app\routes\admin_routes.py:432:def edit_timetable():
+app\routes\admin_routes.py:460:def delete_timetable(slot_id):
+app\routes\admin_routes.py:476:def schedule_requests():
+app\routes\admin_routes.py:491:def handle_request(req_id):
+app\routes\admin_routes.py:531:def audit_log():
+app\routes\admin_routes.py:546:def reports():
+app\routes\admin_routes.py:600:def export_report():
+app\routes\api_routes.py:35:def _require_auth(*roles):
+app\routes\api_routes.py:43:def _check_late(timetable_id, db):
+app\routes\api_routes.py:63:def api_start_session():
+app\routes\api_routes.py:150:def api_update_session_location(session_id):
+app\routes\api_routes.py:185:def api_end_session():
+app\routes\api_routes.py:220:def api_switch_phase():
+app\routes\api_routes.py:249:def handle_join_session(data):
+app\routes\api_routes.py:255:def broadcast_tokens(app):
+app\routes\api_routes.py:296:def api_validate_token(session_id):
+app\routes\api_routes.py:533:def process_face_async(master_path,
+selfie_path):
+app\routes\api_routes.py:567:def api_upload_selfie(session_id):
+app\routes\api_routes.py:671:def api_get_roster(session_id):
+app\routes\api_routes.py:712:def api_manual_override(session_id):
+app\routes\api_routes.py:749:def api_notification_count():
+app\routes\auth_routes.py:18:def _set_session(user_row):
+app\routes\auth_routes.py:27:def _dashboard_for_role(role):
+app\routes\auth_routes.py:35:def _send_otp_email(email, otp_code, purpose):
+app\routes\auth_routes.py:48:def _create_and_send_otp(user_id, email,
+purpose):
+app\routes\auth_routes.py:67:def login():
+app\routes\auth_routes.py:90:def signup():
+app\routes\auth_routes.py:191:def verify_otp_page():
+app\routes\auth_routes.py:203:def verify_otp():
+app\routes\auth_routes.py:244:def resend_otp():
+app\routes\auth_routes.py:258:def forgot_password():
+app\routes\auth_routes.py:271:def reset_password_page():
+app\routes\auth_routes.py:279:def reset_password():
+app\routes\auth_routes.py:305:def change_password():
+app\routes\auth_routes.py:335:def upload_photo():
+app\routes\auth_routes.py:362:def notifications():
+app\routes\auth_routes.py:377:def logout():
+app\routes\faculty_routes.py:18:def dashboard():
+app\routes\faculty_routes.py:58:def class_session(timetable_id):
+app\routes\faculty_routes.py:96:def my_timetable():
+app\routes\faculty_routes.py:113:def attendance_history():
+app\routes\faculty_routes.py:139:def export_attendance():
+app\routes\faculty_routes.py:163:def my_requests():
+app\routes\faculty_routes.py:190:def submit_request():
+app\routes\faculty_routes.py:221:def review_attendance(record_id):
+app\routes\faculty_routes.py:254:def end_session(timetable_id):
+app\routes\student_routes.py:23:def dashboard():
+app\routes\student_routes.py:78:def join_class():
+app\routes\student_routes.py:119:def leave_batch():
+app\routes\student_routes.py:132:def checkin(session_id):
+app\routes\student_routes.py:181:def my_timetable():
+app\routes\student_routes.py:209:def attendance_history():
+app\routes\student_routes.py:227:def export_my_attendance():
+app\routes\__init__.py:9:def register_blueprints(app):
+app\services\biometric_engine.py:26:    def get_instance(cls):
+app\services\biometric_engine.py:32:    def reset(cls):
+app\services\biometric_engine.py:35:    def __init__(self):
+app\services\biometric_engine.py:43:    def _init_backend(self):
+app\services\biometric_engine.py:60:    def _init_insightface(self):
+app\services\biometric_engine.py:69:    def _init_silent_face(self):
+app\services\biometric_engine.py:101:    def _init_deepface(self):
+app\services\biometric_engine.py:110:    def check_liveness(self, image:
+np.ndarray) -> dict:
+app\services\biometric_engine.py:121:    def get_embedding(self, image:
+np.ndarray) -> np.ndarray | None:
+app\services\biometric_engine.py:129:    def compare_embeddings(self,
+emb1: np.ndarray, emb2: np.ndarray) -> float:
+app\services\biometric_engine.py:133:    def compare_with_centroid(self,
+history_path: str, live_emb: np.ndarray) -> float:
+app\services\biometric_engine.py:144:    def
+update_embedding_history(self, history_path: str, new_emb: np.ndarray,
+max_entries: int = 50):
+app\services\biometric_engine.py:162:    def _liveness_silent_face(self,
+image: np.ndarray) -> dict:
+app\services\biometric_engine.py:193:    def _embedding_insightface(self,
+image: np.ndarray) -> np.ndarray | None:
+app\services\biometric_engine.py:203:    def _liveness_deepface(self,
+image: np.ndarray) -> dict:
+app\services\biometric_engine.py:224:    def _embedding_deepface(self,
+image: np.ndarray) -> np.ndarray | None:
+app\services\biometric_engine.py:243:def decode_base64_image(base64_str:
+str) -> np.ndarray:
+app\services\biometric_engine.py:255:def
+save_image_from_base64(base64_str: str, filepath: str) -> str:
+app\services\biometric_engine.py:265:def get_safe_username(email: str,
+name: str) -> str:
+app\services\biometric_engine.py:271:def get_master_photo_path(username:
+str) -> str:
+app\services\biometric_engine.py:277:def get_embedding_path(username: str)
+-> str:
+app\services\biometric_engine.py:284:def
+get_embedding_history_path(username: str) -> str:
+app\services\biometric_engine.py:291:def get_selfie_path(username: str,
+date_str: str, session_id) -> str:
+app\services\dual_key_engine.py:22:def start_session(db, timetable_id:
+int, faculty_id: int) -> dict:
+app\services\dual_key_engine.py:51:def validate_token(db, session_id: int,
+submitted_pin: str = None, submitted_qr: str = None) -> dict:
+app\services\dual_key_engine.py:88:def switch_phase(db, session_id: int,
+new_phase: str) -> dict:
+app\services\dual_key_engine.py:102:def end_session(db, session_id: int)
+-> dict:
+app\services\dual_key_engine.py:119:def should_flag_for_audit() -> bool:
+app\services\dual_key_engine.py:129:def generate_qr_image_base64(data:
+str) -> str:
+app\services\dual_key_engine.py:162:def _generate_qr_svg_data_uri(data:
+str) -> str:
+app\services\dual_key_engine.py:203:def _encode_qr_matrix(data: str) ->
+list:
+app\services\email_service.py:21:def send_email(to_email, subject,
+html_body, plain_body=None):
+app\services\email_service.py:60:def send_otp_email(to_email, otp_code,
+purpose="signup"):
+app\services\scheduler.py:6:def init_scheduler(app):
+src\anti_spoof_predict.py:29:    def __init__(self):
+src\anti_spoof_predict.py:35:    def get_bbox(self, img):
+src\anti_spoof_predict.py:71:    def __init__(self, device_id):
+src\anti_spoof_predict.py:76:    def _load_model(self, model_path):
+src\anti_spoof_predict.py:98:    def predict(self, img, model_path):
+src\default_config.py:18:def get_default_config():
+src\default_config.py:51:def update_config(args, conf):
+src\generate_patches.py:17:    def _get_new_box(src_w, src_h, bbox, scale):
+src\generate_patches.py:53:    def crop(self, org_img, bbox, scale, out_w,
+out_h, crop=True):
+src\train_main.py:20:    def __init__(self, conf):
+src\train_main.py:28:    def train_model(self):
+src\train_main.py:32:    def _init_model_param(self):
+src\train_main.py:48:    def _train_stage(self):
+src\train_main.py:104:    def _train_batch_data(self, imgs, labels):
+src\train_main.py:118:    def _define_network(self):
+src\train_main.py:130:    def _get_accuracy(self, output, target,
+topk=(1,)):
+src\train_main.py:143:    def _save_state(self, time_stamp, extra=None):
+src\utility.py:12:def get_time():
+src\utility.py:16:def get_kernel(height, width):
+src\utility.py:21:def get_width_height(patch_info):
+src\utility.py:27:def parse_model_name(model_name):
+src\utility.py:39:def make_if_not_exist(folder_path):
+src\data_io\dataset_folder.py:14:def opencv_loader(path):
+src\data_io\dataset_folder.py:20:    def __init__(self, root,
+transform=None, target_transform=None,
+src\data_io\dataset_folder.py:27:    def __getitem__(self, index):
+src\data_io\dataset_folder.py:52:def generate_FT(image):
+src\data_io\dataset_loader.py:13:def get_train_loader(conf):
+src\data_io\functional.py:22:def _is_pil_image(img):
+src\data_io\functional.py:29:def _is_tensor_image(img):
+src\data_io\functional.py:33:def _is_numpy_image(img):
+src\data_io\functional.py:37:def to_tensor(pic):
+src\data_io\functional.py:91:def to_pil_image(pic, mode=None):
+src\data_io\functional.py:154:def normalize(tensor, mean, std):
+src\data_io\functional.py:175:def resize(img, size,
+interpolation=Image.BILINEAR):
+src\data_io\functional.py:212:def scale(*args, **kwargs):
+src\data_io\functional.py:218:def pad(img, padding, fill=0):
+src\data_io\functional.py:249:def crop(img, i, j, h, w):
+src\data_io\functional.py:268:def center_crop(img, output_size):
+src\data_io\functional.py:278:def resized_crop(img, i, j, h, w, size,
+interpolation=Image.BILINEAR):
+src\data_io\functional.py:301:def hflip(img):
+src\data_io\functional.py:316:def vflip(img):
+src\data_io\functional.py:331:def five_crop(img, size):
+src\data_io\functional.py:364:def ten_crop(img, size, vertical_flip=False):
+src\data_io\functional.py:400:def adjust_brightness(img,
+brightness_factor):
+src\data_io\functional.py:420:def adjust_contrast(img, contrast_factor):
+src\data_io\functional.py:440:def adjust_saturation(img,
+saturation_factor):
+src\data_io\functional.py:460:def adjust_hue(img, hue_factor):
+src\data_io\functional.py:505:def adjust_gamma(img, gamma, gain=1):
+src\data_io\functional.py:539:def rotate(img, angle, resample=False,
+expand=False, center=None):
+src\data_io\functional.py:565:def to_grayscale(img, num_output_channels=1):
+src\data_io\transform.py:39:    def __init__(self, transforms):
+src\data_io\transform.py:42:    def __call__(self, img):
+src\data_io\transform.py:56:    def __call__(self, pic):
+src\data_io\transform.py:74:    def __init__(self, lambd):
+src\data_io\transform.py:78:    def __call__(self, img):
+src\data_io\transform.py:98:    def __init__(self, mode=None):
+src\data_io\transform.py:101:    def __call__(self, pic):
+src\data_io\transform.py:124:    def __init__(self, mean, std):
+src\data_io\transform.py:128:    def __call__(self, tensor):
+src\data_io\transform.py:142:    def __call__(self, img):
+src\data_io\transform.py:170:    def __init__(self, size, scale=(0.08,
+1.0), ratio=(3. / 4., 4. / 3.), interpolation=Image.BILINEAR):
+src\data_io\transform.py:180:    def get_params(img, scale, ratio):
+src\data_io\transform.py:214:    def __call__(self, img):
+src\data_io\transform.py:239:    def __init__(self, brightness=0,
+contrast=0, saturation=0, hue=0):
+src\data_io\transform.py:246:    def get_params(brightness, contrast,
+saturation, hue):
+src\data_io\transform.py:277:    def __call__(self, img):
+src\data_io\transform.py:310:    def __init__(self, degrees,
+resample=False, expand=False, center=None):
+src\data_io\transform.py:325:    def get_params(degrees):
+src\data_io\transform.py:335:    def __call__(self, img):
+src\model_lib\MiniFASNet.py:14:    def forward(self, input):
+src\model_lib\MiniFASNet.py:19:    def forward(self, input):
+src\model_lib\MiniFASNet.py:24:    def __init__(self, in_c, out_c,
+kernel=(1, 1), stride=(1, 1), padding=(0, 0), groups=1):
+src\model_lib\MiniFASNet.py:31:    def forward(self, x):
+src\model_lib\MiniFASNet.py:39:    def __init__(self, in_c, out_c,
+kernel=(1, 1), stride=(1, 1), padding=(0, 0), groups=1):
+src\model_lib\MiniFASNet.py:45:    def forward(self, x):
+src\model_lib\MiniFASNet.py:52:     def __init__(self, c1, c2, c3,
+residual=False, kernel=(3, 3), stride=(2, 2), padding=(1, 1), groups=1):
+src\model_lib\MiniFASNet.py:62:     def forward(self, x):
+src\model_lib\MiniFASNet.py:76:    def __init__(self, c1, c2, c3,
+num_block, groups, kernel=(3, 3), stride=(1, 1), padding=(1, 1)):
+src\model_lib\MiniFASNet.py:87:    def forward(self, x):
+src\model_lib\MiniFASNet.py:92:    def __init__(self, channels, reduction):
+src\model_lib\MiniFASNet.py:104:    def forward(self, x):
+src\model_lib\MiniFASNet.py:117:    def __init__(self, c1, c2, c3,
+num_block, groups, kernel=(3, 3), stride=(1, 1), padding=(1, 1),
+se_reduct=4):
+src\model_lib\MiniFASNet.py:133:    def forward(self, x):
+src\model_lib\MiniFASNet.py:138:    def __init__(self, c1, c2, c3,
+residual=False, kernel=(3, 3), stride=(2, 2), padding=(1, 1), groups=1,
+se_reduct=8):
+src\model_lib\MiniFASNet.py:149:    def forward(self, x):
+src\model_lib\MiniFASNet.py:164:    def __init__(self, keep,
+embedding_size, conv6_kernel=(7, 7),
+src\model_lib\MiniFASNet.py:218:    def forward(self, x):
+src\model_lib\MiniFASNet.py:239:    def __init__(self, keep,
+embedding_size, conv6_kernel=(7, 7),drop_p=0.75, num_classes=4,
+img_channel=3):
+src\model_lib\MiniFASNet.py:279:def MiniFASNetV1(embedding_size=128,
+conv6_kernel=(7, 7),
+src\model_lib\MiniFASNet.py:285:def MiniFASNetV2(embedding_size=128,
+conv6_kernel=(7, 7),
+src\model_lib\MiniFASNet.py:289:def MiniFASNetV1SE(embedding_size=128,
+conv6_kernel=(7, 7),
+src\model_lib\MiniFASNet.py:294:def MiniFASNetV2SE(embedding_size=128,
+conv6_kernel=(7, 7),
+src\model_lib\MultiFTNet.py:13:    def __init__(self, in_channels=48,
+out_channels=1):
+src\model_lib\MultiFTNet.py:30:    def forward(self, x):
+src\model_lib\MultiFTNet.py:35:    def __init__(self, img_channel=3,
+num_classes=3, embedding_size=128, conv6_kernel=(5, 5)):
+src\model_lib\MultiFTNet.py:44:    def _initialize_weights(self):
+src\model_lib\MultiFTNet.py:58:    def forward(self, x):
+
+
+PS C:\Projects\attendx_v2.7\attendx_v2> Get-ChildItem -Recurse -Filter *.py | Where-Object { $_.FullName -notmatch '\\\.venv\\' } | Select-String -Pattern '@app\.route|def ' | ForEach-Object { "$($_.Filename): $($_.Line.Trim())" }
+test_geo.py: def test_attendance_geo(teacher_lat, teacher_lng, student_lat, student_lng, student_accuracy, allowed_radius=50):
+models.py: def get_db():
+models.py: def close_db(e=None):
+models.py: def init_db(app):
+models.py: def seed_admin(app):
+utils.py: def hash_password(plain: str) -> str:
+utils.py: def check_password(plain: str, hashed: str) -> bool:
+utils.py: def generate_otp(length: int = 6) -> str:
+utils.py: def otp_expiry(seconds: int = 300) -> datetime:
+utils.py: def generate_join_code(length: int = 6) -> str:
+utils.py: def login_required_with_role(*allowed_roles):
+utils.py: def decorator(func):
+utils.py: def wrapper(*args, **kwargs):
+utils.py: def get_current_user():
+utils.py: def generate_csrf_token():
+utils.py: def validate_csrf():
+utils.py: def sanitize(text: str) -> str:
+utils.py: def check_rate_limit(db, user_id: int, action: str) -> bool:
+utils.py: def record_rate_limit(db, user_id: int, action: str):
+utils.py: def log_audit(db, action: str, target_type: str = None,
+utils.py: def create_notification(db, user_id: int, title: str, message: str, link: str = None):
+utils.py: def get_unread_count(db, user_id: int) -> int:
+utils.py: def allowed_image(filename: str) -> bool:
+utils.py: def today_day_name() -> str:
+utils.py: def base64_to_cv2(b64_string):
+__init__.py: def create_app(config_class=Config):
+__init__.py: @app.route("/")
+__init__.py: def index():
+__init__.py: def inject_globals():
+__init__.py: def handle_401(e):
+__init__.py: def handle_403(e):
+__init__.py: def handle_404(e):
+__init__.py: def handle_500(e):
+admin_routes.py: def _pending_count():
+admin_routes.py: def dashboard():
+admin_routes.py: def manage_admins():
+admin_routes.py: def add_admin():
+admin_routes.py: def edit_admin():
+admin_routes.py: def delete_admin(user_id):
+admin_routes.py: def manage_faculty():
+admin_routes.py: def add_faculty():
+admin_routes.py: def edit_faculty():
+admin_routes.py: def delete_faculty(user_id):
+admin_routes.py: def manage_students():
+admin_routes.py: def assign_student_batch():
+admin_routes.py: def delete_student(user_id):
+admin_routes.py: def manage_batches():
+admin_routes.py: def add_batch():
+admin_routes.py: def edit_batch():
+admin_routes.py: def regenerate_join_code(batch_id):
+admin_routes.py: def toggle_join(batch_id):
+admin_routes.py: def delete_batch(batch_id):
+admin_routes.py: def manage_subjects():
+admin_routes.py: def add_subject():
+admin_routes.py: def edit_subject():
+admin_routes.py: def delete_subject(subject_id):
+admin_routes.py: def manage_timetable():
+admin_routes.py: def add_timetable():
+admin_routes.py: def edit_timetable():
+admin_routes.py: def delete_timetable(slot_id):
+admin_routes.py: def schedule_requests():
+admin_routes.py: def handle_request(req_id):
+admin_routes.py: def audit_log():
+admin_routes.py: def reports():
+admin_routes.py: def export_report():
+api_routes.py: def _require_auth(*roles):
+api_routes.py: def _check_late(timetable_id, db):
+api_routes.py: def api_start_session():
+api_routes.py: def api_update_session_location(session_id):
+api_routes.py: def api_end_session():
+api_routes.py: def api_switch_phase():
+api_routes.py: def handle_join_session(data):
+api_routes.py: def broadcast_tokens(app):
+api_routes.py: def api_validate_token(session_id):
+api_routes.py: def process_face_async(master_path, selfie_path):
+api_routes.py: def api_upload_selfie(session_id):
+api_routes.py: def api_get_roster(session_id):
+api_routes.py: def api_manual_override(session_id):
+api_routes.py: def api_notification_count():
+auth_routes.py: def _set_session(user_row):
+auth_routes.py: def _dashboard_for_role(role):
+auth_routes.py: def _send_otp_email(email, otp_code, purpose):
+auth_routes.py: def _create_and_send_otp(user_id, email, purpose):
+auth_routes.py: def login():
+auth_routes.py: def signup():
+auth_routes.py: def verify_otp_page():
+auth_routes.py: def verify_otp():
+auth_routes.py: def resend_otp():
+auth_routes.py: def forgot_password():
+auth_routes.py: def reset_password_page():
+auth_routes.py: def reset_password():
+auth_routes.py: def change_password():
+auth_routes.py: def upload_photo():
+auth_routes.py: def notifications():
+auth_routes.py: def logout():
+faculty_routes.py: def dashboard():
+faculty_routes.py: def class_session(timetable_id):
+faculty_routes.py: def my_timetable():
+faculty_routes.py: def attendance_history():
+faculty_routes.py: def export_attendance():
+faculty_routes.py: def my_requests():
+faculty_routes.py: def submit_request():
+faculty_routes.py: def review_attendance(record_id):
+faculty_routes.py: def end_session(timetable_id):
+student_routes.py: def dashboard():
+student_routes.py: def join_class():
+student_routes.py: def leave_batch():
+student_routes.py: def checkin(session_id):
+student_routes.py: def my_timetable():
+student_routes.py: def attendance_history():
+student_routes.py: def export_my_attendance():
+__init__.py: def register_blueprints(app):
+biometric_engine.py: def get_instance(cls):
+biometric_engine.py: def reset(cls):
+biometric_engine.py: def __init__(self):
+biometric_engine.py: def _init_backend(self):
+biometric_engine.py: def _init_insightface(self):
+biometric_engine.py: def _init_silent_face(self):
+biometric_engine.py: def _init_deepface(self):
+biometric_engine.py: def check_liveness(self, image: np.ndarray) -> dict:
+biometric_engine.py: def get_embedding(self, image: np.ndarray) -> np.ndarray | None:
+biometric_engine.py: def compare_embeddings(self, emb1: np.ndarray, emb2: np.ndarray) -> float:
+biometric_engine.py: def compare_with_centroid(self, history_path: str, live_emb: np.ndarray) -> float:
+biometric_engine.py: def update_embedding_history(self, history_path: str, new_emb: np.ndarray, max_entries: int = 50):
+biometric_engine.py: def _liveness_silent_face(self, image: np.ndarray) -> dict:
+biometric_engine.py: def _embedding_insightface(self, image: np.ndarray) -> np.ndarray | None:
+biometric_engine.py: def _liveness_deepface(self, image: np.ndarray) -> dict:
+biometric_engine.py: def _embedding_deepface(self, image: np.ndarray) -> np.ndarray | None:
+biometric_engine.py: def decode_base64_image(base64_str: str) -> np.ndarray:
+biometric_engine.py: def save_image_from_base64(base64_str: str, filepath: str) -> str:
+biometric_engine.py: def get_safe_username(email: str, name: str) -> str:
+biometric_engine.py: def get_master_photo_path(username: str) -> str:
+biometric_engine.py: def get_embedding_path(username: str) -> str:
+biometric_engine.py: def get_embedding_history_path(username: str) -> str:
+biometric_engine.py: def get_selfie_path(username: str, date_str: str, session_id) -> str:
+dual_key_engine.py: def start_session(db, timetable_id: int, faculty_id: int) -> dict:
+dual_key_engine.py: def validate_token(db, session_id: int, submitted_pin: str = None, submitted_qr: str = None) -> dict:
+dual_key_engine.py: def switch_phase(db, session_id: int, new_phase: str) -> dict:
+dual_key_engine.py: def end_session(db, session_id: int) -> dict:
+dual_key_engine.py: def should_flag_for_audit() -> bool:
+dual_key_engine.py: def generate_qr_image_base64(data: str) -> str:
+dual_key_engine.py: def _generate_qr_svg_data_uri(data: str) -> str:
+dual_key_engine.py: def _encode_qr_matrix(data: str) -> list:
+email_service.py: def send_email(to_email, subject, html_body, plain_body=None):
+email_service.py: def send_otp_email(to_email, otp_code, purpose="signup"):
+scheduler.py: def init_scheduler(app):
+anti_spoof_predict.py: def __init__(self):
+anti_spoof_predict.py: def get_bbox(self, img):
+anti_spoof_predict.py: def __init__(self, device_id):
+anti_spoof_predict.py: def _load_model(self, model_path):
+anti_spoof_predict.py: def predict(self, img, model_path):
+default_config.py: def get_default_config():
+default_config.py: def update_config(args, conf):
+generate_patches.py: def _get_new_box(src_w, src_h, bbox, scale):
+generate_patches.py: def crop(self, org_img, bbox, scale, out_w, out_h, crop=True):
+train_main.py: def __init__(self, conf):
+train_main.py: def train_model(self):
+train_main.py: def _init_model_param(self):
+train_main.py: def _train_stage(self):
+train_main.py: def _train_batch_data(self, imgs, labels):
+train_main.py: def _define_network(self):
+train_main.py: def _get_accuracy(self, output, target, topk=(1,)):
+train_main.py: def _save_state(self, time_stamp, extra=None):
+utility.py: def get_time():
+utility.py: def get_kernel(height, width):
+utility.py: def get_width_height(patch_info):
+utility.py: def parse_model_name(model_name):
+utility.py: def make_if_not_exist(folder_path):
+dataset_folder.py: def opencv_loader(path):
+dataset_folder.py: def __init__(self, root, transform=None, target_transform=None,
+dataset_folder.py: def __getitem__(self, index):
+dataset_folder.py: def generate_FT(image):
+dataset_loader.py: def get_train_loader(conf):
+functional.py: def _is_pil_image(img):
+functional.py: def _is_tensor_image(img):
+functional.py: def _is_numpy_image(img):
+functional.py: def to_tensor(pic):
+functional.py: def to_pil_image(pic, mode=None):
+functional.py: def normalize(tensor, mean, std):
+functional.py: def resize(img, size, interpolation=Image.BILINEAR):
+functional.py: def scale(*args, **kwargs):
+functional.py: def pad(img, padding, fill=0):
+functional.py: def crop(img, i, j, h, w):
+functional.py: def center_crop(img, output_size):
+functional.py: def resized_crop(img, i, j, h, w, size, interpolation=Image.BILINEAR):
+functional.py: def hflip(img):
+functional.py: def vflip(img):
+functional.py: def five_crop(img, size):
+functional.py: def ten_crop(img, size, vertical_flip=False):
+functional.py: def adjust_brightness(img, brightness_factor):
+functional.py: def adjust_contrast(img, contrast_factor):
+functional.py: def adjust_saturation(img, saturation_factor):
+functional.py: def adjust_hue(img, hue_factor):
+functional.py: def adjust_gamma(img, gamma, gain=1):
+functional.py: def rotate(img, angle, resample=False, expand=False, center=None):
+functional.py: def to_grayscale(img, num_output_channels=1):
+transform.py: def __init__(self, transforms):
+transform.py: def __call__(self, img):
+transform.py: def __call__(self, pic):
+transform.py: def __init__(self, lambd):
+transform.py: def __call__(self, img):
+transform.py: def __init__(self, mode=None):
+transform.py: def __call__(self, pic):
+transform.py: def __init__(self, mean, std):
+transform.py: def __call__(self, tensor):
+transform.py: def __call__(self, img):
+transform.py: def __init__(self, size, scale=(0.08, 1.0), ratio=(3. / 4., 4. / 3.), interpolation=Image.BILINEAR):
+transform.py: def get_params(img, scale, ratio):
+transform.py: def __call__(self, img):
+transform.py: def __init__(self, brightness=0, contrast=0, saturation=0, hue=0):
+transform.py: def get_params(brightness, contrast, saturation, hue):
+transform.py: def __call__(self, img):
+transform.py: def __init__(self, degrees, resample=False, expand=False, center=None):
+transform.py: def get_params(degrees):
+transform.py: def __call__(self, img):
+MiniFASNet.py: def forward(self, input):
+MiniFASNet.py: def forward(self, input):
+MiniFASNet.py: def __init__(self, in_c, out_c, kernel=(1, 1), stride=(1, 1), padding=(0, 0), groups=1):
+MiniFASNet.py: def forward(self, x):
+MiniFASNet.py: def __init__(self, in_c, out_c, kernel=(1, 1), stride=(1, 1), padding=(0, 0), groups=1):
+MiniFASNet.py: def forward(self, x):
+MiniFASNet.py: def __init__(self, c1, c2, c3, residual=False, kernel=(3, 3), stride=(2, 2), padding=(1, 1), groups=1):
+MiniFASNet.py: def forward(self, x):
+MiniFASNet.py: def __init__(self, c1, c2, c3, num_block, groups, kernel=(3, 3), stride=(1, 1), padding=(1, 1)):
+MiniFASNet.py: def forward(self, x):
+MiniFASNet.py: def __init__(self, channels, reduction):
+MiniFASNet.py: def forward(self, x):
+MiniFASNet.py: def __init__(self, c1, c2, c3, num_block, groups, kernel=(3, 3), stride=(1, 1), padding=(1, 1), se_reduct=4):
+MiniFASNet.py: def forward(self, x):
+MiniFASNet.py: def __init__(self, c1, c2, c3, residual=False, kernel=(3, 3), stride=(2, 2), padding=(1, 1), groups=1, se_reduct=8):
+MiniFASNet.py: def forward(self, x):
+MiniFASNet.py: def __init__(self, keep, embedding_size, conv6_kernel=(7, 7),
+MiniFASNet.py: def forward(self, x):
+MiniFASNet.py: def __init__(self, keep, embedding_size, conv6_kernel=(7, 7),drop_p=0.75, num_classes=4, img_channel=3):
+MiniFASNet.py: def MiniFASNetV1(embedding_size=128, conv6_kernel=(7, 7),
+MiniFASNet.py: def MiniFASNetV2(embedding_size=128, conv6_kernel=(7, 7),
+MiniFASNet.py: def MiniFASNetV1SE(embedding_size=128, conv6_kernel=(7, 7),
+MiniFASNet.py: def MiniFASNetV2SE(embedding_size=128, conv6_kernel=(7, 7),
+MultiFTNet.py: def __init__(self, in_channels=48, out_channels=1):
+MultiFTNet.py: def forward(self, x):
+MultiFTNet.py: def __init__(self, img_channel=3, num_classes=3, embedding_size=128, conv6_kernel=(5, 5)):
+MultiFTNet.py: def _initialize_weights(self):
+MultiFTNet.py: def forward(self, x):
+PS C:\Projects\attendx_v2.7\attendx_v2> Get-ChildItem -Recurse -Include *.py |
+>> Where-Object { $_.FullName -notmatch '\\(\.venv|__pycache__)\\?' } |
+>> Select-String -Pattern 'def |class |@app\.|@.*route' |
+>> Select-Object Line, Filename
+
+Line
+----
+def _pending_count():
+@admin_bp.route("/dashboard")
+def dashboard():
+@admin_bp.route("/admins")
+def manage_admins():
+@admin_bp.route("/admins/add", methods=["POST"])
+def add_admin():
+@admin_bp.route("/admins/edit", methods=["POST"])
+def edit_admin():
+@admin_bp.route("/admins/delete/<int:user_id>", methods=["POST"])
+def delete_admin(user_id):
+@admin_bp.route("/faculty")
+def manage_faculty():
+@admin_bp.route("/faculty/add", methods=["POST"])
+def add_faculty():
+@admin_bp.route("/faculty/edit", methods=["POST"])
+def edit_faculty():
+@admin_bp.route("/faculty/delete/<int:user_id>", methods=["POST"])
+def delete_faculty(user_id):
+@admin_bp.route("/students")
+def manage_students():
+@admin_bp.route("/students/assign-batch", methods=["POST"])
+def assign_student_batch():
+@admin_bp.route("/students/delete/<int:user_id>", methods=["POST"])
+def delete_student(user_id):
+@admin_bp.route("/batches")
+def manage_batches():
+@admin_bp.route("/batches/add", methods=["POST"])
+def add_batch():
+@admin_bp.route("/batches/edit", methods=["POST"])
+def edit_batch():
+@admin_bp.route("/batches/regenerate-code/<int:batch_id>", methods=["POS...
+def regenerate_join_code(batch_id):
+@admin_bp.route("/batches/toggle-join/<int:batch_id>", methods=["POST"])
+def toggle_join(batch_id):
+@admin_bp.route("/batches/delete/<int:batch_id>", methods=["POST"])
+def delete_batch(batch_id):
+@admin_bp.route("/subjects")
+def manage_subjects():
+@admin_bp.route("/subjects/add", methods=["POST"])
+def add_subject():
+@admin_bp.route("/subjects/edit", methods=["POST"])
+def edit_subject():
+@admin_bp.route("/subjects/delete/<int:subject_id>", methods=["POST"])
+def delete_subject(subject_id):
+@admin_bp.route("/timetable")
+def manage_timetable():
+@admin_bp.route("/timetable/add", methods=["POST"])
+def add_timetable():
+        flash("Time conflict: this batch already has a class during this...
+@admin_bp.route("/timetable/edit", methods=["POST"])
+def edit_timetable():
+        flash("Time conflict with another class for this batch.", "danger")
+@admin_bp.route("/timetable/delete/<int:slot_id>", methods=["POST"])
+def delete_timetable(slot_id):
+@admin_bp.route("/requests")
+def schedule_requests():
+@admin_bp.route("/requests/<int:req_id>/handle", methods=["POST"])
+def handle_request(req_id):
+                                f"Class {req['request_type']}",
+                                f"A class has been {req['request_type']....
+@admin_bp.route("/audit-log")
+def audit_log():
+@admin_bp.route("/reports")
+def reports():
+@admin_bp.route("/reports/export")
+def export_report():
+def _require_auth(*roles):
+def _check_late(timetable_id, db):
+@api_bp.route("/session/start", methods=["POST"])
+def api_start_session():
+@api_bp.route("/session/<int:session_id>/location", methods=["POST"])
+def api_update_session_location(session_id):
+@api_bp.route("/session/end", methods=["POST"])
+def api_end_session():
+@api_bp.route("/session/switch-phase", methods=["POST"])
+def api_switch_phase():
+def handle_join_session(data):
+def broadcast_tokens(app):
+@api_bp.route("/session/<int:session_id>/validate", methods=["POST"])
+def api_validate_token(session_id):
+def process_face_async(master_path, selfie_path):
+@api_bp.route("/session/<int:session_id>/selfie", methods=["POST"])
+def api_upload_selfie(session_id):
+@api_bp.route("/session/<int:session_id>/roster", methods=["GET"])
+def api_get_roster(session_id):
+@api_bp.route("/session/<int:session_id>/override", methods=["POST"])
+def api_manual_override(session_id):
+@api_bp.route("/notifications/count", methods=["GET"])
+def api_notification_count():
+def _set_session(user_row):
+def _dashboard_for_role(role):
+def _send_otp_email(email, otp_code, purpose):
+def _create_and_send_otp(user_id, email, purpose):
+@auth_bp.route("/login", methods=["GET", "POST"])
+def login():
+@auth_bp.route("/signup", methods=["GET", "POST"])
+def signup():
+@auth_bp.route("/verify-otp")
+def verify_otp_page():
+@auth_bp.route("/verify-otp", methods=["POST"])
+def verify_otp():
+@auth_bp.route("/resend-otp")
+def resend_otp():
+@auth_bp.route("/forgot-password", methods=["GET", "POST"])
+def forgot_password():
+@auth_bp.route("/reset-password", methods=["GET"])
+def reset_password_page():
+@auth_bp.route("/reset-password", methods=["POST"])
+def reset_password():
+@auth_bp.route("/change-password", methods=["GET", "POST"])
+def change_password():
+@auth_bp.route("/upload-photo", methods=["POST"])
+def upload_photo():
+@auth_bp.route("/notifications")
+def notifications():
+@auth_bp.route("/logout")
+def logout():
+@faculty_bp.route("/dashboard")
+def dashboard():
+@faculty_bp.route("/session/<int:timetable_id>")
+def class_session(timetable_id):
+        flash("Class not found.", "danger")
+    # 🔥 BULLETPROOF "CLASS COMPLETED" CHECK
+@faculty_bp.route("/timetable")
+def my_timetable():
+@faculty_bp.route("/attendance")
+def attendance_history():
+@faculty_bp.route("/attendance/export")
+def export_attendance():
+@faculty_bp.route("/requests")
+def my_requests():
+@faculty_bp.route("/requests/submit", methods=["POST"])
+def submit_request():
+        flash("Please select a class and request type.", "danger")
+@faculty_bp.route("/attendance/review/<int:record_id>", methods=["POST"])
+def review_attendance(record_id):
+@faculty_bp.route("/session/<int:timetable_id>/end", methods=["POST", "G...
+def end_session(timetable_id):
+    # 4. Send the teacher back to the class dashboard
+@student_bp.route("/dashboard")
+def dashboard():
+#  JOIN CLASS (Google Classroom style — enter alphanumeric code)
+@student_bp.route("/join", methods=["GET", "POST"])
+def join_class():
+@student_bp.route("/leave-batch", methods=["POST"])
+def leave_batch():
+@student_bp.route("/checkin/<int:session_id>")
+def checkin(session_id):
+@student_bp.route("/timetable")
+def my_timetable():
+@student_bp.route("/attendance")
+def attendance_history():
+@student_bp.route("/attendance/export")
+def export_my_attendance():
+def register_blueprints(app):
+class BiometricEngine:
+    def get_instance(cls):
+    def reset(cls):
+    def __init__(self):
+    def _init_backend(self):
+    def _init_insightface(self):
+    def _init_silent_face(self):
+    def _init_deepface(self):
+    def check_liveness(self, image: np.ndarray) -> dict:
+    def get_embedding(self, image: np.ndarray) -> np.ndarray | None:
+    def compare_embeddings(self, emb1: np.ndarray, emb2: np.ndarray) -> ...
+    def compare_with_centroid(self, history_path: str, live_emb: np.ndar...
+    def update_embedding_history(self, history_path: str, new_emb: np.nd...
+    def _liveness_silent_face(self, image: np.ndarray) -> dict:
+    def _embedding_insightface(self, image: np.ndarray) -> np.ndarray | ...
+    def _liveness_deepface(self, image: np.ndarray) -> dict:
+    def _embedding_deepface(self, image: np.ndarray) -> np.ndarray | None:
+def decode_base64_image(base64_str: str) -> np.ndarray:
+def save_image_from_base64(base64_str: str, filepath: str) -> str:
+def get_safe_username(email: str, name: str) -> str:
+def get_master_photo_path(username: str) -> str:
+def get_embedding_path(username: str) -> str:
+def get_embedding_history_path(username: str) -> str:
+def get_selfie_path(username: str, date_str: str, session_id) -> str:
+def start_session(db, timetable_id: int, faculty_id: int) -> dict:
+    # Generate a Base32 secret for this specific class session
+def validate_token(db, session_id: int, submitted_pin: str = None, submi...
+def switch_phase(db, session_id: int, new_phase: str) -> dict:
+def end_session(db, session_id: int) -> dict:
+def should_flag_for_audit() -> bool:
+def generate_qr_image_base64(data: str) -> str:
+def _generate_qr_svg_data_uri(data: str) -> str:
+def _encode_qr_matrix(data: str) -> list:
+def send_email(to_email, subject, html_body, plain_body=None):
+def send_otp_email(to_email, otp_code, purpose="signup"):
+def init_scheduler(app):
+class Config:
+def get_db():
+def close_db(e=None):
+def init_db(app):
+def seed_admin(app):
+def hash_password(plain: str) -> str:
+def check_password(plain: str, hashed: str) -> bool:
+def generate_otp(length: int = 6) -> str:
+def otp_expiry(seconds: int = 300) -> datetime:
+def generate_join_code(length: int = 6) -> str:
+def login_required_with_role(*allowed_roles):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+def get_current_user():
+def generate_csrf_token():
+def validate_csrf():
+def sanitize(text: str) -> str:
+def check_rate_limit(db, user_id: int, action: str) -> bool:
+def record_rate_limit(db, user_id: int, action: str):
+def log_audit(db, action: str, target_type: str = None,
+def create_notification(db, user_id: int, title: str, message: str, link...
+def get_unread_count(db, user_id: int) -> int:
+def allowed_image(filename: str) -> bool:
+def today_day_name() -> str:
+def base64_to_cv2(b64_string):
+def create_app(config_class=Config):
+    @app.route("/")
+    def index():
+    @app.context_processor
+    def inject_globals():
+    @app.errorhandler(401)
+    def handle_401(e):
+    @app.errorhandler(403)
+    def handle_403(e):
+    @app.errorhandler(404)
+    def handle_404(e):
+    @app.errorhandler(500)
+    def handle_500(e):
+def opencv_loader(path):
+class DatasetFolderFT(datasets.ImageFolder):
+    def __init__(self, root, transform=None, target_transform=None,
+    def __getitem__(self, index):
+def generate_FT(image):
+def get_train_loader(conf):
+def _is_pil_image(img):
+def _is_tensor_image(img):
+def _is_numpy_image(img):
+def to_tensor(pic):
+def to_pil_image(pic, mode=None):
+def normalize(tensor, mean, std):
+def resize(img, size, interpolation=Image.BILINEAR):
+def scale(*args, **kwargs):
+def pad(img, padding, fill=0):
+def crop(img, i, j, h, w):
+def center_crop(img, output_size):
+def resized_crop(img, i, j, h, w, size, interpolation=Image.BILINEAR):
+def hflip(img):
+def vflip(img):
+def five_crop(img, size):
+def ten_crop(img, size, vertical_flip=False):
+def adjust_brightness(img, brightness_factor):
+def adjust_contrast(img, contrast_factor):
+def adjust_saturation(img, saturation_factor):
+def adjust_hue(img, hue_factor):
+def adjust_gamma(img, gamma, gain=1):
+def rotate(img, angle, resample=False, expand=False, center=None):
+def to_grayscale(img, num_output_channels=1):
+class Compose(object):
+    def __init__(self, transforms):
+    def __call__(self, img):
+class ToTensor(object):
+    def __call__(self, pic):
+class Lambda(object):
+    def __init__(self, lambd):
+    def __call__(self, img):
+class ToPILImage(object):
+    def __init__(self, mode=None):
+    def __call__(self, pic):
+class Normalize(object):
+    def __init__(self, mean, std):
+    def __call__(self, tensor):
+class RandomHorizontalFlip(object):
+    def __call__(self, img):
+class RandomResizedCrop(object):
+    def __init__(self, size, scale=(0.08, 1.0), ratio=(3. / 4., 4. / 3.)...
+    def get_params(img, scale, ratio):
+    def __call__(self, img):
+class ColorJitter(object):
+    def __init__(self, brightness=0, contrast=0, saturation=0, hue=0):
+    def get_params(brightness, contrast, saturation, hue):
+    def __call__(self, img):
+class RandomRotation(object):
+    def __init__(self, degrees, resample=False, expand=False, center=None):
+    def get_params(degrees):
+    def __call__(self, img):
+class L2Norm(Module):
+    def forward(self, input):
+class Flatten(Module):
+    def forward(self, input):
+class Conv_block(Module):
+    def __init__(self, in_c, out_c, kernel=(1, 1), stride=(1, 1), paddin...
+    def forward(self, x):
+class Linear_block(Module):
+    def __init__(self, in_c, out_c, kernel=(1, 1), stride=(1, 1), paddin...
+    def forward(self, x):
+class Depth_Wise(Module):
+     def __init__(self, c1, c2, c3, residual=False, kernel=(3, 3), strid...
+     def forward(self, x):
+class Residual(Module):
+    def __init__(self, c1, c2, c3, num_block, groups, kernel=(3, 3), str...
+    def forward(self, x):
+class SEModule(Module):
+    def __init__(self, channels, reduction):
+    def forward(self, x):
+class ResidualSE(Module):
+    def __init__(self, c1, c2, c3, num_block, groups, kernel=(3, 3), str...
+    def forward(self, x):
+class Depth_Wise_SE(Module):
+    def __init__(self, c1, c2, c3, residual=False, kernel=(3, 3), stride...
+    def forward(self, x):
+class MiniFASNet(Module):
+    def __init__(self, keep, embedding_size, conv6_kernel=(7, 7),
+    def forward(self, x):
+class MiniFASNetSE(MiniFASNet):
+    def __init__(self, keep, embedding_size, conv6_kernel=(7, 7),drop_p=...
+def MiniFASNetV1(embedding_size=128, conv6_kernel=(7, 7),
+def MiniFASNetV2(embedding_size=128, conv6_kernel=(7, 7),
+def MiniFASNetV1SE(embedding_size=128, conv6_kernel=(7, 7),
+def MiniFASNetV2SE(embedding_size=128, conv6_kernel=(7, 7),
+class FTGenerator(nn.Module):
+    def __init__(self, in_channels=48, out_channels=1):
+    def forward(self, x):
+class MultiFTNet(nn.Module):
+    def __init__(self, img_channel=3, num_classes=3, embedding_size=128,...
+    def _initialize_weights(self):
+    def forward(self, x):
+class Detection:
+    def __init__(self):
+    def get_bbox(self, img):
+class AntiSpoofPredict(Detection):
+    def __init__(self, device_id):
+    def _load_model(self, model_path):
+    def predict(self, img, model_path):
+def get_default_config():
+def update_config(args, conf):
+class CropImage:
+    def _get_new_box(src_w, src_h, bbox, scale):
+    def crop(self, org_img, bbox, scale, out_w, out_h, crop=True):
+class TrainMain:
+    def __init__(self, conf):
+    def train_model(self):
+    def _init_model_param(self):
+    def _train_stage(self):
+    def _train_batch_data(self, imgs, labels):
+    def _define_network(self):
+    def _get_accuracy(self, output, target, topk=(1,)):
+    def _save_state(self, time_stamp, extra=None):
+def get_time():
+def get_kernel(height, width):
+def get_width_height(patch_info):
+def parse_model_name(model_name):
+def make_if_not_exist(folder_path):
+def test_attendance_geo(teacher_lat, teacher_lng, student_lat, student_l...
+
+
+PS C:\Projects\attendx_v2.7\attendx_v2> Get-ChildItem -Recurse -Filter *.js |
+>> Where-Object { $_.FullName -notmatch '\\\.venv\\' } |
+>> Select-String -Pattern 'function |const .* = \(|let .* = \('
+
+app\static\js\dual_key.js:5:const DualKeyEngine = (() => {
+app\static\js\dual_key.js:27:    function init(elements) {
+app\static\js\dual_key.js:35:    function _connectWebSocket(sid) {
+app\static\js\dual_key.js:59:    async function startSession(timetableId,
+lat = null, lng = null) {
+app\static\js\dual_key.js:102:    function
+resumeSession(existingSessionId) {
+app\static\js\dual_key.js:117:    async function endSession() {
+app\static\js\dual_key.js:146:    async function switchPhase(newPhase) {
+app\static\js\dual_key.js:177:    function _startCountdown() {
+app\static\js\dual_key.js:231:    function _resetCountdown() {
+app\static\js\dual_key.js:236:    function _stopCountdown() {
+app\static\js\dual_key.js:246:    function _updateDisplay(data) {
+app\static\js\dual_key.js:293:const RosterPoller = (() => {
+app\static\js\dual_key.js:297:    function start(sessionId, onUpdate,
+pollMs = 5000) {
+app\static\js\dual_key.js:304:    function stop() {
+app\static\js\dual_key.js:311:    async function _fetch(sessionId) {
+app\static\js\student_checkin.js:1:const StudentCheckIn = (() => {
+app\static\js\student_checkin.js:13:    function isSecureContext() {
+app\static\js\student_checkin.js:18:    async function
+checkCameraPermission() {
+app\static\js\student_checkin.js:29:    async function
+checkGeoPermission() {
+app\static\js\student_checkin.js:40:    async function
+requestCamera(videoElement, facingMode = "user") {
+app\static\js\student_checkin.js:164:    function
+captureFrame(videoElement, canvasElement) {
+app\static\js\student_checkin.js:172:    function stopCamera() {
+app\static\js\student_checkin.js:180:    async function
+getLocation(classroomLat, classroomLng, timeoutMs = 10000) {
+app\static\js\student_checkin.js:226:        const dLat = (lat -
+classroomLat) * Math.PI / 180;
+app\static\js\student_checkin.js:227:        const dLon = (lng -
+classroomLng) * Math.PI / 180;
+app\static\js\student_checkin.js:263:    function haversineDistance(lat1,
+lng1, lat2, lng2) {
+app\static\js\student_checkin.js:265:        const dLat = (lat2 - lat1) *
+Math.PI / 180;
+app\static\js\student_checkin.js:266:        const dLng = (lng2 - lng1) *
+Math.PI / 180;
+app\static\js\student_checkin.js:273:    function
+calculateTrustScore(distanceMeters, accuracyMeters) {
+app\static\js\student_checkin.js:306:    async function safeJson(res) {
+app\static\js\student_checkin.js:319:    async function submitPin(sessId,
+pin, geoData = null, deviceInfo = null) {
+app\static\js\student_checkin.js:345:    async function
+submitQR(sessionId, rawData, geoData, deviceInfo) {
+app\static\js\student_checkin.js:376:    async function
+uploadSelfie(sessId, base64Data) {
+app\static\js\student_checkin.js:404:    function
+isScanningDigitalScreen(videoElement) {
+app\static\js\student_checkin.js:418:            const brightness =
+(data[i] + data[i+1] + data[i+2]) / 3;
+app\static\js\student_checkin.js:427:    async function
+startQRScanner(videoElement, onDetect) {
+app\static\js\student_checkin.js:573:function stopQRScanner() {
+app\static\js\student_checkin.js:587:function getDeviceInfo() {
+app\static\js\student_checkin.js:594:async function setZoom(level) {
+app\static\js\student_checkin.js:622:function zoomIn() {
+app\static\js\student_checkin.js:634:function zoomOut() {
+app\static\js\student_checkin.js:646:function
+enablePinchZoom(videoElement) {
+app\static\js\student_checkin.js:705:function getTouchDistance(touches) {
+app\static\js\student_checkin.js:724:    function getDeviceId() {
+app\static\js\student_checkin.js:735:    function getDeviceInfo() {
+
+
+PS C:\Projects\attendx_v2.7\attendx_v2> Get-ChildItem -Recurse -Include *.py, *.js | Where-Object { $_.FullName -notmatch '\\\.venv\\' } | Select-String "15"
+
+app\routes\api_routes.py:129:    totp = pyotp.TOTP(secret, interval=15)
+app\routes\api_routes.py:254:# Background task to push synchronized tokens
+every 15 seconds
+app\routes\api_routes.py:269:                    totp = pyotp.TOTP(secret,
+interval=15)
+app\routes\api_routes.py:438:                    geo_trust_score = 100 if
+distance <= 15 else (70 if distance <= 25 else 40)
+app\routes\api_routes.py:439:                    geo_verdict = "strong" if
+distance <= 15 else ("moderate" if distance <= 25 else "weak")
+app\services\dual_key_engine.py:6:  2. The server broadcasts a new PIN
+(using pyotp) via WebSockets every 15 seconds.
+app\services\dual_key_engine.py:64:    # Initialize a 15-second TOTP
+generator
+app\services\dual_key_engine.py:65:    totp = pyotp.TOTP(secret,
+interval=15)
+app\services\dual_key_engine.py:76:    # valid_window=1 allows a grace
+period of +/- 1 interval (15s) for network latency!
+app\static\js\dual_key.js:48:        _resetCountdown(); // This forces the
+timer back to 15
+app\static\js\dual_key.js:181:    // 🔥 Align countdown to the current
+15-second window
+app\static\js\dual_key.js:254:            }, 150);
+app\static\js\student_checkin.js:237:        if (distance <= 15) {
+trustLevel = 'strong'; trustScore = 100; }
+app\static\js\student_checkin.js:277:        if (distanceMeters <= 15) {
+app\static\js\student_checkin.js:519:            if (elapsed < 1500) {
+app\config.py:33:    TOKEN_REFRESH_SECONDS =
+int(os.getenv("TOKEN_REFRESH_SECONDS", 15))
+src\model_lib\MiniFASNet.py:179:        c2 = [(keep[5], keep[6]),
+(keep[8], keep[9]), (keep[11], keep[12]), (keep[14], keep[15])]
+src\model_lib\MiniFASNet.py:180:        c3 = [(keep[6], keep[7]),
+(keep[9], keep[10]), (keep[12], keep[13]), (keep[15], keep[16])]
+src\model_lib\MiniFASNet.py:244:        c2 = [(keep[5], keep[6]),
+(keep[8], keep[9]), (keep[11], keep[12]), (keep[14], keep[15])]
+src\model_lib\MiniFASNet.py:245:        c3 = [(keep[6], keep[7]),
+(keep[9], keep[10]), (keep[12], keep[13]), (keep[15], keep[16])]
+src\model_lib\MiniFASNet.py:267:                      154, 154, 128, 52,
+52, 128, 26, 26, 128, 52,
+src\default_config.py:23:    # [9, 13, 15]
+src\default_config.py:24:    conf.milestones = [10, 15, 22]  # down
+learing rate
+src\utility.py:17:    kernel_size = ((height + 15) // 16, (width + 15) //
+16)
+test_geo.py:21:        geo_trust_score = 100 if geo_distance <= 15 else
+(70 if geo_distance <= 25 else 40)
+test_geo.py:22:        geo_verdict = "strong" if geo_distance <= 15 else
+("moderate" if geo_distance <= 25 else "weak")
+test_geo.py:54:test_attendance_geo(TEACHER_LAT, TEACHER_LNG, 28.61415,
+77.2090, student_accuracy=10)
+
+
+PS C:\Projects\attendx_v2.7\attendx_v2> Get-ChildItem -Recurse -Include *.py, *.js | Where-Object { $_.FullName -notmatch '\\\.venv\\' } | Select-String "15" -Context 2,2
+
+  app\routes\api_routes.py:127:
+  app\routes\api_routes.py:128:    # Generate FIRST QR immediately
+> app\routes\api_routes.py:129:    totp = pyotp.TOTP(secret, interval=15)
+  app\routes\api_routes.py:130:    current_pin = totp.now()
+  app\routes\api_routes.py:131:
+  app\routes\api_routes.py:252:    join_room(f"session_{session_id}")
+  app\routes\api_routes.py:253:
+> app\routes\api_routes.py:254:# Background task to push synchronized
+tokens every 15 seconds
+  app\routes\api_routes.py:255:def broadcast_tokens(app):
+  app\routes\api_routes.py:256:    while True:
+  app\routes\api_routes.py:267:                    from
+app.services.dual_key_engine import generate_qr_image_base64
+  app\routes\api_routes.py:268:
+> app\routes\api_routes.py:269:                    totp =
+pyotp.TOTP(secret, interval=15)
+  app\routes\api_routes.py:270:                    current_pin = totp.now()
+  app\routes\api_routes.py:271:
+  app\routes\api_routes.py:436:                # Verify against dynamic
+radius
+  app\routes\api_routes.py:437:                if distance <=
+allowed_radius:
+> app\routes\api_routes.py:438:                    geo_trust_score = 100
+if distance <= 15 else (70 if distance <= 25 else 40)
+> app\routes\api_routes.py:439:                    geo_verdict = "strong"
+if distance <= 15 else ("moderate" if distance <= 25 else "weak")
+  app\routes\api_routes.py:440:                    print(f"Verdict:
+  ✅ PASS ({geo_verdict.upper()})")
+  app\routes\api_routes.py:441:                else:
+  app\services\dual_key_engine.py:4:Core mechanics:
+  app\services\dual_key_engine.py:5:  1. Faculty starts a session → engine
+creates an ActiveSession row and generates a permanent TOTP secret.
+> app\services\dual_key_engine.py:6:  2. The server broadcasts a new PIN
+(using pyotp) via WebSockets every 15 seconds.
+  app\services\dual_key_engine.py:7:  3. Students submit the PIN or scan
+the QR. The backend validates it mathematically.
+  app\services\dual_key_engine.py:8:"""
+  app\services\dual_key_engine.py:62:    secret =
+session_row["current_qr_data"]
+  app\services\dual_key_engine.py:63:
+> app\services\dual_key_engine.py:64:    # Initialize a 15-second TOTP
+generator
+> app\services\dual_key_engine.py:65:    totp = pyotp.TOTP(secret,
+interval=15)
+  app\services\dual_key_engine.py:66:
+  app\services\dual_key_engine.py:67:    # Extract PIN from QR if they
+scanned instead of typing
+  app\services\dual_key_engine.py:74:
+  app\services\dual_key_engine.py:75:    # Verify the PIN mathematically.
+> app\services\dual_key_engine.py:76:    # valid_window=1 allows a grace
+period of +/- 1 interval (15s) for network latency!
+  app\services\dual_key_engine.py:77:    if totp.verify(submitted_pin,
+valid_window=1):
+  app\services\dual_key_engine.py:78:        return {
+  app\static\js\dual_key.js:46:        console.log("Token Received!");
+  app\static\js\dual_key.js:47:        _updateDisplay(tokenData);
+> app\static\js\dual_key.js:48:        _resetCountdown(); // This forces
+the timer back to 15
+  app\static\js\dual_key.js:49:    });
+  app\static\js\dual_key.js:50:
+  app\static\js\dual_key.js:179:    _stopCountdown();
+  app\static\js\dual_key.js:180:
+> app\static\js\dual_key.js:181:    // 🔥 Align countdown to the current
+15-second window
+  app\static\js\dual_key.js:182:    const now = Date.now() / 1000;
+  app\static\js\dual_key.js:183:    secondsLeft = Math.ceil(
+  app\static\js\dual_key.js:252:                elPin.style.opacity = '1';
+  app\static\js\dual_key.js:253:                elPin.style.transform =
+'scale(1)';
+> app\static\js\dual_key.js:254:            }, 150);
+  app\static\js\dual_key.js:255:        }
+  app\static\js\dual_key.js:256:
+  app\static\js\student_checkin.js:235:        let trustScore = 0;
+  app\static\js\student_checkin.js:236:
+> app\static\js\student_checkin.js:237:        if (distance <= 15) {
+trustLevel = 'strong'; trustScore = 100; }
+  app\static\js\student_checkin.js:238:        else if (distance <= 25) {
+trustLevel = 'moderate'; trustScore = 70; }
+  app\static\js\student_checkin.js:239:        else if (distance <= 50) {
+trustLevel = 'weak'; trustScore = 40; }
+  app\static\js\student_checkin.js:275:        let level;
+  app\static\js\student_checkin.js:276:
+> app\static\js\student_checkin.js:277:        if (distanceMeters <= 15) {
+  app\static\js\student_checkin.js:278:            score = 100;
+  app\static\js\student_checkin.js:279:            level = "strong";
+  app\static\js\student_checkin.js:517:                motionStartTime;
+  app\static\js\student_checkin.js:518:
+> app\static\js\student_checkin.js:519:            if (elapsed < 1500) {
+  app\static\js\student_checkin.js:520:
+  app\static\js\student_checkin.js:521:                console.log(
+  app\config.py:31:
+  app\config.py:32:    # ── Dual-Key Engine ──
+> app\config.py:33:    TOKEN_REFRESH_SECONDS =
+int(os.getenv("TOKEN_REFRESH_SECONDS", 15))
+  app\config.py:34:
+  app\config.py:35:    # ── Audit Roulette ──
+  src\model_lib\MiniFASNet.py:177:
+  src\model_lib\MiniFASNet.py:178:        c1 = [(keep[4], keep[5]),
+(keep[7], keep[8]), (keep[10], keep[11]), (keep[13], keep[14])]
+> src\model_lib\MiniFASNet.py:179:        c2 = [(keep[5], keep[6]),
+(keep[8], keep[9]), (keep[11], keep[12]), (keep[14], keep[15])]
+> src\model_lib\MiniFASNet.py:180:        c3 = [(keep[6], keep[7]),
+(keep[9], keep[10]), (keep[12], keep[13]), (keep[15], keep[16])]
+  src\model_lib\MiniFASNet.py:181:
+  src\model_lib\MiniFASNet.py:182:        self.conv_3 = Residual(c1, c2,
+c3, num_block=4, groups=keep[4], kernel=(3, 3), stride=(1, 1), padding=(1,
+1))
+  src\model_lib\MiniFASNet.py:242:
+  src\model_lib\MiniFASNet.py:243:        c1 = [(keep[4], keep[5]),
+(keep[7], keep[8]), (keep[10], keep[11]), (keep[13], keep[14])]
+> src\model_lib\MiniFASNet.py:244:        c2 = [(keep[5], keep[6]),
+(keep[8], keep[9]), (keep[11], keep[12]), (keep[14], keep[15])]
+> src\model_lib\MiniFASNet.py:245:        c3 = [(keep[6], keep[7]),
+(keep[9], keep[10]), (keep[12], keep[13]), (keep[15], keep[16])]
+  src\model_lib\MiniFASNet.py:246:
+  src\model_lib\MiniFASNet.py:247:        self.conv_3 = ResidualSE(c1, c2,
+c3, num_block=4, groups=keep[4], kernel=(3, 3), stride=(1, 1), padding=(1,
+1))
+  src\model_lib\MiniFASNet.py:265:keep_dict = {'1.8M': [32, 32, 103, 103,
+64, 13, 13, 64, 26, 26,
+  src\model_lib\MiniFASNet.py:266:                      64, 13, 13, 64,
+52, 52, 64, 231, 231, 128,
+> src\model_lib\MiniFASNet.py:267:                      154, 154, 128, 52,
+52, 128, 26, 26, 128, 52,
+  src\model_lib\MiniFASNet.py:268:                      52, 128, 26, 26,
+128, 26, 26, 128, 308, 308,
+  src\model_lib\MiniFASNet.py:269:                      128, 26, 26, 128,
+26, 26, 128, 512, 512],
+  src\default_config.py:21:    #
+----------------------training---------------
+  src\default_config.py:22:    conf.lr = 1e-1
+> src\default_config.py:23:    # [9, 13, 15]
+> src\default_config.py:24:    conf.milestones = [10, 15, 22]  # down
+learing rate
+  src\default_config.py:25:    conf.gamma = 0.1
+  src\default_config.py:26:    conf.epochs = 25
+  src\utility.py:15:
+  src\utility.py:16:def get_kernel(height, width):
+> src\utility.py:17:    kernel_size = ((height + 15) // 16, (width + 15)
+// 16)
+  src\utility.py:18:    return kernel_size
+  src\utility.py:19:
+  test_geo.py:19:    # 2. Verdict Logic
+  test_geo.py:20:    if geo_distance <= allowed_radius:
+> test_geo.py:21:        geo_trust_score = 100 if geo_distance <= 15 else
+(70 if geo_distance <= 25 else 40)
+> test_geo.py:22:        geo_verdict = "strong" if geo_distance <= 15 else
+("moderate" if geo_distance <= 25 else "weak")
+  test_geo.py:23:        reason = "Pass: Student is inside the classroom
+zone."
+  test_geo.py:24:    else:
+  test_geo.py:52:
+  test_geo.py:53:# Scenario 2: Back of the Classroom
+> test_geo.py:54:test_attendance_geo(TEACHER_LAT, TEACHER_LNG, 28.61415,
+77.2090, student_accuracy=10)
+  test_geo.py:55:
+  test_geo.py:56:# Scenario 3: Outside the building
+
+
+PS C:\Projects\attendx_v2.7\attendx_v2>

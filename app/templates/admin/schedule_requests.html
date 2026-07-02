@@ -1,0 +1,63 @@
+{% extends "admin/dashboard.html" %}
+{% block title %}Schedule Requests — AttendX{% endblock %}
+{% block page_title %}Schedule Requests{% endblock %}
+
+{% block dashboard_content %}
+<div class="card">
+    <div class="card__header">
+        <h2>All Requests ({{ requests | length }})</h2>
+    </div>
+    <div class="card__body no-pad">
+        {% if requests %}
+        <table class="data-table">
+            <thead>
+                <tr><th>Faculty</th><th>Subject</th><th>Day / Time</th><th>Type</th><th>Details</th><th>Status</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+                {% for req in requests %}
+                <tr>
+                    <td>{{ req.faculty_name }}</td>
+                    <td>{{ req.subject_name }}</td>
+                    <td class="text-sm">{{ req.day_of_week }} {{ req.start_time }}–{{ req.end_time }}</td>
+                    <td><span class="badge badge-pending">{{ req.request_type }}</span></td>
+                    <td class="text-sm">
+                        {% if req.request_type == 'Reschedule' and req.new_date %}
+                        New: {{ req.new_date }} {{ req.new_start_time or '' }}–{{ req.new_end_time or '' }}<br>
+                        {% endif %}
+                        {{ req.reason or '—' }}
+                    </td>
+                    <td>
+                        {% if req.admin_status == 'Pending' %}
+                        <span class="badge badge-pending">Pending</span>
+                        {% elif req.admin_status == 'Approved' %}
+                        <span class="badge badge-approved">Approved</span>
+                        {% else %}
+                        <span class="badge badge-rejected">Rejected</span>
+                        {% endif %}
+                    </td>
+                    <td class="actions">
+                        {% if req.admin_status == 'Pending' %}
+                        <form method="POST" action="{{ url_for('admin.handle_request', req_id=req.id) }}" style="display:inline">
+                            <input type="hidden" name="action" value="approve">
+                            <button class="btn btn-success btn-sm">Approve</button>
+                        </form>
+                        <form method="POST" action="{{ url_for('admin.handle_request', req_id=req.id) }}" style="display:inline">
+                            <input type="hidden" name="action" value="reject">
+                            <button class="btn btn-danger btn-sm">Reject</button>
+                        </form>
+                        {% else %}
+                        <span class="text-muted text-sm">—</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state">
+            <p>No schedule requests yet.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

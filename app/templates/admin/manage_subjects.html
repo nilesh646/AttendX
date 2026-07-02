@@ -1,0 +1,119 @@
+{% extends "admin/dashboard.html" %}
+{% block title %}Manage Subjects — AttendX{% endblock %}
+{% block page_title %}Manage Subjects{% endblock %}
+
+{% block header_actions %}
+<button class="btn btn-primary btn-sm" onclick="openModal('addSubjectModal')">+ Add Subject</button>
+{% endblock %}
+
+{% block dashboard_content %}
+<div class="card">
+    <div class="card__header">
+        <h2>Subjects ({{ subjects | length }})</h2>
+    </div>
+    <div class="card__body no-pad">
+        {% if subjects %}
+        <table class="data-table">
+            <thead>
+                <tr><th>Code</th><th>Subject Name</th><th>Timetable Entries</th><th>Created</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+                {% for s in subjects %}
+                <tr>
+                    <td><code style="background:var(--bg-primary);padding:0.15rem 0.4rem;border-radius:4px;font-size:0.82rem">{{ s.subject_code }}</code></td>
+                    <td><strong>{{ s.subject_name }}</strong></td>
+                    <td>{{ s.timetable_count }}</td>
+                    <td class="text-muted text-sm">{{ s.created_at[:10] }}</td>
+                    <td class="actions">
+                        <button class="btn btn-outline btn-sm"
+                                onclick="openEditSubject({{ s.id }}, '{{ s.subject_name }}', '{{ s.subject_code }}')">Edit</button>
+                        <form method="POST" action="{{ url_for('admin.delete_subject', subject_id=s.id) }}"
+                              onsubmit="return confirm('Delete {{ s.subject_code }}?')">
+                            <button class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state">
+            <p>No subjects yet. Click <strong>"+ Add Subject"</strong> to create one.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Add Subject Modal -->
+<div class="modal-overlay hidden" id="addSubjectModal">
+    <div class="modal">
+        <div class="modal__header">
+            <h2>Add Subject</h2>
+            <button class="modal__close" onclick="closeModal('addSubjectModal')">&times;</button>
+        </div>
+        <form method="POST" action="{{ url_for('admin.add_subject') }}">
+            <div class="modal__body">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="subject_code">Subject Code</label>
+                        <input type="text" id="subject_code" name="subject_code" placeholder="CS101" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject_name">Subject Name</label>
+                        <input type="text" id="subject_name" name="subject_name" placeholder="Data Structures" required>
+                    </div>
+                </div>
+            </div>
+            <div class="modal__footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('addSubjectModal')">Cancel</button>
+                <button type="submit" class="btn btn-primary">Create Subject</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Edit Subject Modal -->
+<div class="modal-overlay hidden" id="editSubjectModal">
+    <div class="modal">
+        <div class="modal__header">
+            <h2>Edit Subject</h2>
+            <button class="modal__close" onclick="closeModal('editSubjectModal')">&times;</button>
+        </div>
+        <form method="POST" action="{{ url_for('admin.edit_subject') }}">
+            <input type="hidden" name="subject_id" id="editSubjectId">
+            <div class="modal__body">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editSubjectCode">Subject Code</label>
+                        <input type="text" id="editSubjectCode" name="subject_code" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editSubjectName">Subject Name</label>
+                        <input type="text" id="editSubjectName" name="subject_name" required>
+                    </div>
+                </div>
+            </div>
+            <div class="modal__footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('editSubjectModal')">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+function openEditSubject(id, name, code) {
+    document.getElementById('editSubjectId').value = id;
+    document.getElementById('editSubjectName').value = name;
+    document.getElementById('editSubjectCode').value = code;
+    openModal('editSubjectModal');
+}
+document.querySelectorAll('.modal-overlay').forEach(o => {
+    o.addEventListener('click', e => { if (e.target === o) o.classList.add('hidden'); });
+});
+</script>
+{% endblock %}

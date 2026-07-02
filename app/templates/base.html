@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Attendance Portal{% endblock %}</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    {% block navbar %}{% endblock %}
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-container" id="flashContainer" style="{% block flash_style %}position:fixed;top:1rem;right:1rem;z-index:9999;min-width:300px;max-width:420px{% endblock %}">
+        {% for category, message in messages %}
+        <div class="flash-msg {{ category }}">
+            {% if category == 'success' %}&#10003;
+            {% elif category == 'danger' or category == 'error' %}&#10007;
+            {% elif category == 'warning' %}&#9888;
+            {% else %}&#8505;{% endif %}
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+
+    <!-- Scripts -->
+    <script>
+        // Auto-dismiss flash messages after 5 seconds
+        document.addEventListener('DOMContentLoaded', () => {
+            const flashContainer = document.getElementById('flashContainer');
+            if (flashContainer) {
+                setTimeout(() => {
+                    flashContainer.style.transition = 'opacity 0.4s ease';
+                    flashContainer.style.opacity = '0';
+                    setTimeout(() => flashContainer.remove(), 400);
+                }, 5000);
+            }
+        });
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

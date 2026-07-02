@@ -1,0 +1,35 @@
+{% extends "student/dashboard.html" %}
+{% block title %}My Timetable — AttendX{% endblock %}
+{% block page_title %}My Timetable{% endblock %}
+
+{% block dashboard_content %}
+<div class="card">
+    <div class="card__header"><h2>Weekly Schedule</h2></div>
+    <div class="card__body no-pad">
+        {% if timetable %}
+        <table class="data-table">
+            <thead>
+                <tr><th>Day</th><th>Time</th><th>Subject</th><th>Faculty</th></tr>
+            </thead>
+            <tbody>
+                {% for t in timetable %}
+                <tr style="{{ 'background:var(--accent-glow)' if t.day_of_week == today_day else '' }}">
+                    <td>
+                        <strong>{{ t.day_of_week[:3] }}</strong>
+                        {% if t.day_of_week == today_day %}
+                        <span class="badge badge-approved" style="margin-left:0.3rem;font-size:0.65rem">TODAY</span>
+                        {% endif %}
+                    </td>
+                    <td><code style="font-size:0.82rem">{{ t.start_time }} – {{ t.end_time }}</code></td>
+                    <td><strong>{{ t.subject_name }}</strong> <span class="text-muted text-sm">({{ t.subject_code }})</span></td>
+                    <td>{{ t.faculty_name }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state"><p>No timetable available. You may not be assigned to a batch yet.</p></div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

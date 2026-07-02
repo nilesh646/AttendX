@@ -1,0 +1,47 @@
+{% extends "admin/dashboard.html" %}
+{% block title %}Audit Log — AttendX{% endblock %}
+{% block page_title %}Audit Log{% endblock %}
+
+{% block dashboard_content %}
+<div class="card">
+    <div class="card__header">
+        <h2>Activity Log ({{ logs | length }})</h2>
+        <div class="search-bar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" placeholder="Search..." onkeyup="filterTable(this.value)">
+        </div>
+    </div>
+    <div class="card__body no-pad">
+        {% if logs %}
+        <table class="data-table" id="auditTable">
+            <thead><tr><th>Time</th><th>User</th><th>Role</th><th>Action</th><th>Target</th><th>Details</th><th>IP</th></tr></thead>
+            <tbody>
+                {% for l in logs %}
+                <tr>
+                    <td class="text-sm">{{ l.created_at[:19] }}</td>
+                    <td>{{ l.user_name or 'System' }}</td>
+                    <td><span class="badge badge-{{ l.user_role | lower }}">{{ l.user_role }}</span></td>
+                    <td><strong>{{ l.action }}</strong></td>
+                    <td class="text-sm">{{ l.target_type or '' }} {{ '#' ~ l.target_id if l.target_id else '' }}</td>
+                    <td class="text-sm">{{ l.details or '—' }}</td>
+                    <td class="text-sm text-muted">{{ l.ip_address }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state"><p>No activity recorded yet.</p></div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script>
+function filterTable(q) {
+    q = q.toLowerCase();
+    document.querySelectorAll('#auditTable tbody tr').forEach(r => {
+        r.style.display = r.textContent.toLowerCase().includes(q) ? '' : 'none';
+    });
+}
+</script>
+{% endblock %}

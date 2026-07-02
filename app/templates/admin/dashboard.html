@@ -1,0 +1,191 @@
+{% extends "dashboard_base.html" %}
+{% block title %}Admin Dashboard — AttendX{% endblock %}
+
+{% block sidebar_nav %}
+<li class="nav-section">Main</li>
+<li><a href="{{ url_for('admin.dashboard') }}" class="{{ 'active' if active_page == 'dashboard' }}">
+    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+    Dashboard
+</a></li>
+
+<li class="nav-section">Manage</li>
+<li><a href="{{ url_for('admin.manage_admins') }}" class="{{ 'active' if active_page == 'admins' }}">
+    <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    Admins
+</a></li>
+<li><a href="{{ url_for('admin.manage_faculty') }}" class="{{ 'active' if active_page == 'faculty' }}">
+    <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    Faculty
+</a></li>
+<li><a href="{{ url_for('admin.manage_students') }}" class="{{ 'active' if active_page == 'students' }}">
+    <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+    Students
+</a></li>
+<li><a href="{{ url_for('admin.manage_batches') }}" class="{{ 'active' if active_page == 'batches' }}">
+    <svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+    Batches
+</a></li>
+<li><a href="{{ url_for('admin.manage_subjects') }}" class="{{ 'active' if active_page == 'subjects' }}">
+    <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+    Subjects
+</a></li>
+<li><a href="{{ url_for('admin.manage_timetable') }}" class="{{ 'active' if active_page == 'timetable' }}">
+    <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    Timetable
+</a></li>
+
+<li class="nav-section">Requests</li>
+<li><a href="{{ url_for('admin.schedule_requests') }}" class="{{ 'active' if active_page == 'requests' }}">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    Schedule Requests
+    {% if pending_count is defined and pending_count > 0 %}
+    <span class="nav-badge">{{ pending_count }}</span>
+    {% endif %}
+</a></li>
+
+<li class="nav-section">Analytics</li>
+<li><a href="{{ url_for('admin.reports') }}" class="{{ 'active' if active_page == 'reports' }}">
+    <svg viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+    Reports & Export
+</a></li>
+<li><a href="{{ url_for('admin.audit_log') }}" class="{{ 'active' if active_page == 'audit' }}">
+    <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+    Audit Log
+</a></li>
+{% endblock %}
+
+{% block page_title %}Dashboard{% endblock %}
+
+{% block dashboard_content %}
+<!-- Stats Row -->
+<div class="stats-row">
+    <div class="stat-card">
+        <div class="stat-card__icon" style="background:#ede9fe;color:#6d28d9">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="stat-card__body">
+            <div class="label">Admins</div>
+            <div class="value">{{ stats.admins }}</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-card__icon blue">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="stat-card__body">
+            <div class="label">Faculty</div>
+            <div class="value">{{ stats.faculty }}</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-card__icon green">
+            <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+        </div>
+        <div class="stat-card__body">
+            <div class="label">Students</div>
+            <div class="value">{{ stats.students }}</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-card__icon orange">
+            <svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div class="stat-card__body">
+            <div class="label">Batches</div>
+            <div class="value">{{ stats.batches }}</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-card__icon cyan">
+            <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </div>
+        <div class="stat-card__body">
+            <div class="label">Subjects</div>
+            <div class="value">{{ stats.subjects }}</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-card__icon red">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="stat-card__body">
+            <div class="label">Pending Requests</div>
+            <div class="value">{{ stats.pending_requests }}</div>
+        </div>
+    </div>
+</div>
+
+<!-- Pending Schedule Requests -->
+{% if pending_requests %}
+<div class="card">
+    <div class="card__header">
+        <h2>Pending Schedule Requests</h2>
+        <a href="{{ url_for('admin.schedule_requests') }}" class="btn btn-ghost btn-sm">View All</a>
+    </div>
+    <div class="card__body no-pad">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Faculty</th>
+                    <th>Subject</th>
+                    <th>Type</th>
+                    <th>Reason</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for req in pending_requests[:5] %}
+                <tr>
+                    <td>{{ req.faculty_name }}</td>
+                    <td>{{ req.subject_name }}</td>
+                    <td><span class="badge badge-pending">{{ req.request_type }}</span></td>
+                    <td>{{ req.reason or '—' }}</td>
+                    <td class="actions">
+                        <form method="POST" action="{{ url_for('admin.handle_request', req_id=req.id) }}" style="display:inline">
+                            <input type="hidden" name="action" value="approve">
+                            <button class="btn btn-success btn-sm">Approve</button>
+                        </form>
+                        <form method="POST" action="{{ url_for('admin.handle_request', req_id=req.id) }}" style="display:inline">
+                            <input type="hidden" name="action" value="reject">
+                            <button class="btn btn-danger btn-sm">Reject</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+
+<!-- Recent Users -->
+<div class="card">
+    <div class="card__header">
+        <h2>Recently Added Users</h2>
+    </div>
+    <div class="card__body no-pad">
+        <table class="data-table">
+            <thead>
+                <tr><th>Name</th><th>Email</th><th>Role</th><th>Verified</th><th>Joined</th></tr>
+            </thead>
+            <tbody>
+                {% for user in recent_users %}
+                <tr>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td><span class="badge badge-{{ user.role | lower }}">{{ user.role }}</span></td>
+                    <td>
+                        {% if user.is_verified %}
+                        <span class="badge badge-verified">Verified</span>
+                        {% else %}
+                        <span class="badge badge-unverified">Pending</span>
+                        {% endif %}
+                    </td>
+                    <td class="text-muted text-sm">{{ user.created_at[:16] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

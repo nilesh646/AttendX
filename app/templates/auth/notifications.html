@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Notifications — AttendX{% endblock %}
+{% block content %}
+<div style="max-width:600px;margin:2rem auto;padding:0 1rem">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem">
+        <h1 style="font-family:var(--font-display);font-size:1.4rem">Notifications</h1>
+        <a href="javascript:history.back()" class="btn btn-outline btn-sm">&larr; Back</a>
+    </div>
+    {% if notifications %}
+    {% for n in notifications %}
+    <div class="card" style="margin-bottom:0.8rem;{{ '' if n.is_read else 'border-left:3px solid var(--accent)' }}">
+        <div class="card__body" style="padding:1rem">
+            <div style="font-weight:600;margin-bottom:0.2rem">{{ n.title }}</div>
+            <div class="text-sm text-muted">{{ n.message }}</div>
+            <div style="display:flex;justify-content:space-between;margin-top:0.5rem">
+                <span class="text-sm text-muted">{{ n.created_at[:16] }}</span>
+                {% if n.link %}<a href="{{ n.link }}" class="text-sm">View &rarr;</a>{% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="card"><div class="card__body text-center text-muted" style="padding:3rem">No notifications yet.</div></div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends "admin/dashboard.html" %}
+{% block title %}Manage Students — AttendX{% endblock %}
+{% block page_title %}Manage Students{% endblock %}
+
+{% block dashboard_content %}
+<div class="card">
+    <div class="card__header">
+        <h2>Students ({{ students | length }})</h2>
+        <div class="search-bar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" placeholder="Search students…" onkeyup="filterTable(this.value, 'studentsTable')">
+        </div>
+    </div>
+    <div class="card__body no-pad">
+        {% if students %}
+        <table class="data-table" id="studentsTable">
+            <thead>
+                <tr><th>Name</th><th>Email</th><th>Batch</th><th>Verified</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+                {% for s in students %}
+                <tr>
+                    <td><strong>{{ s.name }}</strong></td>
+                    <td>{{ s.email }}</td>
+                    <td>
+                        {% if s.batch_name %}
+                        <span class="badge badge-student">{{ s.batch_name }}</span>
+                        {% else %}
+                        <span class="text-muted text-sm">Unassigned</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if s.is_verified %}
+                        <span class="badge badge-verified">Verified</span>
+                        {% else %}
+                        <span class="badge badge-unverified">Pending</span>
+                        {% endif %}
+                    </td>
+                    <td class="actions">
+                        <form method="POST" action="{{ url_for('admin.assign_student_batch') }}" style="display:inline-flex;gap:0.3rem;align-items:center">
+                            <input type="hidden" name="student_id" value="{{ s.id }}">
+                            <select name="batch_id" style="padding:0.3rem 0.5rem;border-radius:6px;border:1px solid var(--border);font-size:0.8rem;background:var(--bg-primary)">
+                                <option value="">— None —</option>
+                                {% for b in batches %}
+                                <option value="{{ b.id }}" {{ 'selected' if b.id == s.batch_id }}>{{ b.batch_name }}</option>
+                                {% endfor %}
+                            </select>
+                            <button class="btn btn-outline btn-sm">Assign</button>
+                        </form>
+                        <form method="POST" action="{{ url_for('admin.delete_student', user_id=s.id) }}"
+                              onsubmit="return confirm('Delete {{ s.name }}?')" style="display:inline">
+                            <button class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state">
+            <p>No students registered yet. Students self-register via the signup page.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function filterTable(query, tableId) {
+    const rows = document.querySelectorAll('#' + tableId + ' tbody tr');
+    const q = query.toLowerCase();
+    rows.forEach(row => {
+        row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+    });
+}
+</script>
+{% endblock %}

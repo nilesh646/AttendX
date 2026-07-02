@@ -1,0 +1,807 @@
+{% extends "student/dashboard.html" %}
+{% block title %}Check In — AttendX{% endblock %}
+{% block page_title %}{{ active_session.subject_name }}{% endblock %}
+
+{% block header_actions %}
+<span class="text-sm text-muted">{{ active_session.faculty_name }}</span>
+{% endblock %}
+
+{% block dashboard_content %}
+<div style="max-width:460px;margin:0 auto">
+    <div class="checkin-card">
+        <div class="checkin-card__header" style="{{ 'background:var(--warning)' if active_session.session_phase == 'exit' else '' }}">
+            <h2>{{ active_session.subject_name }} — {{ active_session.batch_name }}</h2>
+            <div class="phase-tag">{{ active_session.session_phase | upper }} CHECK-IN</div>
+        </div>
+
+        <div class="checkin-card__body">
+            {% if existing_record and existing_record.entry_time and active_session.session_phase == 'entry' %}
+            <div class="checkin-result">
+                {% if existing_record.status == 'Absent' %}
+                <div class="icon-error" style="background:var(--danger-light);color:var(--danger);width:64px;height:64px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:1.8rem;margin-bottom:1rem">&#10007;</div>
+                <h3>Attendance Rejected</h3>
+                <p>Your face did not match the enrolled profile. Marked absent.</p>
+                
+                {% elif existing_record.flagged_for_audit %}
+                <div class="icon-success" style="background:var(--warning-light);color:var(--warning);width:64px;height:64px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:1.8rem;margin-bottom:1rem">!</div>
+                <h3>Pending Review</h3>
+                <p>Your check-in is pending manual review by the faculty.</p>
+                
+                {% else %}
+                <div class="icon-success">&#10003;</div>
+                <h3>Entry Already Recorded</h3>
+                <p>You marked entry at {{ existing_record.entry_time[:19] }}.</p>
+                {% endif %}
+                <a href="{{ url_for('student.dashboard') }}" class="btn btn-outline mt-2">Back to Dashboard</a>
+                {% else %}
+            </div>
+
+            <!-- ══════ STEP 0: Permission Check ══════ -->
+            <div id="stepPermissions">
+                <div style="text-align:center;padding:1rem 0">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" style="margin-bottom:0.8rem">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                    <h3 style="font-family:var(--font-display);margin-bottom:0.3rem">Verification Required</h3>
+                    <p class="text-sm text-muted" style="margin-bottom:1.2rem">
+                        AttendX needs camera and location access to verify your attendance.
+                    </p>
+                </div>
+
+                <!-- Permission status indicators -->
+                <div id="permStatus" style="display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1.2rem">
+                    <div id="permCamera" class="perm-item">
+                        <span class="perm-icon" id="permCameraIcon">⏳</span>
+                        <span>Camera — <span id="permCameraText">Checking...</span></span>
+                    </div>
+                    <div id="permGeo" class="perm-item">
+                        <span class="perm-icon" id="permGeoIcon">⏳</span>
+                        <span>Location — <span id="permGeoText">Checking...</span></span>
+                    </div>
+                    <div id="permHttps" class="perm-item">
+                        <span class="perm-icon" id="permHttpsIcon">⏳</span>
+                        <span>Secure Connection — <span id="permHttpsText">Checking...</span></span>
+                    </div>
+                </div>
+
+                <!-- Error banner (hidden by default) -->
+                <div id="permError" class="hidden" style="background:var(--danger-light);padding:0.8rem 1rem;border-radius:var(--radius-md);margin-bottom:1rem">
+                    <div style="font-weight:600;font-size:0.85rem;color:var(--danger);margin-bottom:0.3rem">Cannot Proceed</div>
+                    <div class="text-sm" id="permErrorMsg" style="color:#991b1b"></div>
+                </div>
+
+                <button class="btn btn-primary btn-block" id="grantPermBtn" onclick="requestPermissions()">
+                    Grant Permissions & Continue
+                </button>
+
+                <p class="text-center text-sm text-muted mt-2">
+                    Your browser will ask for camera and location access.<br>
+                    Please tap <strong>"Allow"</strong> when prompted.
+                </p>
+            </div>
+
+            <!-- ══════ STEP 1: QR Scan (no PIN — QR only) ══════ -->
+            <div id="stepToken" class="hidden">
+                <div id="geoStatusBar" class="hidden" style="background:var(--bg-primary);padding:0.5rem 0.8rem;border-radius:var(--radius-sm);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem">
+                    <span id="geoStatusIcon" style="font-size:0.9rem">📍</span>
+                    <span id="geoStatusText" class="text-sm"></span>
+                </div>
+
+                <div style="text-align:center;margin-bottom:0.5rem">
+    <span class="phase-tag">Scan QR Code</span>
+</div>
+
+
+                <div id="qrSection">
+                    <p class="text-center text-sm text-muted mb-2">Point your camera at the QR code</p>
+                    <div class="selfie-area" style="aspect-ratio:1/1;max-width:320px;margin:0 auto">
+                        <video id="qrVideo"
+       autoplay
+       playsinline
+       muted
+       style="width:100%;height:100%;object-fit:cover; touch-action:none;">
+</video>
+                    </div>
+                    <p class="text-center text-sm text-muted mt-1" id="qrStatus">Initializing camera...</p>
+                </div>
+
+                <div id="tokenError" class="hidden" style="margin-top:1rem">
+                    <div class="flash-msg danger" id="tokenErrorMsg"></div>
+                </div>
+            </div>
+
+            <!-- ══════ STEP 2: Live Selfie with Liveness Check ══════ -->
+            <div id="stepSelfie" class="hidden">
+                <div style="text-align:center;margin-bottom:0.5rem">
+                    <p class="text-sm text-muted">Take a <strong>live selfie</strong> to confirm your presence</p>
+                    <p class="text-sm" style="color:var(--warning);font-size:0.75rem">Photos, videos, and multiple faces will be rejected</p>
+                </div>
+
+                <!-- Liveness status -->
+                <div id="livenessBar" style="background:var(--bg-primary);padding:0.4rem 0.8rem;border-radius:var(--radius-sm);margin-bottom:0.8rem;text-align:center">
+                    <span id="livenessStatus" class="text-sm text-muted">Checking liveness... move your head slightly</span>
+                </div>
+
+                <div class="selfie-area" id="selfieArea" style="position:relative">
+
+    <video id="selfieVideo" autoplay playsinline muted
+    style="width:100%;height:100%;object-fit:cover"></video>
+
+    <canvas id="selfieCanvas" class="hidden"></canvas>
+
+    <canvas id="livenessCanvas1" style="display:none"></canvas>
+
+    <div id="selfieGuide">
+        ...
+    </div>
+
+    <button class="capture-btn"
+            id="captureBtn"
+            onclick="captureSelfie()"
+            style="display:none"></button>
+
+</div>
+
+                <div id="selfiePreview" class="hidden" style="text-align:center;margin-top:1rem">
+                    <p class="text-sm" style="color:var(--success);font-weight:600;margin-bottom:0.5rem">&#10003; Photo captured</p>
+                    <button class="btn btn-outline btn-sm" onclick="retakeSelfie()">Retake</button>
+                    <button class="btn btn-primary btn-sm" onclick="submitSelfie()">Submit & Finish</button>
+                </div>
+
+                <div id="selfieError" class="hidden" style="text-align:center;padding:1.5rem">
+                    <div style="font-size:2rem;margin-bottom:0.5rem">📷</div>
+                    <p class="text-sm" id="selfieErrorMsg" style="color:var(--danger)"></p>
+                    <button class="btn btn-outline btn-sm mt-2" onclick="retrySelfieCamera()">Try Again</button>
+                </div>
+            </div>
+
+            <!-- ══════ STEP 3: Success ══════ -->
+            <div id="stepSuccess" class="hidden">
+                <div class="checkin-result">
+                    <div class="icon-success">&#10003;</div>
+                    <h3 id="successTitle">Check-in Complete!</h3>
+                    <p id="successMsg">Your attendance has been recorded.</p>
+                    <div id="faceMatchBadge" class="hidden" style="margin-top:0.3rem"></div>
+                    <div id="geoResultBadge" class="hidden" style="margin-top:0.3rem"></div>
+                    <a href="{{ url_for('student.dashboard') }}" class="btn btn-primary mt-2">Back to Dashboard</a>
+                </div>
+            </div>
+
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<style>
+.perm-item {
+    display: flex; align-items: center; gap: 0.6rem;
+    padding: 0.6rem 0.8rem; background: var(--bg-primary);
+    border-radius: var(--radius-sm); font-size: 0.88rem;
+}
+.perm-icon { font-size: 1.1rem; width: 24px; text-align: center; }
+.perm-ok .perm-icon { color: var(--success); }
+.perm-fail .perm-icon { color: var(--danger); }
+.perm-wait .perm-icon { color: var(--warning); }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/student_checkin.js') }}"></script>
+<script>
+const SESSION_ID = {{ session_id }};
+const PHASE = '{{ active_session.session_phase }}';
+const GEO_ENABLED = {{ 'true' if geo_enabled else 'false' }};
+const CLASSROOM_LAT = {{ classroom_lat | default(0) }};
+const CLASSROOM_LNG = {{ classroom_lng | default(0) }};
+
+let capturedSelfieData = null;
+let geoData = null;
+let permissionsReady = false;
+
+// ═══════════════════════════════════════════════════
+//  STEP 0: Check & Request Permissions
+// ═══════════════════════════════════════════════════
+
+document.addEventListener("DOMContentLoaded", async function initPermissionCheck() {
+
+    // Run only if permission UI exists
+    const permCamera = document.getElementById("permCamera");
+
+    if (!permCamera) {
+        console.log("Permission UI not present — skipping permission check");
+        return;
+    }
+
+    try {
+
+        // Check camera permission state (without prompting)
+        const camPerm = await StudentCheckIn.checkCameraPermission();
+
+        if (camPerm === 'granted') {
+            setPermStatus('permCamera', true, 'Allowed');
+
+        } else if (camPerm === 'denied') {
+
+            setPermStatus('permCamera', false,
+                'Blocked — update browser settings'
+            );
+
+            showPermError(
+                'Camera permission is blocked. Go to browser Settings → Site Settings → Camera → Allow for this site, then reload.'
+            );
+
+            return;
+
+        } else {
+
+            setPermStatus(
+                'permCamera',
+                null,
+                'Will ask when you continue'
+            );
+
+        }
+
+        // Check geolocation permission
+        if (GEO_ENABLED) {
+
+            const geoPerm =
+                await StudentCheckIn.checkGeoPermission();
+
+            if (geoPerm === 'granted') {
+
+                setPermStatus(
+                    'permGeo',
+                    true,
+                    'Allowed'
+                );
+
+            } else if (geoPerm === 'denied') {
+
+                setPermStatus(
+                    'permGeo',
+                    false,
+                    'Blocked — update browser settings'
+                );
+
+                showPermError(
+                    'Location permission is blocked. Go to browser Settings → Site Settings → Location → Allow for this site, then reload.'
+                );
+
+                return;
+
+            } else {
+
+                setPermStatus(
+                    'permGeo',
+                    null,
+                    'Will ask when you continue'
+                );
+
+            }
+
+        } else {
+
+            setPermStatus(
+                'permGeo',
+                true,
+                'Not required'
+            );
+
+        }
+
+        // Auto proceed if already granted
+        if (
+            camPerm === 'granted' &&
+            (
+                !GEO_ENABLED ||
+                (
+                    await StudentCheckIn.checkGeoPermission()
+                ) === 'granted'
+            )
+        ) {
+            await proceedAfterPermissions();
+        }
+
+    }
+    catch (err) {
+
+        console.error(
+            "Permission init failed:",
+            err
+        );
+
+    }
+
+});
+
+function setPermStatus(elemId, ok, text) {
+    const el = document.getElementById(elemId);
+    const icon = document.getElementById(elemId + 'Icon');
+    const txt = document.getElementById(elemId + 'Text');
+
+    // 🛡️ Prevent crash if element not found
+    if (!el || !icon || !txt) {
+        console.warn("Permission element missing:", elemId);
+        return;
+    }
+
+    if (ok === true) {
+        el.className = 'perm-item perm-ok';
+        icon.textContent = '✓';
+    }
+    else if (ok === false) {
+        el.className = 'perm-item perm-fail';
+        icon.textContent = '✗';
+    }
+    else {
+        el.className = 'perm-item perm-wait';
+        icon.textContent = '⏳';
+    }
+
+    txt.textContent = text;
+}
+
+function showPermError(msg) {
+    document.getElementById('permError').classList.remove('hidden');
+    document.getElementById('permErrorMsg').textContent = msg;
+    document.getElementById('grantPermBtn').disabled = true;
+    document.getElementById('grantPermBtn').style.opacity = '0.5';
+}
+
+async function requestPermissions() {
+    const btn = document.getElementById('grantPermBtn');
+    btn.classList.add('btn-loading');
+    btn.textContent = 'Requesting...';
+
+    const testVideo = document.createElement('video');
+    const camResult = await StudentCheckIn.requestCamera(testVideo, 'user');
+    if (camResult.ok) {
+        setPermStatus('permCamera', true, 'Allowed');
+        StudentCheckIn.stopCamera(); 
+    } else {
+        setPermStatus('permCamera', false, camResult.error.split('.')[0]);
+        showPermError(camResult.error);
+        btn.classList.remove('btn-loading');
+        btn.textContent = 'Grant Permissions & Continue';
+        return;
+    }
+
+    if (GEO_ENABLED && CLASSROOM_LAT !== 0) {
+        geoData = await StudentCheckIn.getLocation(CLASSROOM_LAT, CLASSROOM_LNG);
+        if (geoData.ok) {
+            setPermStatus('permGeo', true, `Allowed (${geoData.distance}m from class)`);
+        } else {
+            // 🔥 NEW: Specifically catch Spoofing/Stale errors
+            if (geoData.errorType === 'spoof') {
+                alert(geoData.error);
+                setPermStatus('permGeo', false, 'Security Alert: Location Spoofing Detected');
+                btn.classList.remove('btn-loading');
+                btn.textContent = 'Retry without Spoofing';
+                return; // Stop them here
+            }
+            
+            setPermStatus('permGeo', false, geoData.error.split('.')[0]);
+            if (geoData.errorType === 'denied') {
+                setPermStatus('permGeo', false, 'Denied — attendance will need manual review');
+            }
+        }
+    } else {
+        geoData = { ok: false, errorType: 'disabled' };
+        setPermStatus('permGeo', true, 'Not required');
+    }
+
+    await proceedAfterPermissions();
+}
+
+async function proceedAfterPermissions() {
+    permissionsReady = true;
+
+    // 🔥 Re-fetch ensures moving students are tracked correctly
+    if (GEO_ENABLED && CLASSROOM_LAT !== 0) {
+        geoData = await StudentCheckIn.getLocation(CLASSROOM_LAT, CLASSROOM_LNG);
+    }
+
+    let isAllowedToScan = true;
+
+    if (geoData && geoData.ok) {
+        const bar = document.getElementById('geoStatusBar');
+        bar.classList.remove('hidden');
+        bar.style.display = 'flex';
+        const icon = document.getElementById('geoStatusIcon');
+        const text = document.getElementById('geoStatusText');
+
+        if (geoData.trustLevel === 'strong') {
+            icon.textContent = '✅'; text.textContent = `In classroom (${geoData.distance}m away, score: ${geoData.trustScore})`;
+            bar.style.background = 'var(--success-light)';
+        } else if (geoData.trustLevel === 'moderate') {
+            icon.textContent = '🟡'; text.textContent = `Nearby (${geoData.distance}m away, score: ${geoData.trustScore})`;
+            bar.style.background = 'var(--warning-light)';
+        } else if (geoData.trustLevel === 'weak') {
+            icon.textContent = '🟠'; text.textContent = `Far from class (${geoData.distance}m, score: ${geoData.trustScore})`;
+            bar.style.background = 'var(--warning-light)';
+        } else {
+            icon.textContent = '🔴'; text.textContent = `OUT OF BOUNDS (${geoData.distance}m). Move closer to scan.`;
+            bar.style.background = 'var(--danger-light)';
+            isAllowedToScan = false; 
+        }
+    } else if (geoData && geoData.errorType === 'spoof') {
+        // 🔥 Hide camera if spoofing is detected
+        isAllowedToScan = false;
+    }
+
+    document.getElementById('stepPermissions').classList.add('hidden');
+    document.getElementById('stepToken').classList.remove('hidden');
+    
+    if (isAllowedToScan) {
+        startQRScan();
+    } else {
+        const videoElement = document.getElementById('qrVideo');
+        if (videoElement) { videoElement.style.display = 'none'; }
+        
+        const statusText = document.getElementById('qrStatus');
+        if (statusText) {
+            statusText.textContent = geoData?.errorType === 'spoof' ? 
+                'Security Alert: Prohibited location software detected.' : 
+                'Camera Disabled: You must be within 50 meters of the classroom.';
+            statusText.style.color = 'red';
+            statusText.style.fontWeight = 'bold';
+        }
+    }
+}
+// ═══════════════════════════════════════════════════
+//  STEP 1: QR Scan Only (no PIN)
+// ═══════════════════════════════════════════════════
+async function startQRScan() {
+    const video = document.getElementById('qrVideo');
+    const status = document.getElementById('qrStatus');
+    
+    const result = await StudentCheckIn.startQRScanner(video, async (rawData) => {
+        status.textContent = 'QR detected! Validating...';
+        
+        // 1. Grab the permanent hardware lock ID
+        const deviceInfo = StudentCheckIn.getDeviceInfo();
+        
+        // 🔍 TEST OUTPUT: Print to the Browser Console (Press F12 to see this)
+        console.log("====================================");
+        console.log("🚀 QR SCANNED!");
+        console.log("📱 Device Info Generated: ", deviceInfo);
+        console.log("====================================");
+        
+        // 2. Pass it to the submitQR function
+        const valResult = await StudentCheckIn.submitQR(SESSION_ID, rawData, geoData, deviceInfo);
+        
+        handleValidationResult(valResult);
+    });
+    
+    if (result.ok) {
+        status.textContent = 'Scanning... hold your phone steady near the QR';
+    } else {
+        status.textContent = result.error || 'Camera Error';
+    }
+}
+
+function handleValidationResult(result) {
+    if (result.already_marked) { showSuccess('Already Recorded', result.message || 'Your attendance was already marked.'); return; }
+    if (!result.valid) {
+        showTokenError(result.reason || 'Invalid QR code. Make sure you scan the current code.');
+        return;
+    }
+    if (result.needs_selfie && PHASE === 'entry') {
+        document.getElementById('stepToken').classList.add('hidden');
+        document.getElementById('stepSelfie').classList.remove('hidden');
+        StudentCheckIn.stopQRScanner();
+        openSelfieCamera();
+    } else {
+        StudentCheckIn.stopQRScanner();
+        showSuccess('Exit Recorded', 'You may leave. Have a great day!');
+    }
+}
+
+// ═══════════════════════════════════════════════════
+//  STEP 2: Live Selfie with Liveness Detection
+// ═══════════════════════════════════════════════════
+
+let livenessFrames = [];
+let livenessInterval = null;
+let livenessPass = false;
+
+async function openSelfieCamera() {
+    const video = document.getElementById('selfieVideo');
+    const errorDiv = document.getElementById('selfieError');
+    const errorMsg = document.getElementById('selfieErrorMsg');
+    const captureBtn = document.getElementById('captureBtn');
+    const statusText = document.getElementById('livenessStatus');
+    const statusBar = document.getElementById('livenessBar');
+
+    // Safety — stop previous liveness loop if any
+    if (livenessInterval) {
+        clearInterval(livenessInterval);
+        livenessInterval = null;
+    }
+
+    // Request camera
+    const result = await StudentCheckIn.requestCamera(video, 'user');
+
+    if (!result.ok) {
+        video.parentElement.classList.add('hidden');
+        errorDiv.classList.remove('hidden');
+        errorMsg.textContent = result.error;
+        return;
+    }
+
+    // Reset state
+    livenessFrames = [];
+    livenessPass = false;
+
+    captureBtn.style.display = 'none';
+
+    statusText.textContent =
+        'Checking liveness... move your head slightly';
+
+    statusText.style.color = '';
+    statusBar.style.background = '';
+
+    // Start liveness detection
+    livenessInterval = setInterval(() => {
+
+        if (!video.videoWidth) return;
+
+        const canvas =
+            document.getElementById('livenessCanvas1');
+
+        if (!canvas) {
+            console.error(
+                "Missing liveness canvas element"
+            );
+            return;
+        }
+
+        const ctx =
+            canvas.getContext('2d');
+
+        if (!ctx) {
+            console.error(
+                "Unable to get canvas context"
+            );
+            return;
+        }
+
+        // Resize canvas
+        canvas.width = 100;
+        canvas.height = 75;
+
+        // Draw frame
+        ctx.drawImage(
+            video,
+            0,
+            0,
+            100,
+            75
+        );
+
+        const frameData =
+            ctx.getImageData(
+                0,
+                0,
+                100,
+                75
+            ).data;
+
+        // Store frames
+        livenessFrames.push(frameData);
+
+        if (livenessFrames.length > 5) {
+            livenessFrames.shift();
+        }
+
+        if (livenessFrames.length >= 3) {
+
+            const firstFrame =
+                livenessFrames[0];
+
+            const lastFrame =
+                livenessFrames[
+                    livenessFrames.length - 1
+                ];
+
+            let diff = 0;
+
+            for (
+                let i = 0;
+                i < firstFrame.length;
+                i += 4
+            ) {
+                diff += Math.abs(
+                    firstFrame[i] -
+                    lastFrame[i]
+                );
+            }
+
+            const avgDiff =
+                diff /
+                (firstFrame.length / 4);
+
+            /*
+            Motion thresholds:
+
+            <= 3     → no motion
+            3–80     → normal human motion
+            > 80     → excessive / noise / video
+            */
+
+            if (
+                avgDiff > 3 &&
+                avgDiff < 80
+            ) {
+
+                livenessPass = true;
+
+                statusText.textContent =
+                    '✓ Liveness confirmed — you may capture now';
+
+                statusText.style.color =
+                    'var(--success)';
+
+                statusBar.style.background =
+                    'var(--success-light)';
+
+                captureBtn.style.display =
+                    '';
+
+            }
+            else if (avgDiff <= 3) {
+
+                statusText.textContent =
+                    '⚠ No motion detected — move your head slightly';
+
+                statusText.style.color =
+                    'var(--warning)';
+
+                statusBar.style.background =
+                    'var(--warning-light)';
+
+                captureBtn.style.display =
+                    'none';
+
+            }
+            else {
+
+                statusText.textContent =
+                    '⚠ Too much motion — hold steady';
+
+                statusText.style.color =
+                    'var(--warning)';
+
+                captureBtn.style.display =
+                    'none';
+
+            }
+
+        }
+
+    }, 400);
+}
+
+function stopLiveness() {
+    if (livenessInterval) { clearInterval(livenessInterval); livenessInterval = null; }
+}
+
+async function retrySelfieCamera() {
+    stopLiveness();
+    document.getElementById('selfieError').classList.add('hidden');
+    document.getElementById('selfieArea').classList.remove('hidden');
+    await openSelfieCamera();
+}
+
+function captureSelfie() {
+    if (!livenessPass) {
+        alert('Liveness not confirmed. Please move your head slightly so the system can detect you are live.');
+        return;
+    }
+    stopLiveness();
+
+    const video = document.getElementById('selfieVideo');
+    const canvas = document.getElementById('selfieCanvas');
+    capturedSelfieData = StudentCheckIn.captureFrame(video, canvas);
+
+    video.classList.add('hidden');
+    canvas.classList.remove('hidden');
+    document.getElementById('captureBtn').style.display = 'none';
+    document.getElementById('selfieGuide').classList.add('hidden');
+    document.getElementById('livenessBar').classList.add('hidden');
+    document.getElementById('selfiePreview').classList.remove('hidden');
+}
+
+function retakeSelfie() {
+    document.getElementById('selfieVideo').classList.remove('hidden');
+    document.getElementById('selfieCanvas').classList.add('hidden');
+    document.getElementById('selfieGuide').classList.remove('hidden');
+    document.getElementById('livenessBar').classList.remove('hidden');
+    document.getElementById('selfiePreview').classList.add('hidden');
+    capturedSelfieData = null;
+    openSelfieCamera(); // Restart liveness
+}
+
+async function submitSelfie() {
+    if (!capturedSelfieData) return;
+    const btn = document.querySelector('#selfiePreview .btn-primary');
+    btn.classList.add('btn-loading'); 
+    btn.textContent = 'Uploading...';
+
+    const result = await StudentCheckIn.uploadSelfie(SESSION_ID, capturedSelfieData);
+    StudentCheckIn.stopCamera();
+    stopLiveness();
+
+    // 🚨 Handle the 400 error (blank selfie rollback)
+    if (result.error) {
+        showTokenError(result.error);
+        document.getElementById('stepSelfie').classList.add('hidden');
+        document.getElementById('stepToken').classList.remove('hidden');
+        document.getElementById('qrStatus').textContent = "Check-in canceled. Please scan QR or enter PIN again.";
+        return;
+    }
+
+    let title = 'Entry Recorded!';
+    let msg = result.message || 'Your attendance and selfie have been saved.';
+
+    // 🚨 Change title based on ML 3-Tier Result
+    if (result.status_code === 'rejected') {
+        title = 'Attendance Rejected';
+    } else if (result.status_code === 'review') {
+        title = 'Pending Review';
+    }
+
+    // Show face match result badge
+    if (result.face_trust_score !== undefined) {
+        const badge = document.getElementById('faceMatchBadge');
+        badge.classList.remove('hidden');
+        const score = result.face_trust_score;
+        let color = score >= 80 ? 'var(--success)' : score >= 55 ? 'var(--warning)' : 'var(--danger)';
+        badge.innerHTML = `<span style="font-size:0.8rem;padding:0.2rem 0.6rem;border-radius:12px;background:${color}22;color:${color}">🔍 Face match: ${score}% — ${result.face_details || ''}</span>`;
+    }
+
+    showSuccess(title, msg);
+}
+
+// ═══════════════════════════════════════════════════
+//  UI Helpers
+// ═══════════════════════════════════════════════════
+
+function showTokenError(msg) {
+    const el = document.getElementById('tokenError');
+    document.getElementById('tokenErrorMsg').textContent = msg;
+    el.classList.remove('hidden');
+    setTimeout(() => el.classList.add('hidden'), 5000);
+}
+
+function showSuccess(title, msg) {
+    document.getElementById('stepToken').classList.add('hidden');
+    document.getElementById('stepSelfie').classList.add('hidden');
+    document.getElementById('stepSuccess').classList.remove('hidden');
+    document.getElementById('successTitle').textContent = title;
+    document.getElementById('successMsg').textContent = msg;
+
+    if (geoData && geoData.ok) {
+        const badge = document.getElementById('geoResultBadge');
+        badge.classList.remove('hidden');
+        const colors = { strong: 'var(--success)', moderate: 'var(--warning)', weak: 'var(--warning)', reject: 'var(--danger)' };
+        badge.innerHTML = `<span style="font-size:0.8rem;padding:0.2rem 0.6rem;border-radius:12px;background:${colors[geoData.trustLevel]}22;color:${colors[geoData.trustLevel]}">📍 ${geoData.distance}m from classroom (trust: ${geoData.trustScore}%)</span>`;
+    }
+
+    StudentCheckIn.stopCamera();
+    StudentCheckIn.stopQRScanner();
+    stopLiveness();
+}
+
+
+// Anti-DevTools Logic
+setInterval(() => {
+    const threshold = 160;
+    if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
+        document.body.innerHTML = "<div style='text-align:center; margin-top:100px;'><h1 style='color:red;'>Security Protocol</h1><p>Developer Tools are prohibited. Close the console to continue.</p></div>";
+        setTimeout(() => { location.reload(); }, 2000);
+    }
+}, 1000);
+</script>
+{% endblock %}

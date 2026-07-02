@@ -1,0 +1,147 @@
+{% extends "admin/dashboard.html" %}
+{% block title %}Manage Faculty — AttendX{% endblock %}
+{% block page_title %}Manage Faculty{% endblock %}
+
+{% block header_actions %}
+<button class="btn btn-primary btn-sm" onclick="openModal('addFacultyModal')">+ Add Faculty</button>
+{% endblock %}
+
+{% block dashboard_content %}
+<div class="card">
+    <div class="card__header">
+        <h2>Faculty Members ({{ faculty_list | length }})</h2>
+        <div class="search-bar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" placeholder="Search faculty…" onkeyup="filterTable(this.value, 'facultyTable')">
+        </div>
+    </div>
+    <div class="card__body no-pad">
+        {% if faculty_list %}
+        <table class="data-table" id="facultyTable">
+            <thead>
+                <tr><th>Name</th><th>Email</th><th>Verified</th><th>Created</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+                {% for f in faculty_list %}
+                <tr>
+                    <td><strong>{{ f.name }}</strong></td>
+                    <td>{{ f.email }}</td>
+                    <td>
+                        {% if f.is_verified %}
+                        <span class="badge badge-verified">Verified</span>
+                        {% else %}
+                        <span class="badge badge-unverified">Pending</span>
+                        {% endif %}
+                    </td>
+                    <td class="text-muted text-sm">{{ f.created_at[:10] }}</td>
+                    <td class="actions">
+                        <button class="btn btn-outline btn-sm"
+                                onclick="openEditFaculty({{ f.id }}, '{{ f.name }}', '{{ f.email }}')">Edit</button>
+                        <form method="POST" action="{{ url_for('admin.delete_faculty', user_id=f.id) }}"
+                              onsubmit="return confirm('Delete {{ f.name }}? This cannot be undone.')">
+                            <button class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            <p>No faculty members yet. Click <strong>"+ Add Faculty"</strong> to get started.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Add Faculty Modal -->
+<div class="modal-overlay hidden" id="addFacultyModal">
+    <div class="modal">
+        <div class="modal__header">
+            <h2>Add Faculty Member</h2>
+            <button class="modal__close" onclick="closeModal('addFacultyModal')">&times;</button>
+        </div>
+        <form method="POST" action="{{ url_for('admin.add_faculty') }}">
+            <div class="modal__body">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="Dr. Jane Smith" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="jane@university.edu" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Temporary Password</label>
+                    <input type="text" id="password" name="password" value="Faculty@123" required>
+                    <div class="password-hint">Faculty should change this on first login</div>
+                </div>
+            </div>
+            <div class="modal__footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('addFacultyModal')">Cancel</button>
+                <button type="submit" class="btn btn-primary">Add Faculty</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Edit Faculty Modal -->
+<div class="modal-overlay hidden" id="editFacultyModal">
+    <div class="modal">
+        <div class="modal__header">
+            <h2>Edit Faculty</h2>
+            <button class="modal__close" onclick="closeModal('editFacultyModal')">&times;</button>
+        </div>
+        <form method="POST" action="{{ url_for('admin.edit_faculty') }}">
+            <input type="hidden" name="user_id" id="editFacultyId">
+            <div class="modal__body">
+                <div class="form-group">
+                    <label for="editName">Full Name</label>
+                    <input type="text" id="editName" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="editEmail">Email</label>
+                    <input type="email" id="editEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="editPassword">New Password (leave blank to keep current)</label>
+                    <input type="text" id="editPassword" name="password" placeholder="Leave blank to keep">
+                </div>
+            </div>
+            <div class="modal__footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('editFacultyModal')">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+function openEditFaculty(id, name, email) {
+    document.getElementById('editFacultyId').value = id;
+    document.getElementById('editName').value = name;
+    document.getElementById('editEmail').value = email;
+    document.getElementById('editPassword').value = '';
+    openModal('editFacultyModal');
+}
+
+// Close modal on overlay click
+document.querySelectorAll('.modal-overlay').forEach(o => {
+    o.addEventListener('click', e => { if (e.target === o) o.classList.add('hidden'); });
+});
+
+function filterTable(query, tableId) {
+    const rows = document.querySelectorAll('#' + tableId + ' tbody tr');
+    const q = query.toLowerCase();
+    rows.forEach(row => {
+        row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+    });
+}
+</script>
+{% endblock %}

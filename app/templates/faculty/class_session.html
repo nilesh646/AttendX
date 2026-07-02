@@ -1,0 +1,408 @@
+{% extends "faculty/dashboard.html" %}
+{% block title %}{{ slot.subject_code }} Session — AttendX{% endblock %}
+{% block page_title %}{{ slot.subject_name }} — {{ slot.batch_name }}{% endblock %}
+
+{% block header_actions %}
+<span class="text-sm text-muted">{{ slot.day_of_week }} {{ slot.start_time }}–{{ slot.end_time }}</span>
+{% endblock %}
+
+{% block dashboard_content %}
+<div id="sessionControls">
+    {% if active_session %}
+    <div id="preStart" class="hidden"></div>
+    
+    {% elif completed_today %}
+    <div class="card" style="text-align:center;padding:4rem 2rem;">
+        <div style="margin-bottom:1rem; color: var(--success);">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+        </div>
+        <h2 style="font-family:var(--font-display);">Class Completed</h2>
+        <p class="text-muted">You have successfully conducted and ended this session for today. Student hardware locks have been released.</p>
+    </div>
+    
+    {% else %}
+    <div id="preStart" class="card" style="text-align:center;padding:3rem">
+        <button class="btn btn-primary" onclick="handleStartSession()" id="startBtn">
+            Start Session
+        </button>
+    </div>
+    {% endif %}
+</div>
+
+<div id="projectorPanel" class="{{ '' if active_session else 'hidden' }}">
+    <div class="card">
+        <div class="card__body">
+            <div class="projector">
+                <div class="projector__status">
+                    <div class="status-dot" id="statusDot"></div>
+                    <span>Session Active</span>
+                    <span class="phase-label phase-entry" id="phaseLabel">
+                        {{ active_session.session_phase | upper if active_session else 'ENTRY' }}
+                    </span>
+                </div>
+
+                <div class="projector__tokens">
+
+
+                    <div class="token-block" style="position:relative">
+                        <div class="token-block__label">Scan QR Code to Mark Attendance</div>
+
+                        <div class="qr-container" style="padding:1.5rem;position:relative" id="qrContainer">
+                            <img id="qrImage"
+     src=""
+     alt="QR Code"
+     style="
+        width:320px;
+        height:320px;
+        image-rendering:pixelated;
+        display:none;
+     "
+     onload="this.style.display='block'">
+
+                            <div id="antiScreenshot"
+                                 style="position:absolute;inset:0;pointer-events:none;display:flex;align-items:center;justify-content:center;overflow:hidden;z-index:10;">
+
+                                <div id="movingTimestamp"
+                                     style="font-family:var(--font-mono);
+                                            font-size:0.8rem;
+                                            font-weight:700;
+                                            color:rgba(255,255,255,0.95);
+                                            background:rgba(0,0,0,0.4);
+                                            padding:2px 8px;
+                                            border-radius:4px;
+                                            backdrop-filter:blur(2px);
+                                            text-shadow:0px 1px 3px rgba(0,0,0,0.8);
+                                            position:absolute;
+                                            transform:rotate(-30deg);
+                                            white-space:nowrap">
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="text-sm text-muted mt-1" style="text-align:center">
+                            QR refreshes every few seconds — screenshots won't work
+                        </p>
+                    </div>
+                </div>
+
+                <div style="text-align:center;width:100%;max-width:500px">
+                    <div class="timer-text">
+                        <span class="label">Refreshes in</span>
+                        <span id="timerValue">15</span>s
+                    </div>
+                    <div class="timer-bar-container">
+                        <div class="timer-bar" id="timerBar"></div>
+                    </div>
+                </div>
+
+                <div class="projector__controls">
+                    <button class="btn btn-outline" id="switchPhaseBtn" onclick="handleSwitchPhase()">
+                        Switch to EXIT
+                    </button>
+                    <button class="btn btn-danger" onclick="handleEndSession()">
+                        End Session
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="rosterPanel" class="{{ '' if active_session or completed_today else 'hidden' }}">
+    <div class="card">
+        <div class="card__header">
+            <h2>
+                Live Roster
+                <span class="text-muted text-sm" id="rosterCount">(0 / 0)</span>
+            </h2>
+            <div style="display:flex;gap:0.5rem;align-items:center">
+                <div class="search-bar" style="min-width:220px">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <input type="text" placeholder="Search student for override…" id="overrideSearch" onkeyup="filterRoster(this.value)">
+                </div>
+            </div>
+        </div>
+        <div class="card__body no-pad">
+            <table class="data-table" id="rosterTable">
+                <thead>
+                    <tr>
+                        <th>Student</th>
+                        <th>Status</th>
+                        <th>Entry</th>
+                        <th>Exit</th>
+                        <th>Method</th>
+                        <th>Audit</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="rosterBody">
+                    <tr><td colspan="7" class="text-center text-muted" style="padding:2rem">Waiting for session to start…</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+
+<script src="{{ url_for('static', filename='js/dual_key.js') }}?v=2.3"></script>
+
+<script>
+const TIMETABLE_ID = {{ slot.id }};
+// 🔥 FIX: Check for active_session first, then completed_session_id
+let currentSessionId = {{ active_session.id if active_session else (completed_session_id if completed_session_id else 'null') }};
+const isCompleted = {{ 'true' if completed_today else 'false' }};
+
+// 1. Initialize the UI elements for the Engine
+DualKeyEngine.init({
+    qrImg: document.getElementById('qrImage'),
+    timer: document.getElementById('timerValue'),
+    timerBar: document.getElementById('timerBar'),
+    phaseLabel: document.getElementById('phaseLabel'),
+    statusDot: document.getElementById('statusDot'),
+});
+
+// 2. Handle page loads for Active OR Completed sessions
+if (isCompleted && currentSessionId) {
+    // 🔥 NEW: Session is over. Just fetch the final roster once. No WebSockets.
+    fetch(`/api/session/${currentSessionId}/roster`)
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById('rosterCount').textContent = `(${data.present} / ${data.total} present)`;
+            renderRoster(data.students);
+        })
+        .catch(err => console.error("Failed to load completed roster", err));
+
+} else if (currentSessionId && !isCompleted) {
+    // Session is LIVE. Resume the WebSocket engine.
+    DualKeyEngine.resumeSession(currentSessionId);
+    
+    setTimeout(() => {
+        const btn = document.getElementById('switchPhaseBtn');
+        const phase = DualKeyEngine.getPhase();
+        if (phase === 'exit') {
+            btn.textContent = 'Switch to ENTRY';
+        } else {
+            btn.textContent = 'Switch to EXIT';
+        }
+    }, 500);
+
+    RosterPoller.start(currentSessionId, (data) => {
+        document.getElementById('rosterCount').textContent = `(${data.present} / ${data.total} present)`;
+        renderRoster(data.students);
+    });
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            async (position) => {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+                try {
+                    await fetch(`/api/session/${currentSessionId}/location`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ teacher_lat: lat, teacher_lng: lng })
+                    });
+                } catch (err) {
+                    console.error("Failed to update location on refresh", err);
+                }
+            },
+            (error) => {
+                console.warn("Could not get location on refresh:", error);
+            },
+            { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+        );
+    }
+}
+// 3. Handle Start Session Button
+async function handleStartSession() {
+    const btn = document.getElementById('startBtn');
+    btn.classList.add('btn-loading');
+    btn.textContent = 'Acquiring Location…'; // Tell the teacher what is happening
+
+    if (!navigator.geolocation) {
+        alert("Location services are not supported by this browser. Cannot establish attendance zone.");
+        btn.classList.remove('btn-loading');
+        btn.textContent = 'Start Session';
+        return;
+    }
+
+    // Force high-accuracy location tracking for the teacher
+    navigator.geolocation.getCurrentPosition(
+        async (position) => {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+            
+            btn.textContent = 'Starting…';
+
+            // 🔥 NEW: Pass lat and lng to the engine
+            const data = await DualKeyEngine.startSession(TIMETABLE_ID, lat, lng);
+            
+            if (data.error) {
+                alert(data.error);
+                btn.classList.remove('btn-loading');
+                btn.textContent = 'Start Session';
+                return;
+            }
+
+            currentSessionId = data.session_id;
+
+            document.getElementById('preStart').classList.add('hidden');
+            document.getElementById('projectorPanel').classList.remove('hidden');
+            document.getElementById('rosterPanel').classList.remove('hidden');
+
+            const qr = document.getElementById('qrImage');
+
+            /* keep hidden until image fully loads */
+            qr.style.display = 'none';
+
+            /* 🔥 SHOW FIRST QR IMMEDIATELY */
+            if (data.qr_image) {
+                const img = new Image();
+                img.onload = () => {
+                    qr.src = data.qr_image;
+                    qr.style.display = 'block';
+                };
+                img.src = data.qr_image;
+            }
+
+            // Start checking for students
+            RosterPoller.start(currentSessionId, (roster) => {
+                document.getElementById('rosterCount').textContent = `(${roster.present} / ${roster.total} present)`;
+                renderRoster(roster.students);
+            });
+        },
+        (error) => {
+            console.error("Geo Error:", error);
+            alert("Access Denied: You must allow Location access to start a session so your students can check in.");
+            btn.classList.remove('btn-loading');
+            btn.textContent = 'Start Session';
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 } // Critical for accurate teacher location
+    );
+}
+// 4. Handle Phase Switching (Entry/Exit)
+async function handleSwitchPhase() {
+    const current = DualKeyEngine.getPhase();
+    const newPhase = current === 'entry' ? 'exit' : 'entry';
+
+    const res = await DualKeyEngine.switchPhase(newPhase);
+
+    if (!res?.error) {
+        const btn = document.getElementById('switchPhaseBtn');
+
+        if (newPhase === 'exit') {
+            btn.textContent = 'Switch to ENTRY';
+        } else {
+            btn.textContent = 'Switch to EXIT';
+        }
+    }
+}
+
+// 5. Handle End Session
+// 5. Handle End Session
+async function handleEndSession() {
+    if (!confirm('End this session? All tokens will be invalidated.')) return;
+    
+    if (currentSessionId) {
+        try {
+            console.log("Stopping Session ID:", currentSessionId);
+            
+            // 🔥 THE FIX: Point to the exact API route and pass the ID in the JSON body
+            await fetch(`/api/session/end`, { 
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ session_id: currentSessionId })
+            });
+        } catch (err) {
+            console.error("Failed to reach backend:", err);
+        }
+    }
+
+    // This handles the local DualKeyEngine cleanup
+    if (typeof DualKeyEngine !== 'undefined') {
+        await DualKeyEngine.endSession();
+    }
+    
+    RosterPoller.stop();
+    
+    // Redirect back to the class page to see the "Completed" message
+    window.location.href = `/faculty/session/${TIMETABLE_ID}`;
+}
+// 6. Roster Rendering (Required for the dashboard list)
+function renderRoster(students) {
+    const body = document.getElementById('rosterBody');
+    if (!students.length) {
+        body.innerHTML = '<tr><td colspan="7" class="text-center text-muted" style="padding:2rem">No students in this batch.</td></tr>';
+        return;
+    }
+    
+    body.innerHTML = students.map(s => {
+        let statusHtml = '';
+        if (s.flagged) {
+            statusHtml = '<span class="badge badge-pending">Review</span>';
+        } else if (s.status === 'Present') {
+            statusHtml = '<span class="badge badge-approved">Present</span>';
+        } else if (s.status === 'Late') {
+            statusHtml = '<span class="badge badge-pending">Late</span>';
+        } else {
+            statusHtml = '<span class="badge badge-rejected">Absent</span>';
+        }
+
+        return `
+        <tr data-name="${s.name.toLowerCase()}">
+            <td><strong>${s.name}</strong><br><span class="text-muted text-sm">${s.email}</span></td>
+            <td>${statusHtml}</td>
+            <td class="text-sm">${s.entry_time ? new Date(s.entry_time).toLocaleTimeString() : '—'}</td>
+            <td class="text-sm">${s.exit_time ? new Date(s.exit_time).toLocaleTimeString() : '—'}</td>
+            <td class="text-sm">${s.method}</td>
+            <td>${s.flagged ? '<span class="badge badge-pending">⚑ Flagged</span>' : '—'}</td>
+            <td>${!s.entry_time 
+                ? `<button class="btn btn-outline btn-sm" onclick="handleOverride(${s.id}, '${s.name}')">Override</button>` 
+                : '—'}</td>
+        </tr>`;
+    }).join('');
+}
+
+// Manual Override Search Helper
+function filterRoster(q) {
+    q = q.toLowerCase();
+    document.querySelectorAll('#rosterBody tr').forEach(row => {
+        const name = row.dataset.name || '';
+        row.style.display = name.includes(q) ? '' : 'none';
+    });
+}
+
+async function handleOverride(id, name) {
+    if(!confirm(`Manually mark ${name} as present?`)) return;
+    const res = await fetch(`/api/session/${currentSessionId}/override`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({student_id: id})
+    });
+    if (res.ok) {
+        // Refresh roster immediately after override
+        RosterPoller.fetchNow(currentSessionId, (data) => renderRoster(data.students));
+    }
+}
+
+// 7. Anti-Screenshot Timestamp (Visual Only)
+(function antiScreenshot() {
+    const el = document.getElementById('movingTimestamp');
+    if (!el) return;
+    setInterval(() => {
+        const now = new Date();
+        el.textContent = now.toLocaleTimeString() + '.' + now.getMilliseconds().toString().padStart(3, '0');
+        el.style.left = (30 + Math.sin(Date.now()/500) * 20) + '%';
+        el.style.top = (30 + Math.cos(Date.now()/500) * 20) + '%';
+    }, 100);
+})();
+</script>
+{% endblock %}

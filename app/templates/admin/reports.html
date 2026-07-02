@@ -1,0 +1,79 @@
+{% extends "admin/dashboard.html" %}
+{% block title %}Reports — AttendX{% endblock %}
+{% block page_title %}Attendance Reports{% endblock %}
+
+{% block header_actions %}
+<a href="{{ url_for('admin.export_report', **filters) }}" class="btn btn-outline btn-sm">Export CSV</a>
+{% endblock %}
+
+{% block dashboard_content %}
+<!-- Filters -->
+<div class="card" style="margin-bottom:1rem">
+    <div class="card__body" style="padding:0.8rem 1.2rem">
+        <form method="GET" action="{{ url_for('admin.reports') }}" style="display:flex;gap:0.8rem;flex-wrap:wrap;align-items:end">
+            <div class="form-group" style="margin:0;flex:1;min-width:140px">
+                <label style="font-size:0.72rem">Batch</label>
+                <select name="batch_id" style="width:100%;padding:0.4rem;border-radius:6px;border:1px solid var(--border);font-size:0.85rem">
+                    <option value="">All Batches</option>
+                    {% for b in batches %}
+                    <option value="{{ b.id }}" {{ 'selected' if filters.batch_id == b.id|string }}>{{ b.batch_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group" style="margin:0;flex:1;min-width:140px">
+                <label style="font-size:0.72rem">Subject</label>
+                <select name="subject_id" style="width:100%;padding:0.4rem;border-radius:6px;border:1px solid var(--border);font-size:0.85rem">
+                    <option value="">All Subjects</option>
+                    {% for s in subjects %}
+                    <option value="{{ s.id }}" {{ 'selected' if filters.subject_id == s.id|string }}>{{ s.subject_code }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group" style="margin:0;min-width:130px">
+                <label style="font-size:0.72rem">From</label>
+                <input type="date" name="date_from" value="{{ filters.date_from }}" style="padding:0.4rem;border-radius:6px;border:1px solid var(--border);font-size:0.85rem">
+            </div>
+            <div class="form-group" style="margin:0;min-width:130px">
+                <label style="font-size:0.72rem">To</label>
+                <input type="date" name="date_to" value="{{ filters.date_to }}" style="padding:0.4rem;border-radius:6px;border:1px solid var(--border);font-size:0.85rem">
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm">Filter</button>
+        </form>
+    </div>
+</div>
+
+<!-- Summary -->
+<div class="stats-row">
+    <div class="stat-card"><div class="stat-card__icon blue"><svg viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg></div><div class="stat-card__body"><div class="label">Total Records</div><div class="value">{{ summary.total }}</div></div></div>
+    <div class="stat-card"><div class="stat-card__icon green"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div class="stat-card__body"><div class="label">Present</div><div class="value">{{ summary.present }}</div></div></div>
+    <div class="stat-card"><div class="stat-card__icon red"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div><div class="stat-card__body"><div class="label">Absent</div><div class="value">{{ summary.absent }}</div></div></div>
+</div>
+
+<!-- Records Table -->
+<div class="card">
+    <div class="card__header"><h2>Records ({{ records | length }})</h2></div>
+    <div class="card__body no-pad">
+        {% if records %}
+        <table class="data-table">
+            <thead><tr><th>Date</th><th>Student</th><th>Subject</th><th>Batch</th><th>Status</th><th>Entry</th><th>Exit</th><th>Method</th></tr></thead>
+            <tbody>
+                {% for r in records %}
+                <tr>
+                    <td class="text-sm">{{ r.date }}</td>
+                    <td><strong>{{ r.student_name }}</strong></td>
+                    <td class="text-sm">{{ r.subject_code }}</td>
+                    <td><span class="badge badge-student">{{ r.batch_name }}</span></td>
+                    <td>{% if r.status == 'Present' %}<span class="badge badge-approved">Present</span>{% elif r.status == 'Late' %}<span class="badge badge-pending">Late</span>{% else %}<span class="badge badge-rejected">Absent</span>{% endif %}</td>
+                    <td class="text-sm">{{ r.entry_time[:19] if r.entry_time else '—' }}</td>
+                    <td class="text-sm">{{ r.exit_time[:19] if r.exit_time else '—' }}</td>
+                    <td class="text-sm">{{ r.verification_method }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state"><p>No records found for the selected filters.</p></div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

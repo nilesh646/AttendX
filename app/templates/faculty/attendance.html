@@ -1,0 +1,94 @@
+{% extends "faculty/dashboard.html" %}
+{% block title %}Attendance History — AttendX{% endblock %}
+{% block page_title %}Attendance History{% endblock %}
+
+{% block dashboard_content %}
+<!-- Audit Roulette Flags -->
+{% if flagged %}
+<div class="card" style="border-color:var(--warning)">
+    <div class="card__header" style="background:var(--warning-light)">
+        <h2 style="color:var(--warning)">⚑ Flagged for Audit ({{ flagged | length }})</h2>
+    </div>
+    <div class="card__body">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1rem">
+            {% for f in flagged %}
+            <div style="border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;background:var(--bg-card)">
+                {% if f.selfie_filepath %}
+                <img src="{{ url_for('static', filename=f.selfie_filepath) }}" alt="Selfie"
+                     style="width:100%;height:140px;object-fit:cover">
+                {% else %}
+                <div style="width:100%;height:140px;background:var(--bg-primary);display:flex;align-items:center;justify-content:center" class="text-muted text-sm">No photo</div>
+                {% endif %}
+                <div style="padding:0.8rem">
+                    <div style="font-weight:600;font-size:0.9rem">{{ f.student_name }}</div>
+                    <div class="text-muted text-sm" style="margin-bottom:0.8rem">{{ f.subject_name }} · {{ f.date }}</div>
+                    
+                    <div style="display:flex;gap:0.4rem">
+                        <form method="POST" action="{{ url_for('faculty.review_attendance', record_id=f.id) }}" style="flex:1">
+                            <input type="hidden" name="action" value="verify">
+                            <button type="submit" class="btn btn-success btn-sm btn-block" style="padding:0.4rem;font-size:0.75rem">Verify</button>
+                        </form>
+                        <form method="POST" action="{{ url_for('faculty.review_attendance', record_id=f.id) }}" style="flex:1">
+                            <input type="hidden" name="action" value="reject">
+                            <button type="submit" class="btn btn-danger btn-sm btn-block" style="padding:0.4rem;font-size:0.75rem">Reject</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Full History -->
+<div class="card">
+    <div class="card__header">
+        <h2>Recent Records</h2>
+        <div class="search-bar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" placeholder="Search…" onkeyup="filterTable(this.value)">
+        </div>
+    </div>
+    <div class="card__body no-pad">
+        {% if records %}
+        <table class="data-table" id="historyTable">
+            <thead>
+                <tr><th>Date</th><th>Student</th><th>Subject</th><th>Status</th><th>Entry</th><th>Exit</th><th>Method</th><th>Audit</th></tr>
+            </thead>
+            <tbody>
+                {% for r in records %}
+                <tr>
+                    <td class="text-sm">{{ r.date }}</td>
+                    <td><strong>{{ r.student_name }}</strong></td>
+                    <td class="text-sm">{{ r.subject_code }}</td>
+                    <td>
+                        {% if r.status == 'Present' %}<span class="badge badge-approved">Present</span>
+                        {% elif r.status == 'Late' %}<span class="badge badge-pending">Late</span>
+                        {% else %}<span class="badge badge-rejected">Absent</span>{% endif %}
+                    </td>
+                    <td class="text-sm">{{ r.entry_time[:19] if r.entry_time else '—' }}</td>
+                    <td class="text-sm">{{ r.exit_time[:19] if r.exit_time else '—' }}</td>
+                    <td class="text-sm">{{ r.verification_method }}</td>
+                    <td>{% if r.flagged_for_audit %}<span class="badge badge-pending">⚑</span>{% else %}—{% endif %}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state"><p>No attendance records yet.</p></div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function filterTable(q) {
+    q = q.toLowerCase();
+    document.querySelectorAll('#historyTable tbody tr').forEach(row => {
+        row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+    });
+}
+</script>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Login — Attendance Portal{% endblock %}
+
+{% block flash_style %}position:static;margin-bottom:0;min-width:auto;max-width:none{% endblock %}
+
+{% block content %}
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <div class="auth-card__logo">
+            <div class="logo-icon">
+                <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/></svg>
+            </div>
+        </div>
+        <h1 class="auth-card__title">Welcome Back</h1>
+        <p class="auth-card__subtitle">Sign in to your attendance portal</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-container">
+            {% for category, message in messages %}
+            <div class="flash-msg {{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('auth.login') }}" id="loginForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <div class="input-icon-wrapper">
+                    <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/>
+                    </svg>
+                    <input type="email" id="email" name="email" placeholder="you@example.com" required autofocus
+                           value="{{ request.form.get('email', '') }}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-icon-wrapper">
+                    <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                    </svg>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required>
+                </div>
+            </div>
+
+            <div style="text-align:right;margin:-0.5rem 0 1.2rem">
+                <a href="{{ url_for('auth.forgot_password') }}" class="text-sm" style="color:var(--text-muted)">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block" id="loginBtn">
+                Sign In
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            New student? <a href="{{ url_for('auth.signup') }}">Create an account</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('loginForm').addEventListener('submit', function() {
+    const btn = document.getElementById('loginBtn');
+    btn.classList.add('btn-loading');
+    btn.textContent = 'Signing in…';
+});
+</script>
+{% endblock %}
