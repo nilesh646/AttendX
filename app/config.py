@@ -18,7 +18,25 @@ class Config:
     # --------------------------------------------------
     # Base Directory
     # --------------------------------------------------
-    BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+    BASE_DIR = os.path.abspath(
+        os.path.join(
+            os.path.dirname(__file__),
+            ".."
+        )
+    )
+
+    IS_RENDER = os.environ.get("RENDER") == "true"
+
+    DATA_ROOT = (
+        "/var/data"
+        if IS_RENDER
+        else BASE_DIR
+    )
+
+    MEDIA_ROOT = os.environ.get(
+        "MEDIA_ROOT",
+        os.path.join(DATA_ROOT, "media")
+    )
 
     # --------------------------------------------------
     # Database
@@ -26,7 +44,7 @@ class Config:
     # --------------------------------------------------
     DATABASE_PATH = os.getenv(
         "DATABASE_PATH",
-        os.path.join(BASE_DIR, "attendance.db")
+        os.path.join(DATA_ROOT, "attendance.db")
     )
 
     # --------------------------------------------------

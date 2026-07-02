@@ -2,21 +2,33 @@ services:
   - type: web
     name: attendx
     runtime: python
+
     plan: free
 
-    buildCommand: |
-      pip install --upgrade pip
-      pip install -r requirements.txt
+    buildCommand: ./build.sh
 
-    startCommand: |
-      gunicorn -w 1 -b 0.0.0.0:$PORT run:app
+    startCommand: gunicorn run:app --worker-class eventlet --workers 1 --bind 0.0.0.0:$PORT --timeout 300
+
+    autoDeploy: true
 
     envVars:
+
       - key: PYTHON_VERSION
         value: 3.11.9
 
       - key: RENDER
         value: "true"
 
-      - key: PYTHONUNBUFFERED
-        value: "1"
+      - key: FLASK_ENV
+        value: production
+
+      - key: DATABASE_PATH
+        value: /var/data/attendance.db
+
+      - key: MEDIA_ROOT
+        value: /var/data/media
+
+disk:
+  name: attendx-data
+  mountPath: /var/data
+  sizeGB: 5

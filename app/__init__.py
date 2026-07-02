@@ -16,7 +16,7 @@ from app.models import init_db, seed_admin
 # --- NEW: Initialize globally so routes can access it ---
 socketio = SocketIO(
     cors_allowed_origins="*",
-    async_mode="eventlet",
+    async_mode="gevent",
     logger=False,
     engineio_logger=False
 )
