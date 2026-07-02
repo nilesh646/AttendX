@@ -48,13 +48,35 @@ class BiometricEngine:
                 self._backend = "none"
 
     def _init_insightface(self):
+
         from insightface.app import FaceAnalysis
-        model_root = os.environ.get("INSIGHTFACE_MODEL_ROOT",
-                                     os.path.join(os.getcwd(), "models"))
-        model_name = os.environ.get("INSIGHTFACE_MODEL_NAME", "buffalo_l")
-        self._face_app = FaceAnalysis(name=model_name, root=model_root,
-                                       providers=['CPUExecutionProvider'])
-        self._face_app.prepare(ctx_id=0, det_size=(640, 640))
+
+        model_root = os.environ.get(
+            "INSIGHTFACE_MODEL_ROOT",
+            os.path.join(os.getcwd(), "models")
+        )
+
+        model_name = os.environ.get(
+            "INSIGHTFACE_MODEL_NAME",
+            "buffalo_l"
+        )
+
+        os.makedirs(model_root, exist_ok=True)
+
+        logger.info(f"Loading InsightFace model from {model_root}")
+
+        self._face_app = FaceAnalysis(
+            name=model_name,
+            root=model_root,
+            providers=["CPUExecutionProvider"]
+        )
+
+        self._face_app.prepare(
+            ctx_id=-1,
+            det_size=(640,640)
+        )
+
+        logger.info("InsightFace loaded successfully.")
 
     def _init_silent_face(self):
         import sys
@@ -67,7 +89,7 @@ class BiometricEngine:
         from utility import parse_model_name
 
         model_dir = os.environ.get("LIVENESS_MODEL_DIR",
-                                    os.path.join(os.getcwd(), "resources", "anti_spoof_models"))
+                                    os.path.join(current_app.root_path,"static", "resources", "anti_spoof_models"))
 
         if not os.path.isdir(model_dir):
             raise FileNotFoundError(f"Liveness model dir not found: {model_dir}")
@@ -216,19 +238,42 @@ class BiometricEngine:
         except Exception as e:
             return {"is_real": False, "bbox": None, "reason": f"Error: {str(e)}"}
 
-    def _embedding_deepface(self, image: np.ndarray) -> np.ndarray | None:
+    def _embedding_deepface(self,image):
+
         from deepface import DeepFace
+
         try:
-            results = DeepFace.represent(
-                img_path=image, model_name="ArcFace",
-                detector_backend="opencv", enforce_detection=True
+
+            results=DeepFace.represent(
+                img_path=image,
+                model_name="ArcFace",
+                detector_backend="opencv",
+                enforce_detection=True
             )
+
             if results:
-                # Sort deepface results by face area (w * h)
-                results = sorted(results, key=lambda r: r["facial_area"]["w"] * r["facial_area"]["h"], reverse=True)
-                emb = np.array(results[0]["embedding"], dtype=np.float32)
-        except Exception:
-            pass
+
+                results=sorted(
+                    results,
+                    key=lambda r:
+                    r["facial_area"]["w"]*
+                    r["facial_area"]["h"],
+                    reverse=True
+                )
+
+                emb=np.array(
+                    results[0]["embedding"],
+                    dtype=np.float32
+                )
+
+                emb=emb/np.linalg.norm(emb)
+
+                return emb
+
+        except Exception as e:
+
+            logger.error(e)
+
         return None
 
 

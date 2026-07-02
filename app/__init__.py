@@ -16,7 +16,7 @@ from app.models import init_db, seed_admin
 # --- NEW: Initialize globally so routes can access it ---
 socketio = SocketIO(
     cors_allowed_origins="*",
-    async_mode="threading",
+    async_mode="eventlet",
     logger=False,
     engineio_logger=False
 )
@@ -30,8 +30,25 @@ def create_app(config_class=Config):
     app.config.from_object(config_class)
 
     # ── Ensure media directories ──
-    os.makedirs(app.config["MASTER_PHOTO_FOLDER"], exist_ok=True)
-    os.makedirs(app.config["SELFIE_FOLDER"], exist_ok=True)
+    os.makedirs(
+        app.config["MASTER_PHOTO_FOLDER"],
+        exist_ok=True
+    )
+
+    os.makedirs(
+        app.config["SELFIE_FOLDER"],
+        exist_ok=True
+    )
+
+    os.makedirs(
+        app.config["UPLOAD_FOLDER"],
+        exist_ok=True
+    )
+
+    os.makedirs(
+        app.config["EMBEDDING_FOLDER"],
+        exist_ok=True
+    )
 
     # ── Init DB ──
     init_db(app)
@@ -61,7 +78,25 @@ def create_app(config_class=Config):
         try:
             print("\n>>> ATTEMPTING TO LOAD AI MODELS IN V2...")
             from app.services.biometric_engine import BiometricEngine
-            BiometricEngine.get_instance()
+            try:
+
+                if os.getenv("RENDER") != "true":
+
+                    print("Loading AI models...")
+
+                    from app.services.biometric_engine import BiometricEngine
+
+                    BiometricEngine.get_instance()
+
+                    print("AI loaded.")
+
+                else:
+
+                    print("Render detected. AI preload skipped.")
+
+            except Exception as e:
+
+                print(e)
             print(">>> AI MODELS SUCCESSFULLY LOADED IN V2!\n")
         except Exception as e:
             print(f"\n>>> 🚨 FATAL AI LOAD ERROR: {e}\n")

@@ -14,10 +14,17 @@ class Config:
     DEBUG = False
 
     # ── Database ──
-    _default_db = os.path.join(
-        os.path.abspath(os.path.dirname(__file__)), "..", "attendance.db"
+
+    BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+
+    # Render persistent disk path
+    _default_db = "/var/data/attendance.db"
+
+    DATABASE_PATH = os.getenv(
+        "DATABASE_PATH",
+        _default_db if os.getenv("RENDER") == "true"
+        else os.path.join(BASE_DIR, "..", "attendance.db")
     )
-    DATABASE_PATH = os.path.abspath(os.getenv("DATABASE_PATH", _default_db))
 
     # ── Email / SMTP ──
     MAIL_SERVER = os.getenv("MAIL_SERVER", "smtp.gmail.com")
@@ -62,13 +69,35 @@ class Config:
 
     # ── Media Storage (username-based folders) ──
     _base = os.path.abspath(os.path.dirname(__file__))
-    MEDIA_FOLDER = os.path.join(_base, "static", "media")
-    MASTER_PHOTO_FOLDER = os.path.join(MEDIA_FOLDER, "master")
-    SELFIE_FOLDER = os.path.join(MEDIA_FOLDER, "selfies")
-    # Keep legacy paths for backward compat
-    UPLOAD_FOLDER = os.path.join(_base, "static", "media", "selfies")
-    PHOTO_FOLDER = os.path.join(_base, "static", "media", "master")
+    # Render Persistent Storage
+
+    MEDIA_FOLDER = os.getenv(
+        "MEDIA_FOLDER",
+        "/var/data/media" if os.getenv("RENDER") == "true"
+        else os.path.join(_base, "static", "media")
+    )
+
+    MASTER_PHOTO_FOLDER = os.path.join(
+        MEDIA_FOLDER,
+        "master"
+    )
+
+    SELFIE_FOLDER = os.path.join(
+        MEDIA_FOLDER,
+        "selfies"
+    )
+
+    UPLOAD_FOLDER = SELFIE_FOLDER
+
+    EMBEDDING_FOLDER=os.path.join(
+        MEDIA_FOLDER,
+        "embeddings"
+    )
+
+    PHOTO_FOLDER = MASTER_PHOTO_FOLDER
     MAX_CONTENT_LENGTH = 5 * 1024 * 1024  # 5 MB
 
     # ── Face Match ──
     FACE_MATCH_THRESHOLD = float(os.getenv("FACE_MATCH_THRESHOLD", 0.55))
+
+    RENDER = os.getenv("RENDER", "false").lower() == "true"
