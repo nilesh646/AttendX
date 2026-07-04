@@ -35,15 +35,12 @@ class Config:
         )
     )
 
-    DATA_ROOT = (
-        "/var/data"
-        if RENDER
-        else BASE_DIR
-    )
+    # Render Free has no persistent disk.
+    # Use a writable runtime folder instead.
 
-    MEDIA_ROOT = os.getenv(
-        "MEDIA_ROOT",
-        os.path.join(DATA_ROOT, "media")
+    DATA_ROOT = os.getenv(
+        "DATA_ROOT",
+        os.path.join(BASE_DIR, "runtime_data")
     )
 
     # ==================================================

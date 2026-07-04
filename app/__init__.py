@@ -16,7 +16,7 @@ from app.models import init_db, seed_admin
 # --- NEW: Initialize globally so routes can access it ---
 socketio = SocketIO(
     cors_allowed_origins="*",
-    async_mode="gevent",
+    async_mode="threading",
     logger=False,
     engineio_logger=False
 )
@@ -29,26 +29,25 @@ def create_app(config_class=Config):
     )
     app.config.from_object(config_class)
 
-    # ── Ensure media directories ──
-    os.makedirs(
+   # ───────────────────────────────────────────────
+    # Ensure runtime directories exist
+    # ───────────────────────────────────────────────
+
+    directories = [
+        os.path.dirname(app.config["DATABASE_PATH"]),
         app.config["MASTER_PHOTO_FOLDER"],
-        exist_ok=True
-    )
-
-    os.makedirs(
         app.config["SELFIE_FOLDER"],
-        exist_ok=True
-    )
-
-    os.makedirs(
         app.config["UPLOAD_FOLDER"],
-        exist_ok=True
-    )
-
-    os.makedirs(
         app.config["EMBEDDING_FOLDER"],
-        exist_ok=True
-    )
+    ]
+
+    for directory in directories:
+        try:
+            os.makedirs(directory, exist_ok=True)
+            print(f"Created/verified: {directory}")
+        except PermissionError:
+            print(f"Permission denied creating: {directory}")
+            raise
 
     # ── Init DB ──
     init_db(app)
