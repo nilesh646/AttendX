@@ -28,6 +28,29 @@ class Config:
     # ==================================================
     RENDER = os.getenv("RENDER", "false").lower() == "true"
 
+    # BASE_DIR = os.path.abspath(
+    #     os.path.join(
+    #         os.path.dirname(__file__),
+    #         ".."
+    #     )
+    # )
+
+    # # Render Free has no persistent disk.
+    # # Use a writable runtime folder instead.
+
+    # DATA_ROOT = os.getenv(
+    #     "DATA_ROOT",
+    #     os.path.join(BASE_DIR, "runtime_data")
+    # )
+
+    # # ==================================================
+    # # Database
+    # # ==================================================
+    # DATABASE_PATH = os.getenv(
+    #     "DATABASE_PATH",
+    #     os.path.join(DATA_ROOT, "attendance.db")
+    # )
+
     BASE_DIR = os.path.abspath(
         os.path.join(
             os.path.dirname(__file__),
@@ -35,20 +58,14 @@ class Config:
         )
     )
 
-    # Render Free has no persistent disk.
-    # Use a writable runtime folder instead.
-
     DATA_ROOT = os.getenv(
         "DATA_ROOT",
         os.path.join(BASE_DIR, "runtime_data")
     )
 
-    # ==================================================
-    # Database
-    # ==================================================
-    DATABASE_PATH = os.getenv(
-        "DATABASE_PATH",
-        os.path.join(DATA_ROOT, "attendance.db")
+    MEDIA_ROOT = os.getenv(
+        "MEDIA_ROOT",
+        os.path.join(DATA_ROOT, "media")
     )
 
     # ==================================================
@@ -199,7 +216,7 @@ class Config:
 
     LIVENESS_MODEL_DIR = os.getenv(
         "LIVENESS_MODEL_DIR",
-        os.path.join(DATA_ROOT, "anti_spoof_models")
+        os.path.join(BASE_DIR, "resources", "anti_spoof_models")
     )
 
     # ==================================================
