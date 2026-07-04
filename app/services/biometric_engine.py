@@ -23,12 +23,32 @@ class BiometricEngine:
         cls._instance = None
 
     def __init__(self):
-        self._backend = "none"
+
+        self._backend = None
+
+        self._initialized = False
+
         self._face_app = None
+
         self._spoof_models = []
+
         self._spoof_detector = None
+
         self._image_cropper = None
+
+    def initialize(self):
+
+        if self._initialized:
+
+            return
+
+        logger.info("Initializing AI backend...")
+
         self._init_backend()
+
+        self._initialized = True
+
+        logger.info("AI backend ready.")
 
     def _init_backend(self):
         """Try to load InsightFace + Silent-Face, fall back to DeepFace."""
@@ -120,6 +140,7 @@ class BiometricEngine:
     # ═══════════════════════════════════════════
 
     def check_liveness(self, image: np.ndarray) -> dict:
+        self.initialize()
         """
         Check if the image contains a real, single human face.
         Returns: {is_real: bool, bbox: list|None, reason: str}
@@ -131,6 +152,7 @@ class BiometricEngine:
         return {"is_real": True, "bbox": None, "reason": "No liveness backend available."}
 
     def get_embedding(self, image: np.ndarray) -> np.ndarray | None:
+        self.initialize()
         """Extract 512-d face embedding. Returns None if no single face found."""
         if self._backend == "full":
             return self._embedding_insightface(image)
@@ -139,10 +161,12 @@ class BiometricEngine:
         return None
 
     def compare_embeddings(self, emb1: np.ndarray, emb2: np.ndarray) -> float:
+        self.initialize()
         """Cosine similarity between two normalized embeddings."""
         return float(np.dot(emb1, emb2))
 
     def compare_with_centroid(self, history_path: str, live_emb: np.ndarray) -> float:
+        self.initialize()
         """Compare live embedding against centroid of historical embeddings."""
         if not os.path.exists(history_path):
             return 0.0
@@ -154,6 +178,7 @@ class BiometricEngine:
         return float(np.dot(centroid, live_emb))
 
     def update_embedding_history(self, history_path: str, new_emb: np.ndarray, max_entries: int = 50):
+        self.initialize()
         """Append new embedding to history for centroid self-improvement."""
         if os.path.exists(history_path):
             history = np.load(history_path)

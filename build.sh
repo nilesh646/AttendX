@@ -1,6 +1,22 @@
 #!/usr/bin/env bash
-set -e
+set -o errexit
 
-pip install --upgrade pip
+echo "===================================="
+echo "AttendX Build Started"
+echo "===================================="
 
-pip install -r requirements.txt
+python -m pip install --upgrade pip setuptools wheel
+
+pip install --no-cache-dir -r requirements.txt
+
+mkdir -p runtime_data
+mkdir -p runtime_data/media
+mkdir -p runtime_data/media/master
+mkdir -p runtime_data/media/selfies
+mkdir -p runtime_data/media/embeddings
+mkdir -p runtime_data/models
+mkdir -p runtime_data/logs
+
+echo "===================================="
+echo "Build Complete"
+echo "===================================="

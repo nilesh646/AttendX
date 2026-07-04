@@ -9,19 +9,23 @@ services:
 
     buildCommand: ./build.sh
 
-    startCommand: gunicorn run:app --worker-class eventlet --workers 1 --bind 0.0.0.0:$PORT --timeout 300
+    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 300 run:app
 
     autoDeploy: true
-
-    healthCheckPath: /
 
     envVars:
 
       - key: PYTHON_VERSION
-        value: 3.11.9
-
-      - key: RENDER
-        value: "true"
+        value: "3.11.11"
 
       - key: FLASK_ENV
         value: production
+
+      - key: SECRET_KEY
+        generateValue: true
+
+      - key: SKIP_AI_PRELOAD
+        value: "true"
+
+      - key: PYTHONUNBUFFERED
+        value: "1"
