@@ -60,15 +60,26 @@ class Config:
     # DATABASE
     # =====================================================
 
-    DATABASE_PATH = os.getenv(
-        "DATABASE_PATH",
-        os.path.join(
-            DATA_ROOT,
-            "attendance.db"
-        )
-    )
+    # DATABASE_PATH = os.getenv(
+    #     "DATABASE_PATH",
+    #     os.path.join(
+    #         DATA_ROOT,
+    #         "attendance.db"
+    #     )
+    # )
 
-    DATABASE_URI = f"sqlite:///{DATABASE_PATH}"
+    # DATABASE_URI = f"sqlite:///{DATABASE_PATH}"
+
+    DATABASE_URL = os.getenv("DATABASE_URL")
+
+    if DATABASE_URL:
+        SQLALCHEMY_DATABASE_URI = DATABASE_URL
+    else:
+        SQLALCHEMY_DATABASE_URI = (
+            f"sqlite:///{DATABASE_PATH}"
+        )
+
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # =====================================================
     # MEDIA

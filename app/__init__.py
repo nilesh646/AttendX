@@ -11,6 +11,7 @@ from flask_socketio import SocketIO
 
 from app.config import Config
 from app.models import init_db, seed_admin
+from app.extensions import db
 
 # ---------------------------------------------------------
 # Socket.IO
@@ -48,6 +49,8 @@ def create_app(config_class=Config):
     )
 
     app.config.from_object(config_class)
+
+    db.init_app(app)
 
     create_runtime_directories(app)
 
