@@ -73,23 +73,11 @@ class Config:
     DATABASE_URL = os.getenv("DATABASE_URL")
 
     if DATABASE_URL:
-        # Force SQLAlchemy to use psycopg v3
-        if DATABASE_URL.startswith("postgresql://"):
-            DATABASE_URL = DATABASE_URL.replace(
-                "postgresql://",
-                "postgresql+psycopg://",
-                1,
-            )
-        elif DATABASE_URL.startswith("postgres://"):
-            DATABASE_URL = DATABASE_URL.replace(
-                "postgres://",
-                "postgresql+psycopg://",
-                1,
-            )
-
         SQLALCHEMY_DATABASE_URI = DATABASE_URL
     else:
-        SQLALCHEMY_DATABASE_URI = f"sqlite:///{DATABASE_PATH}"
+        SQLALCHEMY_DATABASE_URI = (
+            f"sqlite:///{DATABASE_PATH}"
+        )
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
